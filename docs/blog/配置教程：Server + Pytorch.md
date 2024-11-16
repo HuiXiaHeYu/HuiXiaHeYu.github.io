@@ -97,7 +97,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
 6. 测试是否可以成功使用cuda
 
 ```sh
-conda activate dl
+conda activate DL
 python
 >>> import torch
 >>> torch.cuda.is_available()
