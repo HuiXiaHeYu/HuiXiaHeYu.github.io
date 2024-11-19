@@ -5,16 +5,11 @@ tags:
  - Wsl
 permalink: /notes/notes/tools/3h1meezc/
 ---
+## 请勿在正式工作环境中折腾任何不成熟的方案，通用并满足即可，切勿创造需求
+
+兼容环境永远是多个成熟环境下的无奈选择
+
 > WSL说明文档：https://learn.microsoft.com/zh-cn/windows/wsl/
->
-> 最完美的系统：`Windows10` + `Wsl2` + `Ubuntu` + `Vscode` 
->
-> **优势**
->
-> 1. 使用各种Windows软件、Linux软件
-> 2. 可使用Win或Linux访问和更改资源
-> 3. 编程环境位于Ubuntu
-> 4. 写作环境位于Windows
 
 ## Wsl内核
 

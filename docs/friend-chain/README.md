@@ -5,9 +5,14 @@ permalink: /friend-chain/
 ---
 ## 互换友链
 
-1912452912@qq.com
+- 1912452912@qq.com
+- 量化交易：https://bigquant.com/wiki/doc/gan-n7wdAarwoI
 
 ## 学习记录
+
+### 量化交易
+
+- [ ] 未开始
 
 ### 框架
 
@@ -15,6 +20,7 @@ permalink: /friend-chain/
 - [ ] 学习Django
 - [ ] 学习vue
 - [x] 学习pytorch
+- [ ] 学习nginx
 
 ### 爬虫
 
