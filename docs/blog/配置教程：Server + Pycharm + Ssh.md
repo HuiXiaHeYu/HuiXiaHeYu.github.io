@@ -1,14 +1,13 @@
 ---
 title: 配置教程：Server + Pycharm + Ssh
-createTime: 2024/11/11 12:01:29
+createTime: 2024/11/15 18:38:24
 tags:
  - Server
  - Pycharm
  - Ssh
  - Deploy
-permalink: /article/hslsibtp/
+permalink: /article/ha48zmr9/
 ---
-
 参考链接：[Pycharm远程连接服务器并运行代码（详细！）](https://blog.csdn.net/cutefery/article/details/113918510)
 
 ---
