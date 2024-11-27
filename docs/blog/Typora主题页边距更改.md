@@ -1,8 +1,6 @@
 ---
 title: Typora主题页边距更改
 createTime: 2024/11/16 20:06:34
-tags:
- - Css
 permalink: /article/kbl6r8n3/
 ---
 现状：使用typora时，左右会大片空白，影响阅读体验

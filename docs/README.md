@@ -10,8 +10,8 @@ config:
       dark: 0.35
     hero:
       name: 绘夏合羽
-      tagline: Graduate students in deep learning.
-      text: 御剑于心，且听风吟
+      tagline: Being in deep learning.
+      text: Entities should not be multiplied unnecessarily.
       actions:
         -
           theme: brand

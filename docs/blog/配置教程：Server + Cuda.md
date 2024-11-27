@@ -2,8 +2,7 @@
 title: 配置教程：Server + Cuda
 createTime: 2024/11/15 15:57:02
 tags:
- - Deploy
- - Cuda
+ - Deep Learning
 permalink: /article/fnss6k7s/
 ---
 ## 显卡驱动

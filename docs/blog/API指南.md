@@ -1,8 +1,6 @@
 ---
 title: API指南
 createTime: 2024/09/15 11:33:32
-tags:
-  - Api
 permalink: /article/9ah8i6fp/
 ---
 ## TG-BOT

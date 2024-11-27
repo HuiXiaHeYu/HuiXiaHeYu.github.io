@@ -1289,6 +1289,7 @@ if __name__ == "__main__":
 ```
 
 ### 例子：集合找唯一字符
+
 ```py
 a = set('abracadabra')
 b = set('alacazam')
@@ -1405,7 +1406,25 @@ num_flo = 1.23
 num_new = num_int + num_flo
 ```
 
+### 合并路径、链接
 
+```python
+import os
+
+path1 = 'SRCNN'
+path2 = 'experiments'
+path3 = 'VDSR'
+full_path = os.path.join(path1, path2, path3)
+```
+
+```py
+from urllib.parse import urljoin, urlparse
+
+base_url = 'http://www.example.com/path1/folder1/'
+relative_url = 'path2/folder2/page.html'
+
+full_url = urljoin(base_url, relative_url)
+```
 
 ### 关于print的使用
 

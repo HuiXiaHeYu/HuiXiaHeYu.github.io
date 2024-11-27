@@ -2,7 +2,7 @@
 title: 配置教程：serv00搭建vmess
 createTime: 2024/05/15 11:33:32
 tags:
- - Deploy
+ - VPN
 permalink: /article/pp7xmy9o/
 ---
 > 感谢秋水长天：`https://bs.openface.cc/2024/06/root-v2ray-serv00-vmess.html`

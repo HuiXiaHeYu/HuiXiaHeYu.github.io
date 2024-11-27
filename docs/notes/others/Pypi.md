@@ -760,24 +760,25 @@ fig   # 控制整个图形的属性
 ((ax1, ax2), (ax3, ax4))  # 子图
 figsize = (宽,高)     # 整个图形的大小
 """
+# 创建子图对象；布局：2行2列；总图形大小：10x10（英寸）
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(nrows=2, ncols=2, figsize = (10,10))
+# 设置图形的日期标签自动旋转45度
 fig.autofmt_xdate(rotation=45)
-
+# 图1
 ax1.plot(dates,dataframe['actual'])
 ax1.set_xlabel(''); ax1.set_ylabel('Temperature'); ax1.set_title('Max Temp')
-# 昨天
+# 图2
 ax2.plot(dates,dataframe['temp_1'])
 ax2.set_xlabel(''); ax1.set_ylabel('Temperature'); ax2.set_title('Previous Max Temp')
-# 前天
+# 图3
 ax3.plot(dates,dataframe['temp_2'])
 ax3.set_xlabel('date'); ax1.set_ylabel('Temperature'); ax3.set_title('Two Days prior Max Temp')
-# 朋友预测
+# 图4
 ax4.plot(dates,dataframe['friend'])
 ax4.set_xlabel('date'); ax1.set_ylabel('Temperature'); ax4.set_title('Friend Estimate')
-
-plt.tight_layout(pad=2)
 # 自动调整子图大小，使得标签和标题不会重叠
-# pad：子图之间的填充量
+plt.tight_layout(pad=2)	# pad：子图之间的填充量
+
 ```
 
 

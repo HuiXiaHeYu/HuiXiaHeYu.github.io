@@ -2,10 +2,7 @@
 title: 配置教程：Server + Pytorch
 createTime: 2024/11/11 11:55:17
 tags:
- - Server
- - Pytorch
- - Cuda
- - Deploy
+ - Deep Learning
 permalink: /article/5as7rxt6/
 ---
 `如何在linux服务器中配置深度学习环境？`

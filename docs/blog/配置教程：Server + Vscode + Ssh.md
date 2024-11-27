@@ -1,11 +1,8 @@
 ---
 title: 配置教程：Server + Vscode + Ssh
-createTime: 2024/11/11 12:01:28
+createTime: 2024/11/15 17:01:28
 tags:
- - Server
- - Vscode
- - Ssh
- - Deploy
+ - Deep Learning
 permalink: /article/hslsibtp/
 ---
 `如何利用服务器进行远程开发？`

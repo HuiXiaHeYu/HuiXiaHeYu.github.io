@@ -1,4 +1,20 @@
-# my-vuepress-site
+# 个人博客
+**HeiXiaHeYu.github.io** is an amazing ✨repository✨ to record my life.
+
+使用 [VuePress2](https://vuejs.press/zh/) 与 [VuePress Theme Plume](https://pengzhanbo.cn/vuepress-theme-plume/) 搭建的个人博客
+[https://HeiXiaHeYu.github.io](https://HeiXiaHeYu.github.io)
+
+- 🔭 I’m currently working on DLNU university.
+- 🌱 I’m currently learning Deep learning
+- 👯 I’m looking to collaborate on Deep learning
+- 🤔 I’m looking for help with ...
+- 💬 Ask me about Deep learning
+- 📫 How to reach me: ...
+- 😄 Pronouns: ...
+- ⚡ Fun fact: ...
+
+
+<!-- # my-vuepress-site
 
 网站使用 [vuepress](https://vuepress.vuejs.org/) 和 [vuepress-theme-plume](https://github.com/pengzhanbo/vuepress-theme-plume) 构建生成。
 
@@ -39,4 +55,4 @@ pnpm vp-update
 ## 文档
 
 - [vuepress](https://vuepress.vuejs.org/)
-- [vuepress-theme-plume](https://theme-plume.vuejs.press/)
+- [vuepress-theme-plume](https://theme-plume.vuejs.press/) -->
