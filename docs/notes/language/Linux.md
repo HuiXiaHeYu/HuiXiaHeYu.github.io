@@ -1148,8 +1148,6 @@ uname -r	# 查看服务器内核版本号
 sudo shutdown -h now
 ```
 
-
-
 ## 笔记本
 
 ### cmatrix

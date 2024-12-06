@@ -22,15 +22,17 @@ yum remove docker \
 
 ## 安装docker
 
-### 安装yum工具
+### 卸载
 
-```sh
-yum install -y yum-utils
+```bash
+sudo apt-get remove docker docker-engine docker.io containerd runc
 ```
 
-### 配置yum源（阿里云）
+### 配置docker源
 
 ```sh
+# 安装yum工具包
+yum install -y yum-utils
 # 添加 Docker 的阿里云镜像源
 sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 # 修改 docker-ce.repo 文件以使用阿里云的镜像
@@ -39,10 +41,35 @@ sudo sed -i 's+download.docker.com+mirrors.aliyun.com/docker-ce+' /etc/yum.repos
 sudo yum makecache fast
 ```
 
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt-get install ca-certificates curl gnupg lsb-release	# 依赖包
+curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -	# docker官方的GPG密钥
+sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"	# 添加软件源
+```
+
+### docker加速（阿里云）
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://j4yl93ey.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
 ### 安装docker
 
 ```sh
 yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 ### 启动和校验

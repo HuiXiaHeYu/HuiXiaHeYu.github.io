@@ -597,11 +597,19 @@ import matplotlib.pyplot as plt
 
 ### 中文-负号
 
-**中文**
 
-| 函数                                                         | 说明                                                         |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| matplotlib.rcParams['font.family']='SimHei'<br />matplotlib.rcParams['font.style']='normal'<br />matplotlib.rcParams['font.size']='large' | 设置显示字体名字<br />字体风格，正常'normal'或斜体'italic'<br />字体大小，整数字号或者'large'、'x-small' |
+
+```py
+import matplotlib
+
+# 设置中文
+matplotlib.rcParams['font.family']='SimHei'	# 字体名字
+matplotlib.rcParams['font.style']='normal'	# 字体风格[normal, italic]
+matplotlib.rcParams['font.size']='large'	# 字体大小[large, x-small]
+matplotlib.rcParams['font.size'] = 20		# 字体大小
+# 设置负号
+plt.rcParams['axes.unicode_minus'] = False
+```
 
 | 中文字体 | 说明     |
 | -------- | -------- |
@@ -612,150 +620,145 @@ import matplotlib.pyplot as plt
 | YouYuan  | 中文幼圆 |
 | STSong   | 华文宋体 |
 
-> 法一：
->
-> 改变全局字体为中文字体
->
-> ```py
-> import matplotlib
-> 
-> matplotlib.rcParams['font.family'] = 'STSong'
-> matplotlib.rcParams['font.size'] = 20
-> ```
->
-> 法二（推荐）：
->
-> 在有中文输出的地方，增加 fontproperties 属性
->
-> ```py
-> plt.xlabel('横轴：时间', fontproperties='SimHei', fontsize=20)
-> plt.ylabel('纵轴：振幅', fontproperties='SimHei', fontsize=20)
-> ```
-
-**负号**
-
-```py
-plt.rcParams['axes.unicode_minus'] = False
-```
-
-
-
 ### 函数解析
 
-#### plot()-画图
+#### plot( )-画表
 
 ```py
-.plot(x,y,format_string,**kwargs)
-"""
-- x：X轴数据，列表或数组，可选。
-- y：Y轴数据，列表或数组。
-- format_string：控制曲线的格式字符串，可选。
-- **kwargs：第二组或更多(x,y,format_string)
-""" 
-```
+import matplotlib.pyplot as plt
+import numpy as np
 
-##### 线条样式
+# 示例数据(x是0-10之间找50个数)
+x = np.linspace(0, 10, 50)
+y = np.sin(x)
 
-`控制曲线的格式字符串，由 颜色字符、风格字符、标记字符 组成。`
+# 绘制折线图，标记尺寸为 20
+plt.plot(x, y, 
+         color='green', 	# 线条颜色
+         linestyle='--', 	# 线条样式
+         marker='o',        # 数据标记字符
+         markersize=5,      # 数据标记大小
+         markerfacecolor='red',   # 数据标记颜色
+         label="Line with green color"  # 图例标签
+        )
 
-| 颜色字符  | 说明        | 颜色字符 | 说明           |
-| --------- | ----------- | -------- | -------------- |
-| 'b'       | 蓝色        | 'm'      | 洋红色 magenta |
-| 'g'       | 绿色        | 'y'      | 黄色           |
-| 'r'       | 红色        | 'k'      | 黑色           |
-| 'c'       | 青绿色 cyan | 'w'      | 白色           |
-| '#008000' | RGB某颜色   | '0.8'    | 灰度值字符串   |
-
-| 风格字符 | 说明                     |
-| -------- | ------------------------ |
-| '-'      | 实线                     |
-| '--'     | 破折线                   |
-| '-.'     | 点划线                   |
-| ':'      | 虚线                     |
-| '' ' '   | 无线条（空或空格来表示） |
-
-| 标记字符 | 说明               | 标记字符 | 说明         | 标记字符 | 说明         |
-| -------- | ------------------ | -------- | ------------ | -------- | ------------ |
-| '.'      | 点标记             | '1'      | 下花三角标记 | 'h'      | 竖六边形标记 |
-| ','      | 像素标记（极小点） | '2'      | 上花三角标记 | 'H'      | 横六边形标记 |
-| 'o'      | 实心圈标记         | '3'      | 左花三角标记 | '+'      | 十字标记     |
-| 'v'      | 倒三角标记         | '4'      | 右花三角标记 | 'x'      | x标记        |
-| '^'      | 上三角标记         | 's'      | 实心方形标记 | 'D'      | 菱形标记     |
-| '>'      | 右三角标记         | 'p'      | 实心五角标记 | 'd'      | 瘦菱形标记   |
-| '<'      | 左三角标记         | '*'      | 星形标记     | '\|'     | 垂直线标记   |
-
-##### 其他参数
-
-- color：控制颜色，color='green'
-- linestyle：线条风格，linestyle='dashed'
-- marker：标记风格，marker='o'
-- markerfacecolor：标记尺寸，markersize=20
-- ...
-
-#### label-轴标签
-
-```py
-.xlabel("x轴标签")
-.ylabel("y轴标签")
-```
-
-
-
-#### axis-轴范围
-
-```py
-.axis([x轴范围起始,x轴范围停止,y轴范围起始,y轴范围停止])
-```
-
-
-
-#### grid-网格
-
-```py
-.grid(True)
-```
-
-
-
-#### show/savefig-展示/保存
-
-```py
-.show()
-.savefig(图片名,dpi=值)		# 默认png格式，dpi：每一寸空间保存点的数量
-```
-
-#### 标题
-
-```py
-.title()
-```
-
-#### 文本
-
-```py
-.text()
-```
-
-#### 带箭头的注释
-
-```py
-.annotate(
+# 显示图例
+plt.legend(
+    loc='best',           # 图例位置[best, [upper left, upper right, lower left, lower right], center, number(0-10)
+    frameon=True,                # 显示边框
+    shadow=True                  # 添加阴影
+)
+# 显示网格
+plt.grid(True)
+# 显示公式
+plt.annotate(
     r'$\mu=100$',	# 公式
-    xy=(2,1),		# 箭头呈现位置
-    xytext=(3,1.5),	# 公式呈现位置
+    xy=(3.2,0.05),		# 箭头呈现位置
+    xytext=(4,0.25),	# 公式呈现位置
     arrowprops=dict(
         facecolor='black',	# 箭头颜色
         shrink=0.1,			# 箭头两端缩进
-        width=12			# 箭头粗细
+        width=2			# 箭头粗细
     ))
+# 设置标题和轴标签
+plt.title("Green Dashed Line with '0' Markers (Size 5)")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+
+# 显示图形
+plt.show()
+
 ```
 
-#### 子绘图区域
+**线条样式**
+
+`控制曲线的格式字符串，由 颜色字符、风格字符、标记字符 组成。`
+
+| 线条颜色 | 说明           | 线条央视 | 说明                           |
+| -------- | -------------- | -------- | ------------------------------ |
+| b        | 蓝色           | -        | 实线                           |
+| g        | 绿色           | --       | 破折线                         |
+| r        | 红色           | -.       | 点划线                         |
+| c        | 青绿色 cyan    | :        | 虚线                           |
+| m        | 洋红色 magenta |          | 无线条（空字符串或空格来表示） |
+| y        | 黄色           |          |                                |
+| k        | 黑色           |          |                                |
+| w        | 白色           |          |                                |
+| #008000  | RGB某颜色      |          |                                |
+| 0.8      | 灰度值字符串   |          |                                |
+
+| 标记字符 | 说明               | 标记字符 | 说明         | 标记字符 | 说明         |
+| -------- | ------------------ | -------- | ------------ | -------- | ------------ |
+| .        | 点标记             | 1        | 下花三角标记 | h        | 竖六边形标记 |
+| ,        | 像素标记（极小点） | 2        | 上花三角标记 | H        | 横六边形标记 |
+| o        | 实心圈标记         | 3        | 左花三角标记 | +        | 十字标记     |
+| v        | 下三角标记         | 4        | 右花三角标记 | x        | x标记        |
+| ^        | 上三角标记         | s        | 实心方形标记 | D        | 菱形标记     |
+| >        | 右三角标记         | p        | 实心五角标记 | d        | 瘦菱形标记   |
+| <        | 左三角标记         | *        | 星形标记     | \|       | 垂直线标记   |
+
+#### 一般用不上的画表参数
+
+```py
+# 设置坐标轴范围
+plt.axis([x轴范围起始,x轴范围停止,y轴范围起始,y轴范围停止])
+plt.axis([0, 10, -1.5, 1.5])  # x 从 0 到 10, y 从 -1.5 到 1.5
+# 图形指定位置添加文本标注
+plt.text(x, y, 'text', fontsize=12, color='black', ha='center', va='center')
+```
+
+#### plot( )-绘图
+
+```py
+import numpy as np
+import cv2 as cv
+from matplotlib import pyplot as plt
+
+img = cv.imread('messi5.jpg',0)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
+plt.xticks([]), plt.yticks([]) # 隐藏 X 和 Y 轴的刻度值
+plt.show()
+```
+
+#### 展示/保存
+
+```py
+plt.show()
+plt.savefig(图片名,dpi=值)		# 默认png格式，dpi：每一寸空间保存点的数量
+```
+
+#### 子图
 
 `设定网格，选中网格，确定选中行列区域数量，编号从0开始`
 
 ```py
 """
+法一：
+"""
+# 定义图大小
+plt.figure(figsize=(12, 6))
+# 定义子图
+for i in range(5):
+    ax = plt.subplot(3, 5, i + 1)
+    plt.imshow(img1, (1, 2, 0)))
+    plt.title("Original Image")
+    plt.axis('off')
+
+    ax = plt.subplot(3, 5, i + 6)
+    plt.imshow(np.transpose(noisy_img[i], (1, 2, 0)))
+    plt.title("Noisy Image")
+    plt.axis('off')
+
+    ax = plt.subplot(3, 5, i + 11)
+    plt.imshow(np.transpose(denoised_img[i], (1, 2, 0)))
+    plt.title("Denoised Image")
+    plt.axis('off')
+    
+    plt.show()
+    
+"""
+法二：
 fig   # 控制整个图形的属性
 ((ax1, ax2), (ax3, ax4))  # 子图
 figsize = (宽,高)     # 整个图形的大小
@@ -779,61 +782,6 @@ ax4.set_xlabel('date'); ax1.set_ylabel('Temperature'); ax4.set_title('Friend Est
 # 自动调整子图大小，使得标签和标题不会重叠
 plt.tight_layout(pad=2)	# pad：子图之间的填充量
 
-```
-
-
-
-```py
-plt.subplot(nrows,ncols,plot_number)
-# 纵向区域数,横向区域数,当前区域编号分割图像放置区域
-plt.subplot(3,2,4)
-```
-
-##### 法一：
-
-| 函数                                                   | 说明       |
-| ------------------------------------------------------ | ---------- |
-| plt.subplot2grid(GridSpec=,CurSpec=,colspan=,rowspan=) | 划定子区域 |
-
-**参数解析：**
-
-- GridSpec：区域划分
-- CurSpec：当前区域位置
-- colspan：向后扩列长度
-- rowspan：向下扩行长度
-
-```py
-plt.subplot2grid((3, 3), (0, 0), colspan=3) 
-# 当前区域绘图代码行...
-plt.subplot2grid((3, 3), (1, 0), colspan=2) 
-# 当前区域绘图代码行...
-plt.subplot2grid((3, 3), (1, 2), rowspan=2)
-# 当前区域绘图代码行...
-plt.subplot2grid((3, 3), (2, 0))
-# 当前区域绘图代码行...
-plt.subplot2grid((3, 3), (2, 1))
-# 当前区域绘图代码行...
-```
-
-##### 法二（推荐使用）：
-
-```py
-import matplotlib.gridspec as gridspec
-```
-
-```py
-# 划定子区域数量
-gs = gridspec.GridSpec(3, 3)
-# 划分区域ax1	示例：[0, :]【0行，所有列】
-ax1 = plt.subplot(gs[0, :])
-# 划分区域ax2
-ax2 = plt.subplot(gs[1, :-1])
-# 划分区域ax3
-ax3 = plt.subplot(gs[1:, -1])
-# 划分区域ax4
-ax4 = plt.subplot(gs[2, 0])
-# 划分区域ax5
-ax5 = plt.subplot(gs[2, 1])
 ```
 
 ### 各种图表
@@ -1466,7 +1414,8 @@ datetime.time(hour,minute,second,microsecond)
 #### 数值转datetime类型
 
 ```py
-datetime(year, month, day, hour, minute, second, microsecond)
+datetime(year, month, day, hour, minute, second, microsecond)	# 组合为datetime对象
+datetime.datetime.strptime(text,'%Y-%m-%d')		# 将字符串转为datetime对象
 ```
 
 #### 当前日期和时间
@@ -1720,7 +1669,7 @@ with console.status("[bold green]正在下载...")as status:
         console.log(f"{task} complete")
 ```
 
-![image-20241005193648076](./Pypi.assets/image-20241005193648076.png)
+<img src="./Pypi.assets/image-20241005193648076.png" alt="image-20241005193648076"  />
 
 ```py
 # 流动进度--协程下载文件

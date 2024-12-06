@@ -247,40 +247,94 @@ ImageSets -> Layout文件夹（包含4个txt文档：test、train、trainval、v
 
 `You Only Look Once：仅使用一个卷积网络来端到端地检测目标`
 
-> - 将检测问题转化为回归问题
+> - 将检测问题转化为回归问题（图像分为网格）
 > - 可对视频进行实时检测
-
-### 网络结构
-
-`仿照GoogLeNet网络来设计主干网络，但没有采用GoogLeNet的Inception模块，而是使用串联的1x1卷积和3x3卷积所组成的模块`
-
-多次卷积 + 一个全连接层 + 一个卷积：
-
-![image-20241120211523914](./Yolo%E7%B3%BB%E5%88%97.assets/image-20241120211523914.png)
-
-![image-20241120215404915](./Yolo%E7%B3%BB%E5%88%97.assets/image-20241120215404915.png)
 
 ### 检测原理
 
+<img src="./Yolo%E7%B3%BB%E5%88%97.assets/image-20241128192632962.png" alt="image-20241128192632962" style="zoom: 55%;" />
 
+对图像分为SxS的网格，对每一个网格求两个候选框，根据`置信度（以及阈值）`对候选框做微调
 
+### 网络架构
 
+> 为什么输入图像尺寸固定？
+>
+> 卷积网络结构固定的情况下，输入图像为了匹配全连接层的神经元个数（权重矩阵是一定的）
 
-### 缺陷
+<img src="./Yolo%E7%B3%BB%E5%88%97.assets/image-20241128194603572.png" alt="image-20241128194603572" style="zoom:57%;" />
 
-从最后一个卷积到全连接层，需要巨大的参数量：
+- 架构简写：`大卷积层`+`两个全连接`+`检测过程`
+
+#### 检测过程详解
+
+为什么是7x7x30的张量？
+
+一共49个网格，每个网格有30值：2*边界框+置信度
+
+```py
+[x, y, w, h, confidence, c1_prob, c2_prob, ..., cN_prob]
+```
+
+- 边界框(Bounding boxes + Confidence)：中心坐标(x, y)、框的宽(w)、框的高(h)、包含目标的置信度(c)
+- 各类别的置信度(Classes)：该框属于每个类别的概率(20分类)
+
+#### 损失函数
+
+> w、h加根号：解决小物体偏移量较小时不敏感的问题
+
+<img src="./Yolo%E7%B3%BB%E5%88%97.assets/QQ20241128-203006.png" alt="QQ20241128-203006" style="zoom: 35%;" />
+
+公式一（位置误差）：S^2^个网格、B个边界框、Iou最大的候选框、均方误差、自定义权重项
 $$
-7\times7\times1024\times4096+4096\approx2\times10^8
+\begin{aligned}\lambda_{\mathbf{coord}}&\sum_{i=0}^{S^{2}}\sum_{j=0}^{B}{\mathbb{1}_{ij}^{\mathrm{ob}}}(x_{i}-\hat{x}_{i})^{2}+\left(y_{i}-\hat{y}_{i}\right)^{2}+\lambda_{\mathbf{coord}}\sum_{i=0}^{S^{2}}\sum_{j=0}^{B}\mathbb{1}_{ij}^{\mathrm{obj}}\left(\sqrt{w_{i}}-\sqrt{\hat{w}_{i}}\right)^{2}+\left(\sqrt{h_{i}}-\sqrt{\hat{h}_{i}}\right)^{2}\end{aligned}
 $$
-后被全局平均池化取代，但平均池化不太适合目标检测（对空间敏感）
+公式二、三（置信度误差：含有和不含目标的）：自定义权重项$\lambda_{\mathrm{noobj}}$用来削弱背景的影响
+$$
++\sum_{i=0}^{S^2}\sum_{j=0}^B\mathbb{1}_{ij}^\mathrm{obj}\left(C_i-\hat{C}_i\right)^2+\lambda_{\mathrm{noobj}}\sum_{i=0}^{S^{2}}\sum_{j=0}^{B}\mathbb{1}_{ij}^{\mathrm{noobj}}\left(C_{i}-\hat{C}_{i}\right)^{2}
+$$
+公式四（分类误差）：
+$$
++\sum_{i=0}^{S^2}{\mathbb{1}_i^{obj}}\sum_{c\in\mathrm{classes}}\left(p_i(c)-\hat{p}_i(c)\right)^2
+$$
 
+### 非极大值抑制NMS
 
+如果多个预选框重叠？
 
+非极大值抑制：在Iou大于一定比例的多个预选框中，按照置信度排序，取置信度最大值的预选框
 
+### 缺点
+
+1. 重叠的物体难以检测？每个网格(cell)只能预测一个类别，如狗和猫重合到一块难搞
+2. 检测效果一般？长宽比可选但单一
+3. 小物体检测不到？先验框一般比较大
+4. 多标签难以分类？带斑点的卷毛的狗分类为：狗、斑点狗、卷毛狗
 
 ## V2
 
+### 相对于V1的改进
 
+<img src="./Yolo%E7%B3%BB%E5%88%97.assets/QQ20241128-203006%20(1).png" alt="QQ20241128-203006 (1)" style="zoom: 28%;" />
+
+1. 舍弃Dropout，卷积后全部加入Batch Normalization。效果：收敛相对更容易，网络提升2%的mAP
+1. 结尾用高分辨率训练。效果：网络提升4%的mAP
+
+### 网络结构
+
+<img src="./Yolo%E7%B3%BB%E5%88%97.assets/image-20241205215309119.png" alt="image-20241205215309119" style="zoom:67%;" />
+
+- DarkNet，实际输入为416*416
+- 没有Fc层，5次下/降采样，（13*13）
+- 1*1卷积降低计算量
+
+### 先验框
+
+#### faster-rcnn
+
+常规比例，但不一定完全适合数据集
+
+在不同的scale中
 
 ## V3
 
@@ -295,6 +349,30 @@ $$
 
 
 ## V7
+
+
+
+## 
+
+## V8
+
+支持下游任务：分类、分割、追踪、姿态估计
+
+### 配置环境
+
+
+
+### 数据标注
+
+### 模型训练
+
+### 模型验证
+
+### 导出模型
+
+### 应用
+
+
 
 
 

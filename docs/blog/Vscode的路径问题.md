@@ -3,17 +3,47 @@ title: Vscode的路径问题
 createTime: 2024/11/22 20:40:47
 permalink: /article/rg5kesd1/
 ---
-> 参考：https://blog.csdn.net/weixin_39278265/article/details/119661991
->
-> 参考：How to correctly set PYTHONPATH for Visual Studio Code https://stackoverflow.com/questions/53653083/how-to-correctly-set-pythonpath-for-visual-studio-code
-
 我使用的方法
 
 直接在launch.json上加上：
 
 ```bash
-"env": {"PYTHONPATH": "${workspaceFolder}${pathSeparator}${env:PYTHONPATH}"},
+"cwd": "${fileDirname}",
 ```
 
-![img](./Vscode%E7%9A%84%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98.assets/6c0d11e5f792b787716488c36db1afce.png)
+```json
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python 调试程序: 动态参数",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${fileDirname}",
+            "args": [
+                "${command:pickArgs}"
+            ]
+        },
+        {
+            "name": "Python 调试程序: 固定参数",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "cwd": "${fileDirname}",
+            "args": [
+                "--name", "cifar10-100_500", 
+                "--dataset", "cifar10",
+                "--model_type", "ViT-B_16", 
+                "--pretrained_dir", "checkpoint/ViT-B_16.npz",
+            ]
+        },
+    ]
+}
+```
 

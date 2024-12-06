@@ -66,11 +66,11 @@ conda update jupyter_core jupyter_client
 jupyter lab
 ```
 
-## Anaconda镜像（设置一次即可）
-
-### Conda清华源镜像
+## Conda清华源镜像
 
 ```py
+# 恢复默认源
+conda config --remove-key channels
 # 清华源
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free
@@ -88,7 +88,7 @@ conda config --add channels https://mirrors.ustc.edu.cn/anaconda/cloud/menpo/
 conda config --set show_channel_urls yes
 ```
 
-### Pip清华源镜像
+## Pip清华源镜像
 
 ```
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
