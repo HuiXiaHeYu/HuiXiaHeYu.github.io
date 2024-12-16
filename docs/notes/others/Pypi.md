@@ -289,52 +289,214 @@ np.unravel_index(一维索引值, shape值)		# 多维索引
 
 [PyTorch 文档 — PyTorch 2.4 文档 - PyTorch 中文](https://pytorch.ac.cn/docs/2.4/)
 
-### 导入库解析
+### tensor
+
+#### 创建
 
 ```py
-import numpy as np      # 基本运算
-import pandas as pd     # 数据处理
-from sklearn import preprocessing   # 预处理模块
+torch.tensor(data, dtype=None, device=None, requires_grad=False)
+# 示例
+torch.tensor([1, 2, 3])  # 一维张量
+torch.tensor([[1, 2], [3, 4]])  # 二维张量
+torch.tensor([1, 2, 3], dtype=torch.float)  # 显式指定类型
+torch.tensor([1, 2, 3], device=torch.device('cuda'))  # 在 GPU 上创建
+x = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)  # 可用于反向传播
 
-import torch	# 基本库
-import torch.nn as nn	# 序列化、线性函数、激活函数、损失函数
-import torch.optim as optim		# 优化器
-import torch.nn.functional as F		# 各种函数（初级使用）
-
-from torchvision import datasets,transforms,datasets		# 1.构建数据集，内置有数据集；2.预处理操作（如：数据增强）；3.数据集构建函数
-from torch.utils.data import TensorDataset	# 数据集
-from torch.utils.data import DataLoader		# 数据加载器
-
-import warnings
-warnings.filterwarnings("ignore")   # 过滤因为版本不同产生的警告
-
-import matplotlib.pyplot as plt		# 画图
-%matplotlib inline
 ```
 
-### list-ndarray-tensor转换
+**从list-numpy创建**
 
 ```py
 # list
-target.tolist()
-
-# torch
-torch.from_numpy(target)
-torch.tensor(target)
-
+torch.tensor(列表)
 # numpy
-target.numpy()
-target.data.numpy()		# .data：创建一个不需要梯度的tensor副本
-target.detach.numpy()	# 新版本使用.detach来代替.data
+torch.from_numpy(ndarray)
 ```
 
-### 模型计算顺序
+#### 运算
 
-0. 特征放入模型初始化
-1. 梯度清零【防止梯度累积】
-2. 计算损失
-3. 反向传播【利用损失计算梯度】
-4. 更新参数【利用梯度更新参数；参数 = 参数 - 学习率 * 梯度】
+PyTorch 提供了强大的张量运算功能，支持数值计算、线性代数、逻辑运算、统计分析等。
+
+##### 1.算术运算
+
+```python
+a = torch.tensor([1, 2])
+b = torch.tensor([3, 4])
+c = a + b  # c = torch.add(a, b)
+c = a - b  # c = torch.sub(a, b)
+c = a * b  # c = torch.mul(a, b)
+c = a / b  # c = torch.div(a, b)
+c = a ** 2  # c = torch.pow(a, 2)
+```
+
+##### 2. 广播机制
+
+当两个张量形状不匹配但满足广播规则时，PyTorch 会自动扩展较小的张量。
+
+```python
+a = torch.tensor([[1, 2], [3, 4]])  # (2, 2)
+b = torch.tensor([1, 2])  # (2,)
+c = a + b  # 广播 b 为 [[1, 2], [1, 2]] 后执行加法
+```
+
+------
+
+##### 3. 线性代数运算
+
+```python
+a = torch.tensor([[1, 2], [3, 4]])
+b = torch.tensor([[5, 6], [7, 8]])
+c = a @ b  # torch.matmul(a, b)	矩阵乘法，点乘
+b = a.T  # 转置
+b = torch.linalg.inv(a)	# 求逆
+eigvals, eigvecs = torch.linalg.eig(a)	# 特征值-特征向量
+x = torch.linalg.solve(A, b)  # 求线性方程组
+```
+
+##### 4. 统计运算
+
+```python
+a = torch.tensor([[1, 2], [3, 4]])
+torch.sum(a)  # 求和
+torch.sum(a, dim=0)  # 按轴0求和
+torch.mean(a.float())	# 求平均
+torch.max(a)  # 最大值
+torch.min(a)  # 最小值
+torch.std(a.float())  # 标准差
+torch.var(a.float())  # 方差
+sorted_tensor, indices = torch.sort(a)  # 排序
+max_index = torch.argmax(a)  # 最大值索引
+min_index = torch.argmin(a)  # 最小值索引
+```
+
+##### 5. 逻辑运算
+
+- **比较运算**: `torch.eq`, `torch.gt`, `torch.lt`, `torch.ge`, `torch.le`, `torch.ne`
+
+  ```python
+  a = torch.tensor([1, 2, 3])
+  b = torch.tensor([3, 2, 1])
+  torch.eq(a, b)  # tensor([False, True, False])
+  ```
+
+- **按位逻辑运算**: `torch.logical_and`, `torch.logical_or`, `torch.logical_not`, `torch.logical_xor`
+
+  ```python
+  a = torch.tensor([True, False])
+  b = torch.tensor([False, True])
+  torch.logical_and(a, b)  # tensor([False, False])
+  ```
+
+------
+
+##### 6. 元素级运算
+
+- **绝对值**: `torch.abs`
+
+  ```python
+  a = torch.tensor([-1, -2, 3])
+  torch.abs(a)  # tensor([1, 2, 3])
+  ```
+
+- **正弦/余弦/指数/对数**: `torch.sin`, `torch.cos`, `torch.exp`, `torch.log`
+
+  ```python
+  torch.sin(torch.tensor([3.1416]))  # tensor([0.0000])
+  torch.log(torch.tensor([1.0, 2.0, 3.0]))  # tensor([0.0000, 0.6931, 1.0986])
+  ```
+
+- **剪切操作**: `torch.clamp`
+
+  ```python
+  a = torch.tensor([1, 2, 3, 4])
+  torch.clamp(a, min=2, max=3)  # tensor([2, 2, 3, 3])
+  ```
+
+------
+
+#####  7. 维度操作
+
+- **改变形状**: `torch.flatten`,`torch.reshape`, `torch.view`
+
+  ```python
+  a = torch.tensor([[1, 2], [3, 4]])
+  b = torch.flatten(a, 1)	# 在第2轴，维度展平为二维
+  b = a.view(4)  # 新内存
+  b = a.reshape(4)  # 原内存
+  b = torch.unsqueeze(a, dim=0)  # 维度扩展一层
+  c = torch.squeeze(b)  # 维度压缩一层
+  ```
+
+- **连接和分割**: `torch.cat`, `torch.stack`, `torch.split`, `torch.chunk`
+
+  ```python
+  a = torch.tensor([1, 2])
+  b = torch.tensor([3, 4])
+  c = torch.cat((a, b))  # 沿指定维度拼接张量
+  c = torch.stack((a, b), dim=0)  # 在第0维堆叠张量
+  c = torch.split(a, 2)  # 按块大小2分割
+  c = torch.chunk(a, 4)  # 均匀分割四块
+  ```
+
+------
+
+##### 8. GPU 加速
+
+```python
+a = torch.tensor([1, 2])
+a = a.to('cuda')  # 或 a.cuda()
+```
+
+### transforms
+
+```py
+transforms.Compose([
+    """类型转换"""
+    transforms.ToTensor(),  # 将PIL图像或者numpy对象形式的图像数据转换为tensor对象
+    transforms.ToPILImage(),    # 将tensor对象转换为PIL对象
+    transforms.ConvertImageDtype(torch.uint8),  # 图像转换类型
+    """处理顺序"""
+    transforms.RandomApply(transforms=None, p=O.5), # 按照给定概率执行给定的transforms
+    transforms.RandomOrder(transforms=[]),  # 随机顺序执行转换操作
+    transforms.RandomChoice(transforms=[]), # 随机选择一个执行转换操作
+    """标准化"""
+    transforms.Normalize(mean=[],std=[]),   # 基于给定的每个通道的均值和标准差进行标准化操作，要求输入必须是tensor
+    transforms.RandomAutocontrast(),    # 基于概率对图像进行差异化转换其实就是区间缩放(X~min)/(maX~min)*(255or1.0)
+    """图像处理-改大小"""
+    transforms.Resize(size=100), # 图像大小resize
+    transforms.CenterCrop(size=20), # 从图像中心位置进行图像的截取
+    transforms.RandomCrop(size=10), # 随机剪切图像
+    transforms.RandomResizedCrop(size=l0),  # 按照给定参数进行随机剪切并resize成给定大小
+    transforms.FiveCrop(size=10),   # 截取左上、右上、左下、右下、中间的五个图像
+    transforms.TenCrop(size=l0,vertical_fLip=False),    # 截取原始图像的五个子图像+水平翻转后的五个子图像
+    transforms.Pad(padding=5),  # 对图像进行H和W的填充
+    transforms.RandomRotation(degrees=30),  # 随机旋转图像【这里的30：(-30, 30)】
+    transforms.RandomInvert(),  # 反转图像
+    transforms.RandomHorizontalFlip(p=0.5), # 按照给定概率随机的水平翻转给定图像
+    transforms.RandomVerticalFlip(p=0.5),   # 按照给定概率随机的垂直翻转给定图像
+    transforms.RandomPerspective(), # 按照给定概率随机透视转换
+    """图像处理-改颜色参数"""
+    transforms.ColorJitter(),   # 随机更改图像的亮度、对比度、饱和度以及色调
+    transforms.RandomAdjustSharpness(sharpness_factor=2),   # 基于概率随机调整清晰度/锐度
+    transforms.RandomEqualize() # 基于给定概率均衡直方图
+    """灰度图"""
+    transforms.Grayscale(), # RGB图像转换为灰度图像
+    transforms.RandomGrayscale(p=0.2),  # 按照给定概率随机将RGB图像转换为灰度图像
+    """线性变换"""
+    transforms.RandomAffine(degrees=30),    # 仿射变换
+    transforms.LinearTransformation(transformation_matrix=None, mean_vector=None), # 线性变换，基于给定的参数针对图像进行白化操作
+    """其他处理"""
+    transforms.RandomErasing(), # 按照给定概率随机对图像进行矩形区域擦拭掩盖【不支持pillow，需要转为tensor再执行】
+    transforms.GaussianBlur(kernel_size=3), # 对图像做高斯blur滤波
+    transforms.RandomPosterize(bits=3), # 针对每个channel保留几个bits来设置颜色，默认是256种颜色也就是8位，要求入参必须是uint8
+    transforms.RandomSolarize(threshold=0.2),   # 基于给定概率随机将高于threshold的像素点进行反转
+])
+```
+
+==注意== :
+
+- PIL中图像维度顺序：(H, W, C)
+- tensor中图像维度顺序：(C, H, W)
 
 ### Dataset
 
@@ -435,43 +597,51 @@ for images, labels in data_loader:
     print(images.shape, labels.shape)
 ```
 
-==注意==：可迭代式数据集的`DataLoader`的`shuffle`参数通常没效果，因为它不能随机访问。
+==注意==：可迭代式数据集的`DataLoader`的`shuffle`参数通常没效果，因为它不能随机访问
 
-### 输出图片shape大小公式
+### 模型计算顺序
 
-- 输入大小为(H,W)
-  - 滤波器大小（kernel_size）：(FH,FW)
-  - 填充（padding）：P
-  - 步幅（stride）：S
+0. 特征放入模型初始化
+1. 梯度清零【防止梯度累积】
+2. 计算损失
+3. 反向传播【利用损失计算梯度】
+4. 更新参数【利用梯度更新参数；参数 = 参数 - 学习率 * 梯度】
 
-- 输出大小为(OH,OW)
-
-$$
-\begin{aligned}&OH=\frac{H+2P-FH}{S}+1\\&OW=\frac{W+2P-FW}{S}+1\end{aligned}
-$$
-
-==注意：==所设定的值必须使得这两个公式可以除尽（有的框架当无法除尽会进行四舍五入/向下取整不报错，但需要采取措施进行报错）
-
-### 随机数种子
+### 模型可视化
 
 ```py
-np.random.seed(1)
-torch.manual_seed(1)
-torch.cuda.manual_seed_all(1)
-torch.backends.cudnn.deterministic = True  # 保证每次结果一样
+from torch.utils.tensorboard import SummaryWriter
+
+train_step = 0
+for epoch in range(total_epoch):
+    for batch in range(total_batch):
+        pass
+    	# 可视化输出
+		writer.add_scalar('loss', _loss, train_step)
+		writer.add_scalar('acc', _acc, train_step)
+		train_step += 1
+    
+    # 模拟图像可视化
+    img_batch = np.zeros((16, 3, 100, 100))
+    for i in range(16):
+        img_batch[i, 0] = np.arange(0, 10000).reshape(100, 100)/10000/16*i
+        img_batch[i, 1] = (1-np.arange(0, 10000).reshape(100, 100)/10000)/16*i
+    writer.add_images('img', img_batch)
+    
 ```
 
-### 训练输出样式
+执行可视化操作：
+1. 进入cmd命令行
+2. 切换当前磁盘到events文件所在磁盘
+3. 确保events文件所在路径没有中文
+4. 输入命令
 
 ```py
-from rich.progress import track
-from rich import print
-
-for batch_idx,(data,labels) in track(enumerate(train_loader),description=f"💪 [green]Training：Epoch {epoch}[green]",total=len(train_loader)):
-
-    print(f'Step:{100.*batch_idx/len(train_loader):.2f}%\tLoss: {loss.data:.6f}\tTrain_accurary: {100. * train_r[0].numpy() / train_r[1]:.2f}%\tTest_accurary: {100. * val_r[0].numpy() / val_r[1]:.2f}%')
-
+tensorboard --logdir /mnt/e/Code/Python/Deep-Learning/2.iris-Classification/outputs
+# 这里的路径为events日志文件所在路径，如果想要对两个模型日志做对比，可使用模型日志文件夹../../也就是outputs路径
 ```
+
+
 
 ## PIL
 
@@ -480,43 +650,57 @@ for batch_idx,(data,labels) in track(enumerate(train_loader),description=f"💪 
 
 ```py
 pip install pillow
+```
+
+```py
 from PIL import Image
-# 一个Image类代表一个图像
 ```
 
-### 介绍
+### 图像基本概念
 
-**图像：**
+- 图像(Image)：图像是位图(bitmap)，它包含的信息是用像素来度量的。对图像的描述与分辨率和色彩的种类数有关，分辨率与色彩位数越大，占用存储空间就越大，
+  图像也就越清晰
+- 像素(Pixel)：在由一个数字序列表示的图像中的一个最小单位
+- 图像分辨率(Image Resolution)：在单位英寸中所包含的像素点数目
+- 图像深度(Image Depth)：存储每个像素所用的位数。图像深度用来确定彩色图像的每个像素可能有的颜色数或者确定灰度图像的每个像素可能有的灰度级数
+- 图像高度(Image Height)：图像的竖向高度，也就是竖向的像素点数目
+- 图像宽度(Image Width)：图像的横向高度，也就是横向的像素点数目
+- 图像采样(Image Sampling)：对图像空间的离散化。采样的实质是指用多少点来描述一副图像，每一个点就叫做像素点，一副图像就被采样成有限个像素点构成的集合
+- 图像通道(Image Channel)：颜色通道，表示每个像素点对应多少个像素值。常见的图像通道有RGB、HSV
+  - RGB：R表示红色通道，G表示绿色通道，B表示蓝色通道
+  - HSV：H表示色调(Hue)，S表示饱和度(Saturation)，V表示强度(Intensity)
+- 黑白图像：图像的每个像素只能是黑或者白，没有中间值，也叫做二值图像，二值图像的像素值只有0.0（黑色）和1.0（白色）或者0（黑色）和255（白色）
+- 灰度图像：图像的每个像素信息是有一个量化的灰度级来描述的，没有彩色信息。灰度图像的每个像素有一个0（黑色）到255（白色）之间的亮度值
+- 彩色图像：图像的每个像素信息由RGB三原色构成的，其中RGB是由不同的灰度级来描述的
 
-`RGB三个（字节）颜色通道的变化和叠加得到各种颜色（包括了人类实例能感知的所有颜色）。R、G、B的取值范围：0-255`
+### 常规处理方式
 
-| 函数                               | 说明                                   |
-| ---------------------------------- | -------------------------------------- |
-| Image.open(图像路径)               | 导入图片                               |
-| Image.open(图像路径).convert('L')  | 转换灰度图（转换后再转数组为二维数组） |
-| np.array(Image对象)                | 图像转数组                             |
-| Image.fromarray(b.astype('uint8')) | 将数组转换为图像                       |
-| Image对象.save(保存图像路径)       | 图像保存                               |
+- 几何变换(Geometric Transformations)：包括放大、缩小、旋转等
+- 颜色处理(Color)：包括颜色空间的转化、亮度以及对比度的调节、颜色修正等
+- 图像合成(Image Composite)：多个图像的加、减、组合、拼接等
+- 降噪(Image Denoising)：对二维图像的去噪滤波器或者信号处理技术
+- 边缘检测(Edge Detection)：进行边缘或者其它局部特征提取
+- 分割(Image Segmentation)：依据不同的标准，将二维图像分割成为不同的区域
+- 图像增强(Image Enhancement)：依据某种方式，增加图像数据的训练数据
 
-### **实例：**
+### 使用
 
 ```py
-a = np.array(Image.open(r'C:\Users\19124\Desktop\微信图片_20240726180520.png').convert('L'))
-print(a.shape,a.dtype)
-print(a)
+imgimg:Image.Image = Image.open('./avatar.png')		# 导入图片
+img = img.convert("L")	# 转为灰度图
+img = np.array(img)		# 从图像转为array形式，shape：[Height, Width, Channels]
+# img = Image.fromarray(b.astype('uint8'))	# 从array转为图像
+
+print(img.shape, img.dtype)
+print(img)
+img.save("d.bmp")
 ```
 
-> 图像数值值变换（利用广播机制自动扩充 规模和值）
-
 ```py
+## 图像数值值变换（利用广播机制自动扩充 规模和值）
 # b = 255 - a   # 取补值
 # b = (100/255)*a + 150   # 区间变换
 b = 255 * (a/255)**2    # 像素平方
-```
-
-```py
-im = Image.fromarray(b.astype('uint8')) # 还原回图像
-im.save('test.png')
 ```
 
 ### 手绘效果示例

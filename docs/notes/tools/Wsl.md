@@ -5,13 +5,21 @@ tags:
  - Wsl
 permalink: /notes/notes/tools/3h1meezc/
 ---
-## 请勿在正式工作环境中折腾任何不成熟的方案，通用并满足即可，切勿创造需求
-
-兼容环境永远是多个成熟环境下的无奈选择
-
 > WSL说明文档：https://learn.microsoft.com/zh-cn/windows/wsl/
+>
+> 你想搞的话，也就只需要：
+>
+> 1. 电脑换成win10专业版
+> 2. 配置wsl
+> 3. 配置ubuntu
+> 4. 装驱动
+> 5. pycharm解释器配置
 
 ## Wsl内核
+
+### 要求
+
+系统：windows10专业版
 
 ### wsl内核安装
 

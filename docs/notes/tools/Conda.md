@@ -37,8 +37,6 @@ conda install nb_conda_kernels	# 下载指定模块来链接jupyter notebook
 
 ```
 conda env remove --name 环境名
-或
-conda remove -n 环境名 --all
 ```
 
 ## 进入环境

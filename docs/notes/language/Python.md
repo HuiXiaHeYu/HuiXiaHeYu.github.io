@@ -1164,6 +1164,7 @@ class 类名:
     @classmethod
     def class_func(cls):
         pass
+    
     # 静态方法
     @staticmethod
     def static_func():
@@ -1592,8 +1593,6 @@ exec()	# 执行多行字符串代码
 point = 5		# point是一个指针，而不是类型
 point = 10		# 这里是新生成一个int类型的对象point，再让指针point指向它，然后5被丢弃（point的值）
 ```
-
-
 
 ### 装饰器
 
