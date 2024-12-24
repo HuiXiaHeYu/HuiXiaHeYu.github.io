@@ -43,11 +43,11 @@ GloVe方法融合了基于推理的方法和基于计数的方法。该方法的
 
 1. 同义词或近义词被归类到同一个组中
 
-![image-20241012100115579](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012100115579.png)
+![image-20241012100115579](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012100115579.png)
 
 2. 定义单词之间的粒度更细的关系，如：”上位-下位“，”整体-部分“
 
-![image-20241012095955370](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012095955370.png)
+![image-20241012095955370](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012095955370.png)
 
 ### WordNet
 
@@ -115,7 +115,7 @@ GloVe方法融合了基于推理的方法和基于计数的方法。该方法的
 
 窗口大小（window size）：上下文大小（周围的单词由多少个）
 
-![image-20241012112459984](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012112459984.png)
+![image-20241012112459984](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012112459984.png)
 
 #### 共现矩阵
 
@@ -125,17 +125,17 @@ GloVe方法融合了基于推理的方法和基于计数的方法。该方法的
 
 - 对you进行计数
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012150510127.png" alt="image-20241012150510127" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012150510127.png" alt="image-20241012150510127" style="zoom: 67%;" />
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012150538858.png" alt="image-20241012150538858" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012150538858.png" alt="image-20241012150538858" style="zoom: 67%;" />
 
 - 对say进行计数
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012150650481.png" alt="image-20241012150650481" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012150650481.png" alt="image-20241012150650481" style="zoom:67%;" />
 
 - 对各个单词进行计数：共现矩阵
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012150807646.png" alt="image-20241012150807646" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012150807646.png" alt="image-20241012150807646" style="zoom:67%;" />
 
 ```py
 # 直接从语料库生成共现矩阵的函数
@@ -306,7 +306,7 @@ def ppmi(C, verbose=False, eps=1e-8):
 
 ==注意==：选择新轴时要考虑数据的广度
 
-![image-20241012165645683](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241012165645683.png)
+![image-20241012165645683](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241012165645683.png)
 
 稀疏矩阵（稀疏向量）：向量中大多数元素为0的矩阵（或向量）
 
@@ -327,14 +327,14 @@ $$
 - U/V：列向量彼此正交的正交矩阵
 - S：对角矩阵（除对角线元素以外其余元素均为0），奇异值在对角线上降序排列
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013153021552.png" alt="image-20241013153021552" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013153021552.png" alt="image-20241013153021552" style="zoom:80%;" />
 
 - U：正交矩阵。构成一些空间中的基轴（基向量），可视为“单词空间”
 - S：对角矩阵。奇异值在对角线上降序排列，可将奇异值视为“对应的基轴”的重要性
 
 **通过去除矩阵U中多余的列向量来近似原始矩阵**
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013152644182.png" alt="image-20241013152644182" style="zoom: 80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013152644182.png" alt="image-20241013152644182" style="zoom: 80%;" />
 
 **PPMI矩阵：矩阵x的各行包含对应单词ID的单词向量，使用降维后的矩阵U`来表示**
 
@@ -442,13 +442,13 @@ lexus: 0.604740429865
 > 1. CBOW
 > 2. skip-gram
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013164132843.png" alt="image-20241013164132843" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013164132843.png" alt="image-20241013164132843" style="zoom:80%;" />
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013164143881.png" alt="image-20241013164143881" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013164143881.png" alt="image-20241013164143881" style="zoom:80%;" />
 
 一个单词的one-hot编码进行一次矩阵计算：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013170205125.png" alt="image-20241013170205125" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013170205125.png" alt="image-20241013170205125" style="zoom:80%;" />
 
 ### CBOW模型
 
@@ -464,9 +464,9 @@ lexus: 0.604740429865
 4. fc2：全连接2（解码）（权重$W_{out}$：==列向量==表示单词的分布式表示）
 5. **输出层（分类）**：中间层经fc2计算得各单词得分【经过softmax后可得到概率】
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013170930428.png" alt="image-20241013170930428" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013170930428.png" alt="image-20241013170930428" style="zoom:80%;" />
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013210323981.png" alt="image-20241013210323981" style="zoom: 80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013210323981.png" alt="image-20241013210323981" style="zoom: 80%;" />
 
 #### 实现
 
@@ -559,16 +559,16 @@ for word_id, word in id_to_word.items():
 
 > 目标词 -> 上下文
 
-![image-20241015141308329](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241015141308329.png)
+![image-20241015141308329](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241015141308329.png)
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241015141342971.png" alt="image-20241015141342971" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241015141342971.png" alt="image-20241015141342971" style="zoom: 67%;" />
 
 ### 数据转换
 
 - contexts：神经网络的输入
 - taget：正确解标签
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013203634861.png" alt="image-20241013203634861"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013204842184.png" alt="image-20241013204842184"  />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013203634861.png" alt="image-20241013203634861"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013204842184.png" alt="image-20241013204842184"  />
 
 ```py
 """
@@ -622,7 +622,7 @@ contexts = convert_one_hot(contexts, vocab_size)
 
 当$w_{t}$发生时：对应的one-hot向量元素为1，其余为0
 
-![image-20241015140358727](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241015140358727.png)
+![image-20241015140358727](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241015140358727.png)
 
 1. 后验概率公式
 
@@ -691,7 +691,7 @@ $$
 > 1. 输入层的one-hot表示与权重矩阵Win的乘积难算【Embedding层：每次抽一行和$W_{in}$对应相乘】
 > 2. 中间层和权重矩阵Wout的乘积、Softmax层的计算难算【Negative sampling损失函数解决】
 
-![image-20241021174508212](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241021174508212.png)
+![image-20241021174508212](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241021174508212.png)
 
 #### Embedding层
 
@@ -788,7 +788,7 @@ hard-negative：
 
 由上下文推中心词
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022093206746.png" alt="image-20241022093206746"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022093218131.png" alt="image-20241022093218131" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022093206746.png" alt="image-20241022093206746"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022093218131.png" alt="image-20241022093218131" style="zoom:80%;" />
 
 1. 概率公式：
 
@@ -831,7 +831,7 @@ $$
 
 最后的后验概率是以目标词左侧的全部单词为上下文（条件）时的概率
 
-![image-20241022125632330](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022125632330.png)
+![image-20241022125632330](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022125632330.png)
 
 #### 将CBOW模型用作语言模型
 
@@ -854,7 +854,7 @@ $$
 
 使用拼接的方式解决无序的问题（但并不理想，权重参数数量依旧是与上下文大小成比例地增加）：
 
-![image-20241022131756224](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022131756224.png)
+![image-20241022131756224](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022131756224.png)
 
 
 
@@ -866,7 +866,7 @@ $$
 
 #### 网络结构
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030091755523.png" alt="image-20241030091755523" style="zoom:150%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030091755523.png" alt="image-20241030091755523" style="zoom:150%;" />
 $$
 h_t=\tanh(h_{t-1}W_h+x_tW_x+b)
 $$
@@ -882,7 +882,7 @@ $$
 
 > 随时序数据的时间跨度增大，BPTT消耗的内存比例增大，反向传播的梯度也会变得不稳定。提出Truncated BPTT
 
-![image-20241022214136898](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022214136898.png)
+![image-20241022214136898](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022214136898.png)
 
 ##### 截断的时序反向传播（TBPTT）
 
@@ -894,7 +894,7 @@ $$
 >
 > ==注意==：只有反向传播被截断，正向传播之间是有关联的，连接依然被维持
 
-![image-20241022215111320](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022215111320.png)
+![image-20241022215111320](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022215111320.png)
 
 ####  TBPTT-minibatch
 
@@ -904,7 +904,7 @@ $$
 
 #### 实现
 
-![image-20241029150213144](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029150213144.png)
+![image-20241029150213144](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029150213144.png)
 
 ```py
 class RNN:
@@ -949,18 +949,18 @@ class RNN:
 > - Time RNN层：一次处理T步的层
 > - RNN层：Time RNN层中的单步处理的层
 
-![image-20241027210054493](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241027210054493.png)
+![image-20241027210054493](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241027210054493.png)
 
 - 将$(x_{0}, x_{1},···, x_{T-1})$捆绑为$x_{s}$作为输入
 - 将$(h_{0}, h_{1},···,h_{T-1})$捆绑为$h_{s}$作为输出
 
 Time RNN的反向传播：
 
-![image-20241029164252330](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029164252330.png)
+![image-20241029164252330](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029164252330.png)
 
 每一小块的反向传播：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029164319313.png" alt="image-20241029164319313" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029164319313.png" alt="image-20241029164319313" style="zoom:80%;" />
 
 ```py
 import numpy as np
@@ -1033,19 +1033,19 @@ class TimeRNN:
 
 #### 原理
 
-![image-20241029212029417](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029212029417.png)
+![image-20241029212029417](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029212029417.png)
 
-![image-20241029212616006](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029212616006.png)
+![image-20241029212616006](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029212616006.png)
 
 **Time层：**
 
-![image-20241029213115402](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029213115402.png)
+![image-20241029213115402](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029213115402.png)
 
 - Time Affine层：准备T个Affine层分别处理各个时刻的数据即可
 - Time Embedding层：准备T个Embedding层，由各个Embedding层处理各个时刻的数据。
 - Time Softmax with Loss：
 
-![image-20241029212931561](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241029212931561.png)
+![image-20241029212931561](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241029212931561.png)
 
 损失计算：T个Softmax with Loss层各自算出损失，然后将它们加在一起取平均：
 $$
@@ -1218,9 +1218,9 @@ for epoch in range(max_epoch):
 
 > RNN层的梯度若在中途变弱（甚至没有包含任何信息），则权重参数将不会被更新（无法学习长期的依赖关系）【梯度消失/梯度爆炸】
 
-![image-20241030092340604](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030092340604.png)
+![image-20241030092340604](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030092340604.png)
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030092734083.png" alt="image-20241030092734083" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030092734083.png" alt="image-20241030092734083" style="zoom:80%;" />
 
 1. tanh层梯度消失
 
@@ -1230,7 +1230,7 @@ for epoch in range(max_epoch):
    >
    > RNN层的激活函数一般使用tanh函数，但是如果改为ReLU函数，则有希望抑制梯度消失的问题（当ReLU的输入为x时，它的输出是max（0, x））。这是因为，在ReLU的情况下，当x大于0时，反向传播将上游的梯度原样传递到下游，梯度不会“退化”。实际上，题为“ Improving performance of recurrent neural network with relu nonlinearity”的论文[29]就使用ReLU实现了性能改善
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030092852185.png" alt="image-20241030092852185" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030092852185.png" alt="image-20241030092852185" style="zoom:80%;" />
 
 2. matmul层出现梯度爆炸/梯度消失
 
@@ -1239,7 +1239,7 @@ for epoch in range(max_epoch):
    > - 如果Wh是标量，则问题将很简单：当Wh大于1时，梯度呈指数级增加；当Wh小于1时，梯度呈指数级减小
    > - 如果Wh是矩阵，矩阵的奇异值将成为指标（矩阵的奇异值表示数据的离散程度）。最大值大于1，可预测梯度很有可能会呈指数级增加；最大值小于1，则可以判断梯度会呈指数级减小
 
-![image-20241030093547648](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030093547648.png)
+![image-20241030093547648](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030093547648.png)
 
 ```py
 import numpy as np
@@ -1314,11 +1314,11 @@ clip_grads(grads, max_norm)
 
 **封装simple RNN的一个RNN单元为tanh：**
 
-![image-20241030101852391](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030101852391.png)
+![image-20241030101852391](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030101852391.png)
 
 **演化：**
 
-![image-20241030102031868](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030102031868.png)
+![image-20241030102031868](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030102031868.png)
 
 #### 1.输出门[o]
 
@@ -1326,7 +1326,7 @@ clip_grads(grads, max_norm)
 >
 > 对tanh施加门：针对tanh（ct）的各个元素，调整它们作为下一时刻的隐藏状态的重要程度
 
-![image-20241030104753563](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030104753563.png)
+![image-20241030104753563](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030104753563.png)
 $$
 \boldsymbol{o}=\sigma(\boldsymbol{x}_tW_x^{(\mathrm{o})}+\boldsymbol{h}_{t-1}\boldsymbol{W}_h^{(\mathrm{o})}+\boldsymbol{b}^{(\mathrm{o})})
 $$
@@ -1347,7 +1347,7 @@ $$
 
 > 遗忘门：忘记不必要记忆的门
 
-![image-20241030105402585](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030105402585.png)
+![image-20241030105402585](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030105402585.png)
 $$
 \boldsymbol{f}=\sigma(x_tW_x^{(\mathrm{f})}+h_{t-1}W_h^{(\mathrm{f})}+b^{(\mathrm{f})})
 $$
@@ -1365,7 +1365,7 @@ $$
 
 > 不能只忘记不记忆新信息
 
-![image-20241030110902254](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030110902254.png)
+![image-20241030110902254](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030110902254.png)
 $$
 \boldsymbol{g}=\tanh(\boldsymbol{x}_t\boldsymbol{W}_x^{(\mathrm{g})}+\boldsymbol{h}_{t-1}\boldsymbol{W}_h^{(\mathrm{g})}+\boldsymbol{b}^{(\mathrm{g})})
 $$
@@ -1377,7 +1377,7 @@ $$
 
 > 加权新信息
 
-![image-20241030111723075](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030111723075.png)
+![image-20241030111723075](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030111723075.png)
 $$
 \boldsymbol{i}=\sigma(\boldsymbol{x}_t\boldsymbol{W}_x^{(\mathrm{i})}+\boldsymbol{h}_{t-1}\boldsymbol{W}_h^{(\mathrm{i})}+\boldsymbol{b}^{(\mathrm{i})})
 $$
@@ -1400,7 +1400,7 @@ $$
 
 记忆单元c的反向传播：
 
-![image-20241030112921132](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241030112921132.png)
+![image-20241030112921132](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241030112921132.png)
 
 #### 计算简化
 
@@ -1423,11 +1423,11 @@ x_{t}\left[W_{x}^{(\mathrm{f})}\:W_{x}^{(\mathrm{g})}\:W_{x}^{(\mathrm{i})}\:W_{
 $$
 使用slice节点进行分割：
 
-![image-20241103143419509](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103143419509.png)
+![image-20241103143419509](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103143419509.png)
 
 **反向传播：**
 
-![image-20241103145912539](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103145912539.png)
+![image-20241103145912539](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103145912539.png)
 
 
 
@@ -1505,7 +1505,7 @@ class LSTM:
 
 `整体处理T个时序数据的层，由T个LSTM层构成`
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103150906488.png" alt="image-20241103150906488" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103150906488.png" alt="image-20241103150906488" style="zoom:67%;" />
 
 RNN使用Truncated BPTT进行学习，适当的长度截断反向传播的连接，但需要维持正向传播的数据流
 
@@ -1580,7 +1580,7 @@ class TimeLSTM:
 
 #### 网络结构
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103153722872.png" alt="image-20241103153722872" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103153722872.png" alt="image-20241103153722872" style="zoom:67%;" />
 
 
 ```py
@@ -1692,7 +1692,7 @@ class Rnnlm(BaseModel):
 > - 如何确定层数？层数为超参数，所以需要根据要解决的问题的复杂程度、能给到的训练数据的规模来确定
 >   - 如果待解决的问题很难，又能准备大量的训练数据，就可以通过加深LSTM层来提高精度
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103160104015.png" alt="image-20241103160104015" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103160104015.png" alt="image-20241103160104015" style="zoom:67%;" />
 
 ##### Dropout
 
@@ -1716,7 +1716,7 @@ Embedding层和Affine层的权重共享，降低学习计算量
 
 共享权重可以减少需要学习的参数数量，从而促进学习。另外，参数数量减少，还能收获抑制过拟合的好处
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103163315677.png" alt="image-20241103163315677" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103163315677.png" alt="image-20241103163315677" style="zoom:67%;" />
 
 #### 实现
 
@@ -1856,7 +1856,7 @@ for epoch in range（max_epoch）:
 >
 > > 例：如果原文是“A B C D”，就改为“D C B A”。通过输入改变了顺序的输入语句，另一个LSTM层从右向左处理输入语句。之后，只需要拼接这两个LSTM层的输出，就可以创建双向LSTM层
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106164955080.png" alt="image-20241106164955080" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106164955080.png" alt="image-20241106164955080" style="zoom:67%;" />
 
 ## 基于RNN生成文本
 
@@ -1871,7 +1871,7 @@ for epoch in range（max_epoch）:
 
 **循环**：将生成的单词say输入语言模型，获得单词的概率分布，然后再根据这个概率分布采样下一个出现的的单词（直到出现\<eos>这一结尾记号）
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241103213759792.png" alt="image-20241103213759792" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241103213759792.png" alt="image-20241103213759792" style="zoom:80%;" />
 
 ```py
 import sys
@@ -1995,7 +1995,7 @@ print(txt)
 
 `编码器编码的信息（h）浓缩了翻译所必需的信息；解码器基于这个浓缩的信息生成目标文本`
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241104093040428.png" alt="image-20241104093040428" style="zoom: 80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241104093040428.png" alt="image-20241104093040428" style="zoom: 80%;" />
 
 - 编码器：将时序数据转换为隐藏状态h【将任意长度的文本转换为一个固定长度的向量】
 - 解码器：接收向量h作为上一个隐藏状态（在一般LSTM中接收”0向量“）
@@ -2028,14 +2028,14 @@ toy problem：为了评价机器学习而创建的简单问题
 
 #### Encoder
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241104214850927.png" alt="image-20241104214850927" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241104214850927.png" alt="image-20241104214850927" style="zoom:80%;" />
 
 - 向上丢弃输出的隐藏状态$h$
 - 向右输出隐藏状态$h$和记忆单元$c$（记忆单元$c$只给自身使用，不传给下一个时序层）
 
 ##### Time Encoder
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241104215127740.png" alt="image-20241104215127740" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241104215127740.png" alt="image-20241104215127740" style="zoom: 50%;" />
 
 ##### 实现
 
@@ -2089,15 +2089,15 @@ class Encoder:
 
 数学运算求确定值：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105125130639.png" alt="image-20241105125130639" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105125130639.png" alt="image-20241105125130639" style="zoom: 50%;" />
 
 反向传播求损失：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105123648200.png" alt="image-20241105123648200" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105123648200.png" alt="image-20241105123648200" style="zoom: 50%;" />
 
 ##### Time Decoder
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105125342294.png" alt="image-20241105125342294" style="zoom: 33%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105125342294.png" alt="image-20241105125342294" style="zoom: 33%;" />
 
 ##### 实现
 
@@ -2312,7 +2312,7 @@ def eval_seq2seq(model, question, correct, id_to_char,
 
 > 借助反转输入语句的Reverse和共享编码器信息的Peeky，我们获得了令人满意的结果！
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105133338356.png" alt="image-20241105133338356" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105133338356.png" alt="image-20241105133338356" style="zoom: 50%;" />
 
 #### 反转输入信息（reverse）
 
@@ -2322,7 +2322,7 @@ def eval_seq2seq(model, question, correct, id_to_char,
 
 为什么反转数据后，学习进展变快，精度提高了呢？虽然理论上不是很清楚，但是直观上可以认为，反转数据后梯度的传播可以更平滑。
 
-![image-20241105132319986](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105132319986.png)
+![image-20241105132319986](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105132319986.png)
 
 #### 共享编码器信息-==精度++==
 
@@ -2332,7 +2332,7 @@ def eval_seq2seq(model, question, correct, id_to_char,
 >
 > 因为使用Peeky后，网络的权重参数会额外地增加，计算量也会增加，所以这里的实验结果必须考虑到相应地增加的“负担”
 
-![image-20241105132348977](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105132348977.png)
+![image-20241105132348977](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105132348977.png)
 
 #### 实现
 
@@ -2462,7 +2462,7 @@ class PeekySeq2seq(Seq2seq):
 
 > 如何改进？将各个时刻的隐藏状态$h$记录到$hs$中（$hs$数量与单词数量相同）
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241105142859544.png" alt="image-20241105142859544" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241105142859544.png" alt="image-20241105142859544" style="zoom: 50%;" />
 
 ==扩展：==
 
@@ -2473,7 +2473,7 @@ class PeekySeq2seq(Seq2seq):
 
 >  如何改进？**Attention机制**：仅关注必要的信息，并根据该信息进行时序转换
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106151811921.png" alt="image-20241106151811921" style="zoom:60%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106151811921.png" alt="image-20241106151811921" style="zoom:60%;" />
 
 ##### 计算-单词权重a
 
@@ -2482,7 +2482,7 @@ class PeekySeq2seq(Seq2seq):
 1. 相似度：各单词隐藏状态$hs$和全局最终隐藏状态$h$的向量内积
 2. 使用softmax进行归一化
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106160440772.png" alt="image-20241106160440772" style="zoom:40%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106160440772.png" alt="image-20241106160440772" style="zoom:40%;" />
 
 
 
@@ -2490,19 +2490,19 @@ class PeekySeq2seq(Seq2seq):
 
 > 各个单词权重$a$和隐藏状态$hs$的加权和
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106132040545.png" alt="image-20241106132040545" style="zoom: 40%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106132040545.png" alt="image-20241106132040545" style="zoom: 40%;" />
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106155446121.png" alt="image-20241106155446121" style="zoom: 55%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106155446121.png" alt="image-20241106155446121" style="zoom: 55%;" />
 
 例：“吾輩”对应的权重为0.8。这意味着上下文向量c中含有很多“吾輩”向量的成分，可以说这个加权和计算基本代替了“选择”向量的操作。假设“吾輩”对应的权重是1，其他单词对应的权重是0，那么这就相当于“选择”了“吾輩”向量
 
 ##### 拼起来计算-多头注意力c
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106145552692.png" alt="image-20241106145552692" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106145552692.png" alt="image-20241106145552692" style="zoom: 50%;" />
 
 封装为attention类
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106153056791.png" alt="image-20241106153056791" style="zoom: 33%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106153056791.png" alt="image-20241106153056791" style="zoom: 33%;" />
 
 
 
@@ -2560,7 +2560,7 @@ class Attention:
 
 #### Time Attention
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106153511960.png" alt="image-20241106153511960" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106153511960.png" alt="image-20241106153511960" style="zoom: 67%;" />
 
 ```py
 class TimeAttention:
@@ -2627,7 +2627,7 @@ class AttentionEncoder (Encoder):
 
 #### Attention-Decoder
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106161751708.png" alt="image-20241106161751708" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106161751708.png" alt="image-20241106161751708" style="zoom:50%;" />
 
 ```py
 class AttentionDecoder:
@@ -2777,13 +2777,13 @@ for epoch in range(max_epoch):
 model.save_params()
 ```
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106163806394.png" alt="image-20241106163806394" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106163806394.png" alt="image-20241106163806394" style="zoom:67%;" />
 
 精度图：
 
 `就最终精度来看，Attention和Peeky取得了差不多的结果。但随着时序数据变长、变复杂，除了学习速度之外， Attention在精度上也会变得更有优势`
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106163829755.png" alt="image-20241106163829755" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106163829755.png" alt="image-20241106163829755" style="zoom:50%;" />
 
 ### 可视化
 
@@ -2793,7 +2793,7 @@ model.save_params()
 >
 > **如何绘制输入语句和输出语句的各个单词的对应关系的二维地图？**Time Attention层中的成员变量attention_weights保存了各个时刻的Attention权重
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106164401820.png" alt="image-20241106164401820" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106164401820.png" alt="image-20241106164401820" style="zoom:67%;" />
 
 - 1983和26的对应关系
 - 08月和AUGUST的对应关系
@@ -2811,7 +2811,7 @@ model.save_params()
 > - 精度差异：无明显精度差异
 > - 复杂度：解码器数据自下而上流动，前者模块化更简单
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106165612556.png" alt="image-20241106165612556" style="zoom:50%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106165625528.png" alt="image-20241106165625528" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106165612556.png" alt="image-20241106165612556" style="zoom:50%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106165625528.png" alt="image-20241106165625528" style="zoom:50%;" />
 
 #### Attention结构加深
 
@@ -2824,7 +2824,7 @@ model.save_params()
 > 1. 多个Attention层
 > 2. 将Attention的输出输入给下一个时刻的LSTM层
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106170211255.png" alt="image-20241106170211255" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106170211255.png" alt="image-20241106170211255" style="zoom:67%;" />
 
 - 将解码器LSTM层的隐藏状态输入Attention层
 - 将上下文向量（Attention层的输出）传给解码器的多个层（LSTM层和Affine层）。
@@ -2835,7 +2835,7 @@ model.save_params()
 
 > 如何深度方向上的梯度消失？残差连接
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106170734789.png" alt="image-20241106170734789" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106170734789.png" alt="image-20241106170734789" style="zoom:50%;" />
 
 请注意这个加法（确切地说，是对应元素的加法）非常重要。因为加法在反向传播时“按原样”传播梯度，所以残差连接中的梯度可以不受任何影响地传播到前一个层。这样一来，即便加深了层，梯度也能正常传播，而不会发生梯度消失（或者梯度爆炸），学习可以顺利进行
 
@@ -2847,7 +2847,7 @@ model.save_params()
 
 >  提高学习速度：多GPU分布式学习
 
-![image-20241106212218237](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106212218237.png)
+![image-20241106212218237](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106212218237.png)
 
 - 编码器、解码器、Attention
 - 改进：LSTM多层化、双向LSTM（仅编码器的第1层）、残差连接等。。
@@ -2866,7 +2866,7 @@ model.save_params()
 
 Attention对比Self-Attention：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106215604317.png" alt="image-20241106215604317" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106215604317.png" alt="image-20241106215604317" style="zoom: 67%;" />
 
 - Time Attention：两个输入中输入的是不同的时序数据
 - Self-Attention：两个输入中输入的是同一个时序数据（求得一个时序数据内各个元素之间的对应关系）
@@ -2887,7 +2887,7 @@ Attention对比Self-Attention：
 > 2. 减少学习时间
 > 3. 提高精度
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106215815656.png" alt="image-20241106215815656" style="zoom: 70%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106215815656.png" alt="image-20241106215815656" style="zoom: 70%;" />
 
 - Time Attention：self-Attention
 - Feed Forward：前馈神经网络（时间方向上独立的网络）
@@ -2895,7 +2895,7 @@ Attention对比Self-Attention：
 
 ##### 精度展示
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241107090303603.png" alt="image-20241107090303603" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241107090303603.png" alt="image-20241107090303603" style="zoom:50%;" />
 
 ### NTM
 
@@ -2903,7 +2903,7 @@ Attention对比Self-Attention：
 
 > - 当选择操作不能微分就利用权重代替
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241107090549083.png" alt="image-20241107090549083" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241107090549083.png" alt="image-20241107090549083" style="zoom:50%;" />
 
 - `编码器`将必要的信息写入内存；`解码器`从内存中读取必要的信息
 - Write Head层：接收LSTM层各个时刻的隐藏状态，将必要的信息写入内存

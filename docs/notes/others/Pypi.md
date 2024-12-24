@@ -5,6 +5,30 @@ tags:
  - pip
 permalink: /notes/others/kiygdb9j/
 ---
+## pyinstaller
+
+```bash
+pip install pyinstaller
+```
+
+### pyinstaller方法参数
+
+- -h 查看帮助
+- -w 忽略控制台，打包gui软件时使用
+- -F dist目录中只生成一个exe文件
+- -p 表示你自己定义需要加载的类库的路径
+- -D 创建dist目录，里面包含exe以及其他一些依赖性文件（默认，可不添加）
+- -i 指定打包程序使用的图标文件
+
+```py
+build：存储日志文件。
+dist：储存可执行文件即相关依赖。
+__pycache__：Python版本信息。
+fileren.spec：打包的配置文件，可以配置依赖资源。
+```
+
+
+
 ## Numpy
 
 `开源的Python科学计算基础库，SciPy、Pandas等数据处理或科学计算库的基础`
@@ -460,7 +484,7 @@ transforms.Compose([
     transforms.RandomOrder(transforms=[]),  # 随机顺序执行转换操作
     transforms.RandomChoice(transforms=[]), # 随机选择一个执行转换操作
     """标准化"""
-    transforms.Normalize(mean=[],std=[]),   # 基于给定的每个通道的均值和标准差进行标准化操作，要求输入必须是tensor
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),  # 基于给定的每个通道的均值和标准差进行标准化操作，要求输入必须是tensor
     transforms.RandomAutocontrast(),    # 基于概率对图像进行差异化转换其实就是区间缩放(X~min)/(maX~min)*(255or1.0)
     """图像处理-改大小"""
     transforms.Resize(size=100), # 图像大小resize
@@ -491,6 +515,26 @@ transforms.Compose([
     transforms.RandomPosterize(bits=3), # 针对每个channel保留几个bits来设置颜色，默认是256种颜色也就是8位，要求入参必须是uint8
     transforms.RandomSolarize(threshold=0.2),   # 基于给定概率随机将高于threshold的像素点进行反转
 ])
+```
+
+```py
+# 计算多图像的均值和标准差
+def calc_mean_std():
+    from image_classifi_model import dataset
+
+    trainset = dataset.DataSet(root_dir=r"E:\Code\Python\Deep-Learning\image_classifi\dogcat\train", batch_size=100, shuffle=False)
+    print(f"总样本数{len(trainset)}")
+    imgs = None
+    for idx in range(len(trainset)):
+        img, _ = trainset.dataset[idx]
+        img = img.cpu().numpy()
+        img = np.reshape(img, (3, -1))
+        if imgs is None:
+            imgs = img
+        else:
+            imgs = np.concatenate([imgs, img], axis=1)
+    print(np.mean(imgs, axis=0))
+    print(np.std(imgs, axis=0))
 ```
 
 ==注意== :
@@ -607,27 +651,95 @@ for images, labels in data_loader:
 3. 反向传播【利用损失计算梯度】
 4. 更新参数【利用梯度更新参数；参数 = 参数 - 学习率 * 梯度】
 
-### 模型可视化
+### hook函数
+
+#### register_forward_hook函数
+
+在神经网络的模块（如层）上注册钩子函数，来自nn.Module
+
+#### 自定义hook函数
+
+```py
+def hook(module, input, output):
+    """
+    module: 当前层的实例。
+	input: 输入张量，形式为一个元组（在一些情况下可能包含多个输入）
+	output: 输出张量
+    """
+    # 这里写你的自定义操作
+    print(f"Module: {module}")
+    print(f"Input: {input}")
+    print(f"Output: {output}")
+```
+
+### 实例
+
+```py
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+# 定义一个简单的卷积神经网络
+class SimpleCNN(nn.Module):
+    def __init__(self):
+        super(SimpleCNN, self).__init__()
+        self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
+        self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
+        self.fc1 = nn.Linear(320, 50)
+        self.fc2 = nn.Linear(50, 10)
+    
+    def forward(self, x):
+        x = F.relu(F.max_pool2d(self.conv1(x), 2))
+        x = F.relu(F.max_pool2d(self.conv2(x), 2))
+        x = x.view(-1, 320)
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+        return F.log_softmax(x, dim=1)
+
+# 创建网络实例
+model = SimpleCNN()
+
+# 定义钩子函数
+def forward_hook(module, input, output):
+    print(f"Forward Hook - Module: {module}")
+    print(f"Input Shape: {input[0].shape}")
+    print(f"Output Shape: {output.shape}")
+
+# 在 conv1 层上注册钩子
+handle = model.conv1.register_forward_hook(forward_hook)
+
+# 创建一个示例输入
+input_tensor = torch.randn(1, 1, 28, 28)
+
+# 执行前向传播
+output = model(input_tensor)
+
+# 移除钩子
+handle.remove()
+```
+
+
+
+### 模型可视化【hook获取每一层特征图数据】
 
 ```py
 from torch.utils.tensorboard import SummaryWriter
 
-train_step = 0
-for epoch in range(total_epoch):
-    for batch in range(total_batch):
-        pass
-    	# 可视化输出
-		writer.add_scalar('loss', _loss, train_step)
-		writer.add_scalar('acc', _acc, train_step)
-		train_step += 1
-    
-    # 模拟图像可视化
-    img_batch = np.zeros((16, 3, 100, 100))
-    for i in range(16):
-        img_batch[i, 0] = np.arange(0, 10000).reshape(100, 100)/10000/16*i
-        img_batch[i, 1] = (1-np.arange(0, 10000).reshape(100, 100)/10000)/16*i
-    writer.add_images('img', img_batch)
-    
+# 举例：可视化输出
+writer.add_scalar('loss', _loss, train_step)
+writer.add_scalars('epoch_loss',
+                   {
+                       "train": np.mean(train_loss),
+                       "test": np.mean(test_loss)
+                   },
+                   epoch)
+
+# 举例：图像可视化
+img_batch = np.zeros((16, 3, 100, 100))
+for i in range(16):
+    img_batch[i, 0] = np.arange(0, 10000).reshape(100, 100)/10000/16*i
+    img_batch[i, 1] = (1-np.arange(0, 10000).reshape(100, 100)/10000)/16*i
+writer.add_images('img', img_batch)
 ```
 
 执行可视化操作：
@@ -637,16 +749,16 @@ for epoch in range(total_epoch):
 4. 输入命令
 
 ```py
-tensorboard --logdir /mnt/e/Code/Python/Deep-Learning/2.iris-Classification/outputs
+tensorboard --logdir e:/Code/Python/Deep-Learning/2.iris-Classification/outputs --bind_all
 # 这里的路径为events日志文件所在路径，如果想要对两个模型日志做对比，可使用模型日志文件夹../../也就是outputs路径
+# --bind_all: tensorboard绑定到所有网络接口，ke供
 ```
 
 
 
 ## PIL
 
-`一个具有强大图像处理能力的第三方库`
-`图像值类型为 uint8`
+一个具有强大图像处理能力的第三方库，图像值类型为 uint8，`https://pillow.readthedocs.io/en/stable/`
 
 ```py
 pip install pillow
@@ -1149,6 +1261,150 @@ plt.savefig('Gravitational_Waves_Original.png')
 plt.show()
 plt.close(fig)
 ```
+
+## pyecharts
+
+> **折线图**（Line）、**柱状图**（Bar）、**饼图**（Pie）、**散点图**（Scatter）、**地图**（Map）、**雷达图**（Radar）、**K线图**（Kline）、**仪表盘**（Gauge）
+
+```py
+from pyecharts import options as opts
+from pyecharts.charts import Line, Pie, Scatter
+```
+
+### 折线图-柱状图-散点图
+
+```python
+# 数据准备
+x_data = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+y_data = [820, 932, 901, 934, 1290, 1330, 1320]
+
+# 创建折线图[Line()]、柱状图[Bar()、散点图[Scatter()]]
+line_bar_scatter = (
+    Line()
+	.add_xaxis(x_data)  # 设置 X 轴数据
+	.add_yaxis(	# 设置 Y 轴数据
+    	"销量", 
+    	y_data
+	)
+	.set_global_opts(	# 全局设置：标题、提示框、图例
+    	title_opts=opts.TitleOpts(
+            title="标题", 
+            subtitle="副标题", 
+            title_textstyle_opts=opts.TextStyleOpts(font_size=20, color="red")
+        ),
+    	legend_opts=opts.LegendOpts(	# 图例样式
+        	is_show=True, 
+        	pos_top="10%", 
+        	pos_left="center"
+    	),
+        axis_opts=opts.AxisOpts(	        # 配置轴样式：1. x轴+y轴（axis_opts）；2. x轴与y轴分别配置（xaxis_opts、yaxis_opts）
+            name="星期",  # 设置 X 轴的名称
+            name_location="middle",  # 坐标轴名称位置
+            name_gap=30,  # 坐标轴名称与坐标轴的距离
+            axislabel_opts=opts.LabelOpts(font_size=12, color="green"),  # 设置 X 轴标签的字体大小和颜色
+            axisline_opts=opts.AxisLineOpts(
+                is_show=True, linestyle_opts=opts.LineStyleOpts(color="blue", width=2)  # 设置 X 轴线的样式
+            ),
+            axisgrid_opts=opts.AxisGridOpts(is_show=False),  # 隐藏网格线
+        ),
+        tooltip_opts=opts.TooltipOpts(	# 设置提示框内容
+            is_show=True,  			# 开启提示框
+            trigger="item",  		# 触发方式为 item，即鼠标悬停在图形元素上时显示
+            formatter="{b}: {c}",  	# 格式化提示框内容，{b} 表示项名称，{c} 表示项的值
+        ),
+        label_opts=opts.LabelOpts(	# 配置数据标注
+            is_show=True,  		# 开启数据标注
+            position="top",  	# 标注位置，"top" 表示显示在点的上方
+            formatter="{c}",  	# 格式化标注显示内容，{c} 表示数据的值
+            font_size=12,  		# 设置标注字体大小
+            color="red",  		# 设置标注字体颜色
+        )
+        toolbox_opts=opts.ToolboxOpts(  # 配置工具栏
+            is_show=True,  			# 开启工具栏
+            orient="horizontal",  	# 设置工具栏排列方向，vertical为垂直方向，horizontal为水平方向
+            pos_left="center",  	# 设置工具栏的位置，"center" 表示居中
+            pos_top="top",  		# 设置工具栏的位置，"top" 表示顶部
+            items=[	# 工具栏项配置
+                opts.ToolBoxItem(type_="saveAsImage"),  # 保存为图片
+                opts.ToolBoxItem(type_="restore"),  # 还原视图
+                opts.ToolBoxItem(type_="dataView"),  # 数据视图
+                opts.ToolBoxItem(type_="dataZoom"),  # 缩放工具
+            ]
+        )
+)
+
+# 渲染
+line_bar_scatter.render_notebook()
+line_bar_scatter.render("line_chart.html")
+```
+
+### 饼图
+
+`占比关系`
+
+```python
+# 数据
+data = [
+    ("苹果", 40), 
+    ("香蕉", 20), 
+    ("橙子", 15), 
+    ("葡萄", 25)
+]
+
+# 创建饼图
+pie = (
+    Pie()
+	.add(
+        "", 
+        data	# 数据为两个元素的元组列表
+    )
+	.set_global_opts(
+        title_opts=opts.TitleOpts(title="水果分布")
+    )
+)
+
+# 渲染图表
+pie.render("pie_chart.html")
+```
+
+### 雷达图
+
+`一件事物的不同属性`
+
+```python
+from pyecharts import options as opts
+from pyecharts.charts import Radar
+
+# 数据
+schema = [
+    ("销量", 100),
+    ("增长率", 90),
+    ("市场份额", 80),
+    ("品牌认知度", 70),
+    ("客户满意度", 60),
+]
+data = [list(x[1] for x in schema)]
+
+# 创建雷达图
+radar = (
+    Radar()
+	.add(
+        "2024年",  		# 系列名称，表示数据代表的是 2024 年的某个产品
+        data,  			# 属性值列表
+        color="blue"  	# 设置系列颜色为蓝色
+    )
+	.set_global_opts(
+    	title_opts=opts.TitleOpts(title="产品性能雷达图"),
+	)
+)
+
+# 渲染图表
+radar.render("radar_chart.html")
+```
+
+### 交互性和动态效果
+
+没见到
 
 ## Pandas
 

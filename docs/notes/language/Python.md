@@ -631,6 +631,23 @@ print (list[1:3])       # 从第二个开始输出到第三个元素
 print (list[2:])        # 输出从第三个元素开始的所有元素
 ```
 
+### 类型提示
+
+| 类型 | 用途 |
+| ----- | ---- |
+| `int` | 整数 |
+| `float` | 浮点数 |
+| `str` | 字符串 |
+| `bool` | 布尔值 |
+| `List[T]` | 列表，包含元素类型 `T` |
+| `Tuple[T1, T2]` | 元组，包含特定类型的元素 |
+| `Dict[K, V]` | 字典，键类型为 `K`，值类型为 `V` |
+| `Set[T]` | 集合，包含元素类型 `T` |
+| `Union[T1, T2]` | 联合类型，可以是 `T1` 或 `T2` |
+| `Optional[T]` | 可以是 `T` 类型，也可以是 `None` |
+| `Callable` | 表示函数或可调用对象 |
+| `Any` | 任意类型 |
+| `Literal` | 字面量类型 |
 
 
 ## 运算符
@@ -802,87 +819,66 @@ else:
 ### 语法
 
 ```py
-def 函数名称(形参1,形参2 = 形参2值,*args,**args):
+def example(positional, keyword=None, *args, **kwargs):
     """
-    形参1
-    形参2：可选参数
-    *args：解包为元组，可变参数
-    **args：解包为字典，可变参数
+    keyword=None 默认参数：在函数定义时为参数提供默认值，如果调用时未传递该参数，则使用默认值。
     """
-	代码
-	return 返回值	# 不带表达式的 return 相当于返回 None
-函数名称(实参)
+    print(f"Positional: {positional}")	# 位置参数：最常见的参数类型，按位置传递给函数。
+    print(f"Keyword: {keyword}")	 # 关键字参数：通过参数名传递给函数，顺序无关紧要。
+    print(f"Args: {args}")			# 可变位置参数：使用 *args 语法，允许传递任意数量的位置参数，参数在函数内部会被收集成一个元组。
+    print(f"Kwargs: {kwargs}")		# 可变关键字参数：使用 **kwargs 语法，允许传递任意数量的关键字参数，参数在函数内部会被收集成一个字典。
+
+# 调用示例
+example(1, keyword=2, 3, 4, a=5, b=6)
 ```
 
-==*和**的区别：==
+## 类与对象
 
-<img src="./Python.assets/image-20241008165608795.png" alt="image-20241008165608795" style="zoom: 67%;" />
-
-
-
-### 传入参数
-
-1. 位置参数
-
-   这是最常见的参数传递方式，按照函数定义时参数的位置顺序传递实际参数。
-
-```python
-def example_function(arg1, arg2):
-    # 函数体
-
-example_function(1, 'hello')
-```
-
-2. 关键字参数
-   在函数调用时，通过指定参数名来传递实际参数，不再依赖参数的位置。
+### 方法
 
 ```py
-example_function(arg2='world', arg1=2)
+# 1.实例方法：第一个参数是 self; 实例方法可以访问和修改实例的属性。
+class MyClass:
+    def instance_method(self):
+        return f"Instance method called on {self}"
+
+obj = MyClass()
+print(obj.instance_method())  # 输出: Instance method called on <__main__.MyClass object at 0x...>
+
+# 2.类方法：@classmethod 装饰器定义; 第一个参数是 cls，表示类本身; 类方法可以访问和修改类的属性。
+class MyClass:
+    class_attribute = "class attribute"
+
+    @classmethod
+    def class_method(cls):
+        return f"Class method called on {cls}, class attribute: {cls.class_attribute}"
+
+print(MyClass.class_method())  # 输出: Class method called on <class '__main__.MyClass'>, class attribute: class attribute
+
+# 3.静态方法：@staticmethod 装饰器定义; 无法访问或修改类或实例的状态，通常用于一些独立的功能。
+class MyClass:
+    @staticmethod
+    def static_method():
+        return "Static method called"
+
+print(MyClass.static_method())  # 输出: Static method called
 ```
 
-3. 默认参数
-   在函数定义时为参数指定默认值，在调用函数时如果没有提供对应参数的值，则使用默认值。
+### 继承
 
 ```py
-def example_function(arg1, arg2='default_value'):
-    # 函数体
-
-example_function(1)  # arg2 使用默认值 'default_value'
-```
-
-4. 可变位置参数
-   使用 * 来收集多余的位置参数，这些参数将以元组的形式传递给函数。==当用传入列表时，用*list来传参可保证位置不变==
-
-```py
-def example_function(arg1, *args):
-    # 函数体
-
-example_function(1, 'a', 'b', 'c')  # args 是一个包含 'a', 'b', 'c' 的元组
-```
-
-5. 可变关键字参数
-   使用 ** 来收集多余的关键字参数，这些参数将以字典的形式传递给函数。
-
-```py
-def example_function(arg1, **kwargs):
-    # 函数体
-
-example_function(1, key1='value1', key2='value2')  # kwargs 是一个包含 {'key1': 'value1', 'key2': 'value2'} 的字典
-```
-
-==注意：==如果单独出现星号 *****，则星号 ***** 后的参数必须用关键字传入：
-
-```py
->>> def f(a,b,*,c):
-...     return a+b+c
-... 
->>> f(1,2,3)   # 报错
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: f() takes 2 positional arguments but 3 were given
->>> f(1,2,c=3) # 正常
-6
->>>
+class parent_cl:	# 父类
+    def __init__(self, name):
+        self.name = name
+    def get_params(self):
+        return self.name
+class sub_cl(parent_cl):	# 子类
+    def __init__:
+        super().__init__()
+        pass
+    
+a = sub_cl("xvyang")
+print(a.get_params())
 ```
 
 ## 文件操作
@@ -1139,67 +1135,6 @@ with open('./test_runoob.txt', 'w') as my_file:
   a = (x for x in range(1,10))
   # a为(1, 2, 3, 4, 5, 6, 7, 8, 9)
   ```
-
-## 类与对象
-
-### 方法
-
-```py
-class 类名:
-    """
-    params:
-    	self：成员
-    	cls：类
-    """
-    # 构造方法
-    def __init__(self):
-        self.attribute = None		# 属性
-        self.__attribute = None		# 私有属性
-        pass
-    
-    # 成员方法
-    def self_func(self,attribute):
-        self.__attribute = attribute
-    # 类方法
-    @classmethod
-    def class_func(cls):
-        pass
-    
-    # 静态方法
-    @staticmethod
-    def static_func():
-        pass
-    
-    # 析构方法
-    def __del__():
-        pass
-"""
-类方法：
-	可调用：1.实例名 2.类名
-	- 无法使用成员属性
-	- 可使用类属性
-	
-静态方法：适用于辅助功能，只起到类似函数的作用（如：绘图）
-	可调用：1.实例名 2.类名
-	- 无法使用成员属性
-	- 无法使用类属性
-"""
-```
-
-### 继承
-
-```py
-class parent_cl:
-    def __init__:
-        pass
-class sub_cl(parent_cl):
-    def __init__:
-        pass
-a = sub_cl()
-print(a.__b)
-```
-
-
 
 ## Pycharm配置
 

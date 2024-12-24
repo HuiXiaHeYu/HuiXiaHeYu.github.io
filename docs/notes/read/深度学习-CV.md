@@ -57,30 +57,6 @@ $$
     | 0       | 1       | 0    |
     | 1       | 1       | 1    |
 
-```py
-# 简易实现
-def AND(x1,x2):
-    w1, w2, theta=0.5,0.5,0.7
-    tmp = x1*w1 + x2*w2
-    if tmp <= theta:
-        return 0
-    elif tmp > theta:
-        return 1
-```
-
-```py
-# numpy实现
-def AND(x1,x2):
-    x = np.array([x1,x2])
-    w = np.array([0.5,0.5])	# 权重
-    b = -0.7	# 偏置
-    tmp = np.sum(w*x) + b
-    if tmp <= 0:
-        return 0
-    else:
-        return 1
-```
-
 - 与非门（NAND gate）：仅当$x_{1}$和$x_{2}$同为1时输出0，其他时候输出1
   参数举例：$(w_{1},w_{2},\theta)=(-0.5,-0.5,-0.7)$
 
@@ -91,18 +67,6 @@ def AND(x1,x2):
     | 0       | 1       | 1    |
     | 1       | 1       | 0    |
 
-```py
-def NAND(x1, x2):
-    x = np.array([x1, x2])
-    w = np.array([-0.5, -0.5]) # 仅权重和偏置与AND不同！
-    b = 0.7
-    tmp = np.sum(w*x) + b
-    if tmp <= 0:
-        return 0
-    else:
-        return 1
-```
-
 - 或门（OR gate）：只要有一个输入信号是1，输出就为1
 
     | $x_{1}$ | $x_{2}$ | $y$  |
@@ -111,18 +75,6 @@ def NAND(x1, x2):
     | 1       | 0       | 1    |
     | 0       | 1       | 1    |
     | 1       | 1       | 1    |
-
-```py
-def OR(x1, x2):
-    x = np.array([x1, x2])
-    w = np.array([0.5, 0.5]) # 仅权重和偏置与AND不同！
-    b = -0.2
-    tmp = np.sum(w*x) + b
-    if tmp <= 0:
-        return 0
-    else:
-        return 1
-```
 
 #### 多层感知机-异或
 
@@ -147,23 +99,13 @@ def OR(x1, x2):
 | 0       | 1       | 1       | 1       | 1    |
 | 1       | 1       | 0       | 1       | 0    |
 
-![image-20240911094250880](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240911094250880.png)
-
-```py
-def XOR(x1, x2):
-    s1 = NAND(x1, x2)
-    s2 = OR(x1, x2)
-    y = AND(s1, s2)
-    return y
-```
-
-
+![image-20240911094250880](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240911094250880.png)
 
 ## 全连接的推理
 
 `优势：自动从数据中学习到合适的权重参数`
 
-![image-20240911094848754](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240911094848754.png)
+![image-20240911094848754](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240911094848754.png)
 
 ### 感知机 -> 全连接（NN）
 
@@ -193,26 +135,14 @@ $$
 y=x
 $$
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/output-1726145086461-6.png" style="zoom:67%;" />
-
-```py
-def identity_function(x):	# 恒等函数
-    return x
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1726145086461-6.png" style="zoom:67%;" />
 
 #### 阶跃函数
 
 `> 阈值的元素被转换为True；`
 `<= 阈值的元素被转换为False。`
 
-![output](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/output.png)
-
-```py
-def step_function(x):
-    # 此处的阈值为0
-    y = x > 0
-    return y.astype(np.int)
-```
+![output](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output.png)
 
 #### Sigmoid
 
@@ -229,12 +159,7 @@ $$
 f(x)=\frac1{1+e^{(-x)}}\\f'(x)=f(x)(1-f(x))
 $$
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733974112968-3.png" style="zoom: 67%;" />
-
-```py
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733974112968-3.png" style="zoom: 67%;" />
 
 #### Tanh
 
@@ -248,14 +173,7 @@ $$
 \tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\\f'(x)=1-f^2(x)
 $$
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733973734772-1.png" style="zoom: 67%;" />
-
-```py
-def tanh(x
-    return (math.exp(x) - math.exp(-x)) / (math.exp(x) + math.exp(-x))
-```
-
-
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733973734772-1.png" style="zoom: 67%;" />
 
 #### ReLU
 
@@ -274,12 +192,7 @@ $$
 f(x)=\left\{\begin{array}{ll}x&(x>0)\\0&(x\leqslant0)\end{array}\right.\\f'(x)=\begin{cases}1,x>0\\0,x\leq0\end{cases}
 $$
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733974167140-5.png" style="zoom:67%;" />
-
-```py
-def relu(x):
-    return np.maximum(0, x)
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733974167140-5.png" style="zoom:67%;" />
 
 #### Leaky ReLU
 
@@ -294,25 +207,7 @@ $$
 
 -  $\alpha$ 是一个很小的常数，比如 0.01
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733974699422-11.png" style="zoom:67%;" />
-
-```py
-# Leaky ReLU
-def leaky_relu(x, alpha=0.01):
-    """
-    Compute the Leaky ReLU activation function.
-    
-    Parameters:
-    - x: Input array or scalar.
-    - alpha: Slope of the function for x < 0. Default is 0.01.
-    
-    Returns:
-    - Transformed array or scalar.
-    """
-    return np.where(x >= 0, x, alpha * x)
-```
-
-
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733974699422-11.png" style="zoom:67%;" />
 
 #### ELU
 
@@ -329,23 +224,7 @@ $$
 
 - $\alpha$ 是一个可以调整的超参数，通常为1
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733974722617-13.png" style="zoom:67%;" />
-
-```py
-# ELU (Exponential Linear Unit)
-def elu(x, alpha=1.0):
-    """
-    Compute the ELU activation function.
-    
-    Parameters:
-    - x: Input array or scalar.
-    - alpha: Scaling factor for x <= 0. Default is 1.0.
-    
-    Returns:
-    - Transformed array or scalar.
-    """
-    return np.where(x > 0, x, alpha * (np.exp(x) - 1))
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733974722617-13.png" style="zoom:67%;" />
 
 #### Maxout
 
@@ -353,26 +232,7 @@ $$
 \text{Maxout}(x) = \max(w_1 x + b_1, w_2 x + b_2)
 $$
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733974744705-15.png" style="zoom:67%;" />
-
-```py
-# Maxout
-def maxout(x, w1=1.0, b1=0.0, w2=-0.5, b2=2.0):
-    """
-    Compute the Maxout activation function.
-    
-    Parameters:
-    - x: Input array or scalar.
-    - w1, b1: Parameters for the first linear function.
-    - w2, b2: Parameters for the second linear function.
-    
-    Returns:
-    - Transformed array or scalar, taking the maximum of the two linear functions.
-    """
-    linear1 = w1 * x + b1
-    linear2 = w2 * x + b2
-    return np.maximum(linear1, linear2)
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733974744705-15.png" style="zoom:67%;" />
 
 #### Softmax
 
@@ -386,33 +246,16 @@ $$
 y_k=\frac{e^{a_k}}{\sum_{i=1}^n e^{a_i}}
 $$
 
-```py
-def softmax_origin(a):
-    exp_a = np.exp(a)
-    sum_exp_a = np.sum(exp_a)
-    y = exp_a / sum_exp_a
-    return y
-```
-
 解决指数的溢出问题？指数减去常数C（输入信号的最大值）
 $$
 \begin{aligned}y_{k}=\frac{e^{a_{k}}}{\sum_{i=1}^{n}e^{a_{i}}}&=\frac{\mathrm{C}e^{a_{k}}}{\mathrm{C}\sum_{i=1}^{n}e^{a_{i}}}\\&=\frac{e^{(a_{k}+\log C)}}{\sum_{i=1}^{n}e^{(a_{i}+\log C)}}\\&=\frac{e^{(a_{k}+\mathrm{C}^{\prime})}}{\sum_{i=1}^{n}e^{(a_{i}+\mathrm{C}^{\prime})}}\end{aligned}
 $$
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/output-1733974217849-7.png" style="zoom:67%;" />
-
-```py
-def softmax_improve(a):
-    c = np.max (a)
-    exp_a = np.exp(a-c)	# 防止溢出
-    sum_exp_a = np.sum(exp_a)
-    y = exp_a / sum_exp_a
-    return y
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/output-1733974217849-7.png" style="zoom:67%;" />
 
 ### 神经网络图
 
-![image-20240912203525963](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240912203525963.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240912203525963.png" alt="image-20240912203525963" style="zoom:67%;" />
 
 参数解析：
 
@@ -420,76 +263,15 @@ def softmax_improve(a):
 - 右下角：后一层神经元到索引号、前一层的索引号
 - 为什么偏置右下角的索引号只有一个？前一层的偏置神经元（神经元“1”）只有一个
 
-![image-20240913080442865](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240913080442865.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240913080442865.png" alt="image-20240913080442865" style="zoom:67%;" />
 
-### 手写数字识别：推理
+### 前向传播
 
-> 前向传播：测试过程中神经网络的推理过程
+`测试过程中神经网络的推理过程`
 
-> 预处理：对输入数据进行转换的行为
->
-> - 如何对数据进行转换？均值、标准差，移动数据，数据整体以0为中心分布，正规化，数据整体的分布形状均匀化（数据白化）
+数组形状变化图：
 
-> 正规化：将数据限定到某个范围内的处理。如：将图像各个像素值除以255，数据值范围为[0.0~1.0]
-
-> 批处理：如一次性打包100张图作为输入数据
->
-> - 优势：缩短处理时间（大多数处理数值计算的库都进行了能够高效处理大型数组运算的最优化）
->
-> ![image-20240915170247814](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240915170247814.png)
-
-```py
-import sys, os
-sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
-import numpy as np
-import pickle
-from dataset.mnist import load_mnist
-from common.functions import sigmoid, softmax
-```
-
-```py
-def get_data():
-    (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, flatten=True, one_hot_label=False)
-    return x_test, t_test
-
- 
-def init_network():
-    with open("E:\Code\Python\deep_deeping\【源代码】深度学习入门：基于Python的理论与实现\【源代码】深度学习入门：基于Python的理论与实现\ch03\sample_weight.pkl", 'rb') as f:
-        network = pickle.load(f)
-    return network
-
-def predict(network, x):    # 前向传播进行预测
-    # 将784特征 -> 50 -> 100 -> 10 -> 10个概率，挑选出最大的概率的索引即为预测值
-    W1, W2, W3 = network['W1'], network['W2'], network['W3']
-    b1, b2, b3 = network['b1'], network['b2'], network['b3']
-
-    a1 = np.dot(x, W1) + b1     # (784) (784*50) (50,)
-    z1 = sigmoid(a1)
-    a2 = np.dot(z1, W2) + b2    # (10000*50) (50*100) (100,)
-    z2 = sigmoid(a2)
-    a3 = np.dot(z2, W3) + b3
-    y = softmax(a3)
-
-    return y
-```
-
-`数组形状变化图`
-
-![image-20240915170218952](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240915170218952.png)
-
-```py
-img_test, label_test = get_data()
-network = init_network()
-
-accuracy_cnt = 0
-for i in range(len(img_test)):
-    y = predict(network, img_test[i])
-    p= np.argmax(y) # 获取概率最高的元素的索引
-    if p == label_test[i]:
-        accuracy_cnt += 1
-
-print("Accuracy:" + str(float(accuracy_cnt) / len(img_test)))
-```
+![image-20240915170218952](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240915170218952.png)
 
 ## 全连接的学习
 
@@ -501,7 +283,7 @@ print("Accuracy:" + str(float(accuracy_cnt) / len(img_test)))
 
 举例（识别数字5）【白色框为人为介入】：
 
-![image-20240915173143225](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240915173143225.png)
+![image-20240915173143225](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240915173143225.png)
 
 - `人为设计算法`
 - `计算机视觉一般方法`：提取特征量（SIFT、SURF和HOG等），使用特征量将图像数据转换为向量，对向量使用机器学习中的SVM、KNN等分类器进行学习
@@ -525,11 +307,6 @@ $$
 - $t_{k}$：监督数据
 - $k$：数据的维数
 
-```py
-def mean_squared_error(y, t):
-    return 0.5 * np.sum((y-t)**2)
-```
-
 #### 交叉熵误差
 
 `cross entropy error，常用于分类问题`
@@ -541,21 +318,9 @@ $$
 - $y_{t}$：真实值
 - $\hat{y_{t}}$：预测值
 
-```py
-# 多分类【如果输出层只有两个神经元，则公式与二分类一致】
-def cross_entropy_error(y, t):
-    # 为什么要加入delta？防止np.log(0)的出现导致溢出
-    delta = 1e-7
-    return -np.sum(t * np.log(y + delta))
-```
-
 $$
 E=-(t\log y+(1-t)\log(1-y))
 $$
-
-```py
-# 二分类
-```
 
 
 
@@ -565,69 +330,6 @@ $$
 $$
 E=\frac{1}{n}\sum_n(\text{损失函数})
 $$
-
-### mini-batch
-
-#### 样本随机抽取实现
-
-`使用随机梯度下降，多次随机近似于总体分布。--大数定理`
-
-```py
-train_size = img_train.shape[0]		# 训练样本数
-batch_size = 10		# 批次大小
-batch_mask = np.random.choice(train_size, batch_size)
-# 此函数从总训练样本中随机抽取批次大小个标记数值
-img_batch = img_train[batch_mask]	# 根据标记数值从训练数据求训练样本
-label_batch = label_train[batch_mask]	# 根据标记数值从训练数据求训练样本的标签
-```
-
-### 交叉熵+平均损失+不同编码
-
-当监督数据为one-hot编码形式时：
-
-```python
-t * np.log(y)
-```
-
-```py
-def cross_entropy_error(y, t):
-    # y：神经网络的输出。(batch_size,)
-    # t：监督数据。如：[1,0,0,1,0]
-    if y.ndim == 1:
-        t = t.reshape(1, t.size)
-        y = y.reshape(1, y.size)
-
-    batch_size = y.shape[0]
-    return -np.sum(t * np.log(y + 1e-7)) / batch_size
-```
-
-当监督数据为标签形式时：
-
-```py
-np.log(y[np.arange (batch_size), t] )
-```
-
-```py
-def cross_entropy_error(y, t):
-    # y：神经网络的输出。(batch_size,)
-    # t：监督数据。如：[2,7,0,9,4]
-    if y.ndim == 1:
-        t = t.reshape(1, t.size)
-        y = y.reshape(1, y.size)
-
-    batch_size = y.shape[0]
-    return -np.sum(np.log(y[np.arange(batch_size), t] + 1e-7)) / batch_size
-```
-
-####  梯度如何指引方向？
-
-`损失函数的导数就是梯度，以梯度为指引，更新参数的值`
-
-- 导数值 < 0 时：可以使权重参数向正方向改变来减少损失函数的值
-- 导数值 > 0 时：可以使权重参数向负方向改变来减少损失函数的值
-- 导数值 = 0 时：无论权重参数向哪个方向变化，损失函数都不会改变，此时该权重参数的更新会停在此处
-
-为什么不使用识别精度作为指标？精度是一个数字，微调对权重参数影响不大，绝大多数地方的导数都会变为0，进而导致参数无法更新
 
 ### 梯度
 
@@ -668,34 +370,11 @@ $$
 \frac{\mathrm{d}f(x)}{\mathrm{d}x}=\lim_{h\to0}\frac{f(x+h)-f(x-h)}{2h}
 $$
 
-```py
-# 代码实现
-# 1.防止h无限小无法计算，设置为1e-4
-# 2.使用中心差分法减小误差
-def numerical_diff(f, x):
-    h = 1e-4	# 0.0001
-    return (f(x+h) - f(x-h)) / (2*h)
-```
-
 求偏导：
 $$
 f(x_0,x_1)=x_0^2+x_1^2
 $$
-![image-20240917104359888](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240917104359888.png)
-
-```py
-def function_tmp1(x0):
-    # 将x1固定为4
-    return x0*x0 + 4.0**2.0
-def function_tmp2(x1):
-    # 将x0固定为3
-    return 3.0**2.0 + x1*x1
-
-# 在(3,4)处求x0偏导
-numerical_diff(function_tmp1, 3.0)
-# 在(3,4)处求x0偏导
-numerical_diff(function_tmp2, 4.0)
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240917104359888.png" alt="image-20240917104359888" style="zoom:67%;" />
 
 #### 了解梯度
 
@@ -705,35 +384,9 @@ numerical_diff(function_tmp2, 4.0)
 
 $f(x_0,x_1)=x_0^2+x_1^2$的梯度图：
 
-![](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/Figure_1.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/Figure_1.png" style="zoom:67%;" />
 
 解析：损失函数为凹函数，为了损失函数变小（即收敛），通过向箭头指向位置更新参数x0和x1（即损失函数的导数趋于0的位置）。
-
-```py
-"""
-计算导数：数值微分(数字) -> 梯度(数组)：
-"""
-def numerical_gradient(f, x):
-    # f：损失函数
-    # x：数组
-    h = 1e-4 # 0.0001
-    grad = np.zeros_like(x) # 初始化梯度数组
-
-    for idx in range(x.size):
-        # 对数组中的每个值计算损失函数的导数
-        tmp_val = x[idx]
-        # f(x+h)的计算
-        x[idx] = tmp_val + h
-        fxh1 = f(x)
-        # f(x-h)的计算
-        x[idx] = tmp_val - h
-        fxh2 = f(x)
-
-        grad[idx] = (fxh1 - fxh2) / (2*h)
-        x[idx] = tmp_val # 还原数组
-
-    return grad
-```
 
 #### 梯度法
 
@@ -758,220 +411,27 @@ $$
   ==学习率过小：基本上没怎么更新就结束==
   ==一般会一边改变学习率的值，一边确认学习是否正确进行了==
 
-```py
-# 梯度下降法
-def gradient_descent(f, init_x, lr=0.01, step_num=100):
-    x = init_x
+### 随机梯度下降（SGD）
 
-    for i in range(step_num):
-        grad = numerical_gradient(f, x)
-        x -= lr * grad
+> Mini-Batch SGD为SGD的变体，每次使用一个小批量（mini-batch）样本计算梯度并更新参数
 
-    return x
-```
+通过样本随机抽取，实现随机梯度下降，多次随机近似于总体分布。--大数定理
 
-#### 梯度法实现
+###  如何通过梯度更新权重参数
 
-```py
-import sys, os
-sys.path.append(os.pardir)
-import numpy as np
-from common.functions import softmax, cross_entropy_error
-from common.gradient import numerical_gradient
+`损失函数的导数就是梯度，以梯度为指引，更新参数的值`
 
-class simpleNet:
-    def __init__(self):
-        self.W = np.random.randn(2,3) # 初始化【标准正态分布（高斯分布）】
+- 导数值 < 0 时：可以使权重参数向正方向改变来减少损失函数的值
+- 导数值 > 0 时：可以使权重参数向负方向改变来减少损失函数的值
+- 导数值 = 0 时：无论权重参数向哪个方向变化，损失函数都不会改变，此时该权重参数的更新会停在此处
 
-    def predict(self, x):
-        return np.dot(x, self.W)
+为什么不使用识别精度作为指标？精度是一个数字，微调对权重参数影响不大，绝大多数地方的导数都会变为0，进而导致参数无法更新
 
-    def loss(self, x, t):
-        # x：输入数据
-        # t：正确解
-        z = self.predict(x)
-        y = softmax(z)
-        loss = cross_entropy_error(y, t)
-
-        return loss
-```
-
-```py
-def f(W):
-    return net.loss(x,t)
-```
-
-```py
-t = np.array([0,0,1])	# 正确解
-net.loss(x,t)	# 算损失
-dW = numerical_gradient(f,net.W)	# 求梯度
-dW
-```
-
-### ==构建初级神经网络==
-
-> epoch：训练数据被使用一次epoch+1
->
-> mini-batch：随机选取训练数据（使用此方法训练成为随机梯度下降法SGD）
-
-神经网络的学习步骤：
-
-1. 选取训练数据：batch
-2. 计算梯度：损失函数值减小最多的方向
-3. 更新参数：权重参数沿梯度方向进行微小更新
-4. 重复1-3
-
-- batch选取：min-batch、等
-
-#### 基本类
-
-```py
-import sys, os
-sys.path.append(os.pardir)
-from common.functions import *
-from common.gradient import numerical_gradient
-
-# 双层神经网络【x：输入数据；t：监督数据】
-class TwoLayerNet:
-
-    def __init__(self, input_size, hidden_size, output_size,
-                 weight_init_std=0.01):
-        # 初始化权重
-        self.params = {}
-        self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)
-        self.params['b1'] = np.zeros(hidden_size)
-
-        self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
-        self.params['b2'] = np.zeros(output_size)
-
-    # 进行预测
-    def predict(self, x):
-        W1, W2 = self.params['W1'], self.params['W2']
-        b1, b2 = self.params['b1'], self.params['b2']
-
-        a1 = np.dot(x, W1) + b1
-        z1 = sigmoid(a1)
-        a2 = np.dot(z1, W2) + b2
-        y = softmax(a2)
-
-        return y
-
-    # 计算损失函数的值
-    def loss(self, x, t):
-        y = self.predict(x)
-
-        return cross_entropy_error(y, t)
-    
-    # 计算识别精度
-    def accuracy(self, x, t):
-        y = self.predict(x)
-        y = np.argmax(y, axis=1)
-        t = np.argmax(t, axis=1)
-
-        accuracy = np.sum(y == t) / float(x.shape[0])
-        return accuracy
-    
-    # 计算权重参数的梯度
-    def numerical_gradient(self, x, t):
-        loss_W = lambda W: self.loss(x, t)
-        # 初始化梯度
-        grads = {}
-        grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
-        grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
-        grads['W2'] = numerical_gradient(loss_W, self.params['W2'])
-        grads['b2'] = numerical_gradient(loss_W, self.params['b2'])
-
-        return grads
-```
-#### 随机小批量
-
-```py
-import numpy as np
-from dataset.mnist import load_mnist
-from two_layer_net import TwoLayerNet
-
-(x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label = True)
-
-train_loss_list = []
-
-# 超参数
-iters_num = 10000
-train_size = x_train.shape[0]
-batch_size = 100
-learning_rate = 0.1
-
-network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
-
-for i in range(iters_num):
-    # 获取mini-batch(随机选择)
-    batch_mask = np.random.choice(train_size, batch_size)
-    x_batch = x_train[batch_mask]
-    t_batch = t_train[batch_mask]
-
-    # 计算梯度
-    # grad = network.numerical_gradient(x_batch, t_batch)
-    grad = network.gradient(x_batch, t_batch) # 高速版!
-
-    # 更新参数
-    for key in ('W1', 'b1', 'W2', 'b2'):
-        network.params[key] -= learning_rate * grad[key]
-
-    # 记录学习过程
-    loss = network.loss(x_batch, t_batch)
-    train_loss_list.append(loss)
-```
-#### 记录精度（epoch）
-
-```py
-import numpy as np
-from dataset.mnist import load_mnist
-# from two_layer_net import TwoLayerNet
-
-(x_train, t_train), (x_test, t_test) =  load_mnist(normalize=True, one_hot_label = True)
-
-train_loss_list = []
-train_acc_list = []
-test_acc_list = []
-# 平均每个epoch的重复次数
-iter_per_epoch = max(train_size / batch_size, 1)
-
-# 超参数
-iters_num = 10000
-batch_size = 100
-learning_rate = 0.1
-
-network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
-
-for i in range(iters_num):
-    # 获取mini-batch
-    batch_mask = np.random.choice(train_size, batch_size)
-    x_batch = x_train[batch_mask]
-    t_batch = t_train[batch_mask]
-
-    # 计算梯度
-    grad = network.numerical_gradient(x_batch, t_batch)
-    # grad = network.gradient(x_batch, t_batch) # 高速版!
-
-    # 更新参数
-    for key in ('W1', 'b1', 'W2', 'b2'):
-        network.params[key] -= learning_rate * grad[key]
-
-    loss = network.loss(x_batch, t_batch)
-    train_loss_list.append(loss)
-    # 计算每个epoch的识别精度
-    if i % iter_per_epoch == 0:
-        train_acc = network.accuracy(x_train, t_train)
-        test_acc = network.accuracy(x_test, t_test)
-        train_acc_list.append(train_acc)
-        test_acc_list.append(test_acc)
-        print("train acc, test acc | " + str(train_acc) + ", " + str(test_acc))
-```
-
-## 误差反向传播
+### 误差反向传播
 
 `数值微分速度太慢，误差反向传播法可以极大的提升计算速度`
 
-### 计算图
+#### 计算图是什么？
 
 `计算图将计算过程用图形表示出来`
 
@@ -983,20 +443,12 @@ for i in range(iters_num):
 
 计算图举例：太郎在超市买了2个苹果、3个橘子。其中，苹果每个100日元，橘子每个150日元。消费税是10%，请计算支付金额？
 
-![image-20240918092122566](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918092122566.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918092122566.png" alt="image-20240918092122566" style="zoom: 80%;" />
 
 - 正向传播：从左向右进行计算
 - 反向传播：从右向左进行计算
 
-### 链式法则
-
-#### 计算图的反向传播
-
-==反向传播的计算顺序==：将节点的输入信号乘以节点的局部倒数（偏导数），然后再传递给下一个节点
-
-![image-20240918140438143](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918140438143.png)
-
-#### 计算图的链式法则
+#### 链式法则
 
 公式：
 $$
@@ -1013,7 +465,7 @@ $$
 $$
 反向传播计算图：
 
-![image-20240918143651688](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918143651688.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918143651688.png" alt="image-20240918143651688" style="zoom:67%;" />
 
 `加法的反向传播`：将上游的值传给下游，并不需要正向传播的输入信号
 
@@ -1021,400 +473,59 @@ $$
 
 苹果和橘子问题反向传播计算图：
 
-![image-20240918151307894](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918151307894.png)
-
-### 简单层的实现
-
-#### 加法层
-
-`加法层的反向传播：乘1`
-
-```py
-class AddLayer:
-    def __init__(self):
-        pass
-
-    def forward(self, x, y):
-        out = x + y
-        return out
-
-    def backward(self, dout):
-        dx = dout * 1
-        dy = dout * 1
-        return dx, dy
-```
-
-#### 乘法层
-
-`乘法层的反向传播：乘“翻转的x和y”`
-
-```py
-class MulLayer:
-    def __init__(self):
-        self.x = None
-        self.y = None
-
-    def forward(self, x, y):
-        self.x = x
-        self.y = y
-        out = x * y
-
-        return out
-
-    def backward(self, dout):
-        dx = dout * self.y # 翻转x和y
-        dy = dout * self.x
-
-        return dx, dy
-```
-
-#### 举例：苹果和橘子问题
-
-```py
-apple = 100
-apple_num = 2
-orange = 150
-orange_num = 3
-tax = 1.1
-
-# layer
-mul_apple_layer = MulLayer()
-mul_orange_layer = MulLayer()
-add_apple_orange_layer = AddLayer()
-mul_tax_layer = MulLayer()
-
-# forward
-apple_price = mul_apple_layer.forward(apple, apple_num) #(1)
-orange_price = mul_orange_layer.forward(orange, orange_num) #(2)
-all_price = add_apple_orange_layer.forward(apple_price, orange_price) #(3)
-price = mul_tax_layer.forward(all_price, tax) #(4)
-
-# backward
-dprice = 1
-dall_price, dtax = mul_tax_layer.backward(dprice) #(4)
-dapple_price, dorange_price = add_apple_orange_layer.backward(dall_price) #(3)
-dorange, dorange_num = mul_orange_layer.backward(dorange_price) #(2)
-dapple, dapple_num = mul_apple_layer.backward(dapple_price) #(1)
-
-print(price) # 715
-print(dapple_num, dapple, dorange, dorange_num, dtax) # 110 2.2 3.3 165 650
-```
-
-### 激活函数-反向传播
-
-`函数、计算图、导数`
-
-#### ReLU
-
-$$
-y=\begin{cases}x&(x>0)\\0&(x\leqslant0)\end{cases}
-$$
-
-![image-20240918203311829](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918203311829.png)
-$$
-\frac{\partial y}{\partial x}=\begin{cases}1&(x>0)\\0&(x\leqslant0)\end{cases}
-$$
-
-```py
-class Relu:
-    def __init__(self):
-        self.mask = None
-
-    def forward(self, x):
-        # (x<=0)：此表达式为判断x中元素是否<0，若<0则为True赋值给mask
-        self.mask = (x <= 0)
-        out = x.copy()
-        out[self.mask] = 0
-
-        return out
-
-    def backward(self, dout):
-        # 反向传播中会使用正向传播时保存的mask，将从上游传来的dout的mask中的元素为True的地方设为 0
-        dout[self.mask] = 0
-        dx = dout
-
-        return dx
-```
-
-#### Sigmoid
-
-$$
-y=\frac{1}{1+\exp(-x)}
-$$
-
-![image-20240918203204507](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918203204507.png)
-$$
-\frac{\partial y}{\partial x}=\frac{\partial L}{\partial y}y(1-y)
-$$
-
-```py
-class Sigmoid:
-    def __init__(self):
-        self.out = None
-
-    def forward(self, x):
-        # 正向传播将输出保存在out中
-        out = 1 / (1 + np.exp(-x))
-        self.out = out
-
-        return out
-
-    def backward(self, dout):
-        # 反向传播使用out进行计算
-        dx = dout * (1.0 - self.out) * self.out
-
-        return dx
-```
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918151307894.png" alt="image-20240918151307894" style="zoom:67%;" />
 
 
 
-### Affine层
+#### 反向传播计算图
+
+==反向传播的计算顺序==：将节点的输入信号乘以节点的局部倒数（偏导数），然后再传递给下一个节点
+
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918140438143.png" alt="image-20240918140438143" style="zoom:67%;" />
+
+#### 线性层的反向传播
 
 > 仿射变换：在几何中包括一次线性变换和一次平移，即加权和运算、加偏置运算
 
 单数据Affine层计算图：
 
-![image-20240918204945600](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918204945600.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918204945600.png" alt="image-20240918204945600" style="zoom:67%;" />
 
 批版本Affine层计算图：
 
-![image-20240918210329672](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240918210329672.png)
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918210329672.png" alt="image-20240918210329672" style="zoom:67%;" />
 
 偏置在正向传播中使用广播机制加到$x*w$中
 
 反向传播中各个数据的反向传播值要汇总为偏置的元素
 
-```py
-class Affine:
-    def __init__(self, W, b):
-        self.W = W
-        self.b = b
-        self.x = None
-        self.dW = None
-        self.db = None
+#### 激活函数层的反向传播
 
-    def forward(self, x):
-        self.x = x
-        out = np.dot(x, self.W) + self.b
+`函数、计算图、导数`
 
-        return out
+##### ReLU
 
-    def backward(self, dout):
-        dx = np.dot(dout, self.W.T)
-        self.dW = np.dot(self.x.T, dout)
-        self.db = np.sum(dout, axis=0)
+$$
+y=\begin{cases}x&(x>0)\\0&(x\leqslant0)\end{cases}
+$$
 
-        return dx
-```
+![image-20240918203311829](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918203311829.png)
+$$
+\frac{\partial y}{\partial x}=\begin{cases}1&(x>0)\\0&(x\leqslant0)\end{cases}
+$$
 
-### Softmax-with-loss层
+##### Sigmoid
 
-`softmax将数值正规化转化为概率`
+$$
+y=\frac{1}{1+\exp(-x)}
+$$
 
-推理不需要softmax：推理求最大项
-
-学习需要softmax：作为每一层的激活函数
-
-```py
-class SoftmaxWithLoss:
-    def __init__(self):
-        self.loss = None # 损失
-        self.y = None    # softmax的输出
-        self.t = None    # 监督数据(one-hot vector)
-
-    def forward(self, x, t):
-        self.t = t
-        self.y = softmax(x)
-        # 交叉熵损失函数
-        self.loss = cross_entropy_error(self.y, self.t)
-
-        return self.loss
-
-    def backward(self, dout=1):
-        batch_size = self.t.shape[0]
-        # 反向传播时，将要传播的值除以批的大小(batch_size)后，传递给前面的层的是单个数据的误差
-        dx = (self.y - self.t) / batch_size
-
-        return dx
-```
-
-### 误差反向传播实现
-
-#### 函数
-
-```py
-import sys, os
-sys.path.append(os.pardir)
-import numpy as np
-from common.layers import *
-from common.gradient import numerical_gradient
-from collections import OrderedDict
-
-class TwoLayerNet:
-
-    def __init__(self, input_size, hidden_size, output_size,
-                 weight_init_std=0.01):
-        # 初始化权重
-        self.params = {}
-        self.params['W1'] = weight_init_std * \
-                            np.random.randn(input_size, hidden_size)
-        self.params['b1'] = np.zeros(hidden_size)
-        self.params['W2'] = weight_init_std * \
-                            np.random.randn(hidden_size, output_size)
-        self.params['b2'] = np.zeros(output_size)
-
-        # 层设计
-        # 运行：以正确的顺序连接各层【正向传播】，再按顺序（或者逆序）调用各层【反向传播】
-        self.layers = OrderedDict() # 将神经网络层保存在OrderedDict中
-        # 输入、隐藏、输出层
-        self.layers['Affine1'] = \
-            Affine(self.params['W1'], self.params['b1'])
-        self.layers['Relu1'] = Relu()
-
-        self.layers['Affine2'] = \
-            Affine(self.params['W2'], self.params['b2'])
-
-        self.lastLayer = SoftmaxWithLoss()
-
-    # 进行推理
-    def predict(self, x):
-        # x:图像数据
-        for layer in self.layers.values():
-            x = layer.forward(x)
-
-        return x
-
-    # 计算损失函数的值
-    def loss(self, x, t):
-        # x:输入数据, t:监督数据
-        y = self.predict(x)
-        return self.lastLayer.forward(y, t)
-
-    # 计算识别精度
-    def accuracy(self, x, t):
-        y = self.predict(x)
-        y = np.argmax(y, axis=1)
-        if t.ndim != 1 : t = np.argmax(t, axis=1)
-        accuracy = np.sum(y == t) / float(x.shape[0])
-        return accuracy
-
-    # 通过数值微分计算关于权重参数的梯度
-    def numerical_gradient(self, x, t):
-        # x:输入数据, t:监督数据
-        loss_W = lambda W: self.loss(x, t)
-
-        grads = {}
-        grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
-        grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
-        grads['W2'] = numerical_gradient(loss_W, self.params['W2'])
-        grads['b2'] = numerical_gradient(loss_W, self.params['b2'])
-
-        return grads
-
-    # 通过误差反向传播法计算关于权重参数的梯度
-    def gradient(self, x, t):
-        # forward
-        self.loss(x, t)
-
-        # backward
-        dout = 1
-        dout = self.lastLayer.backward(dout)
-
-        layers = list(self.layers.values())
-        layers.reverse()
-        for layer in layers:
-            dout = layer.backward(dout)
-
-        # 设定
-        grads = {}
-        grads['W1'] = self.layers['Affine1'].dW
-        grads['b1'] = self.layers['Affine1'].db
-        grads['W2'] = self.layers['Affine2'].dW
-        grads['b2'] = self.layers['Affine2'].db
-
-        return grads
-```
-
-```py
-import sys, os
-sys.path.append(os.pardir)
-import numpy as np
-from dataset.mnist import load_mnist
-from two_layer_net import TwoLayerNet
-
-# 读入数据
-(x_train, t_train), (x_test, t_test) = \
-    load_mnist(normalize=True, one_hot_label=True)
-
-network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
-
-iters_num = 10000
-train_size = x_train.shape[0]
-batch_size = 100
-learning_rate = 0.1
-train_loss_list = []
-train_acc_list = []
-test_acc_list = []
-
-iter_per_epoch = max(train_size / batch_size, 1)
-
-for i in range(iters_num):
-    batch_mask = np.random.choice(train_size, batch_size)
-    x_batch = x_train[batch_mask]
-    t_batch = t_train[batch_mask]
-
-    # 通过误差反向传播法求梯度
-    grad = network.gradient(x_batch, t_batch)
-
-    # 更新
-    for key in ('W1', 'b1', 'W2', 'b2'):
-        network.params[key] -= learning_rate * grad[key]
-
-    loss = network.loss(x_batch, t_batch)
-    train_loss_list.append(loss)
-
-    if i % iter_per_epoch == 0:
-        train_acc = network.accuracy(x_train, t_train)
-        test_acc = network.accuracy(x_test, t_test)
-        train_acc_list.append(train_acc)
-        test_acc_list.append(test_acc)
-        print(train_acc, test_acc)
-```
-
-#### 梯度确认
-
-> 为什么要确认梯度？
->
-> 误差反向传播法高效，但较为复杂。使用数值微分法的结果和误差反向传播法的结果进行比较，以确认误差反向传播法是否正确
-
-```py
-import sys, os
-sys.path.append(os.pardir)
-import numpy as np
-from dataset.mnist import load_mnist
-from two_layer_net import TwoLayerNet
-
-# 读入数据
-(x_train, t_train), (x_test, t_test) = \ load_mnist(normalize=True, one_
-hot_label = True)
-
-network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
-
-x_batch = x_train[:3]
-t_batch = t_train[:3]
-
-grad_numerical = network.numerical_gradient(x_batch, t_batch)
-grad_backprop = network.gradient(x_batch, t_batch)
-
-# 求各个权重的绝对误差的平均值
-for key in grad_numerical.keys():
-    diff = np.average( np.abs(grad_backprop[key] - grad_numerical[key]) )
-    print(key + ":" + str(diff))
-```
+![image-20240918203204507](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240918203204507.png)
+$$
+\frac{\partial y}{\partial x}=\frac{\partial L}{\partial y}y(1-y)
+$$
 
 ## 训练技巧
-
-
 
 ### 数据预处理基础
 
@@ -1441,14 +552,14 @@ $$
 \frac{X_i-\mu}\sigma
 $$
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241212101040615.png" alt="image-20241212101040615" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241212101040615.png" alt="image-20241212101040615" style="zoom: 67%;" />
 
 #### PCA/白化
 
 - PCA降维：将去均值后的数据投影到主成分，去掉特征和特征之间的相关性
 - 白化：PCA的基础上，对转换后的数据每个特征轴上的幅度进行标准化
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241212102143881.png" alt="image-20241212102143881" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241212102143881.png" alt="image-20241212102143881" style="zoom: 50%;" />
 
 ### 数据预处理--归一化
 
@@ -1483,7 +594,7 @@ $$
 >
 > 注：实际推理过程中使用的 $\gamma$ 和 $\beta$ 来自于训练得到
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241213164206788.png" alt="image-20241213164206788" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241213164206788.png" alt="image-20241213164206788" style="zoom:67%;" />
 
 1. 求每个训练批次数据的均值
 2. 求每个训练批次数据的方差
@@ -1564,7 +675,7 @@ $$
 >
 > GN = LN + IN
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241213201631836.png" alt="image-20241213201631836" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241213201631836.png" alt="image-20241213201631836" style="zoom:50%;" />
 
 **总结**
 
@@ -1574,9 +685,9 @@ $$
 
 ##### 归一化效果对比
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241213201749628.png" alt="image-20241213201749628" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241213201749628.png" alt="image-20241213201749628" style="zoom:67%;" />
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241213201715303.png" alt="image-20241213201715303" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241213201715303.png" alt="image-20241213201715303" style="zoom:67%;" />
 
 ##### Switchable Normalization Layer
 
@@ -1584,7 +695,7 @@ $$
 >
 > SN = BN + IN + LN
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241213201228993.png" alt="image-20241213201228993" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241213201228993.png" alt="image-20241213201228993" style="zoom:67%;" />
 $$
 \hat{h}_{ncij}=\gamma\frac{h_{ncij}-\Sigma_{k\in\Omega}w_k\mu_k}{\sqrt{\Sigma_{k\in\Omega}w_k^{\prime}\sigma_k^2+\epsilon}}+\beta,
 $$
@@ -1635,7 +746,7 @@ $$
 $$
 W\sim U{\left[-\sqrt{\frac6{n_j+n_{j+1}}},\sqrt{\frac6{n_j+n_{j+1}}}\right]}
 $$
-![image-20240920133056982](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920133056982.png)
+![image-20240920133056982](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920133056982.png)
 
 使用tanh函数代替sigmoid函数，会改善歪斜的问题（关于原点对称）
 
@@ -1643,119 +754,156 @@ $$
 
 前一层的节点数为n，初始值使用标准差为$\frac{2}{\sqrt{n}}$的高斯分布
 
-![image-20240920133638006](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920133638006.png)
+![image-20240920133638006](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920133638006.png)
 
-### 权重参数的更新方法
+### ==优化器==
 
-> 最优化（optimization）：寻找最优参数
+> 优化的目标是寻找一组模型参数，使得模型在所有训练数据上平均损失最小。
+>
+> 对于参数的迭代更新 $\theta\leftarrow\theta-\eta g$ ，基本都是基于历史的梯度或者学习率进行一个调整。
+>
+> 1. 梯度修正 $g$
+> 2. 学习率 $\eta$ 调整
 
 #### SGD
 
 `随机梯度下降法（stochastic gradient descent/SGD）：使用参数的梯度，沿梯度方向更新参数，并重复步骤，从而逐渐靠近最优参数`
 
-> SGD低效的根本原因：梯度的方向并没有指向最小值的方向
+> 用单个训练样本的损失来近似平均损失，即每次随机采样一个样本来估计当前梯度，对模型参数进行一次更新
 
 $$
-W\leftarrow W-\eta\frac{\partial L}{\partial W}
+\theta_{t+1}=\theta_t-\eta\nabla L(\theta_t;x_i,y_i)\\
+\theta_{t+1}=\theta_t-\eta g_t
 $$
 
-- $\eta$表示学习率
+- $g_t=\nabla L(\theta_t;x_i,y_i)$：梯度
+- $\eta$：学习率
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920084024400.png" alt="image-20240920084024400" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920084024400.png" alt="image-20240920084024400" style="zoom: 67%;" />
 
-```py
-class SGD:
-    def __init__(self, lr=0.01):
-        self.lr = lr    # 学习率
+优点：训练速度快，内存开销小。
 
-    def update(self, params, grads):    # 更新权重参数
-        for key in params.keys():
-            params[key] -= self.lr * grads[key]
+缺点：SGD每步接受的信息有限，对梯度的估计准确性低，造成目标函数的收敛不稳定伴有震荡甚至出现不收敛。随机性大，并不保证全局最优化。
+
+```python
+opt = optim.SGD(net.parameters(), lr=0.01）
 ```
 
-#### Momentum
+#### SGD+Momentum
 
 `根据历史梯度更新方向稳定当前轮次梯度更新方向`
 
-> 模拟运动的惯性，在每一步更新中，考虑当前的梯度信息和之前步骤的动量信息，来平滑梯度的波动并加速收敛
+> 考虑了带衰减系数的前一步，加速SGD，抑制震荡
 
 $$
-v\leftarrow\alpha v-\eta\frac{\partial L}{\partial W}\\W\leftarrow W+v
+m_{t}=\beta_{1}m_{t-1}+\eta\nabla L(\theta_{t})\\
+\theta_{t+1}=\theta_{t}-m_{t}
 $$
 
-- a：动量衰减系数
-- v：当前动量
-
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920101033514.png" alt="image-20240920101033514" style="zoom:67%;" />
+- $\beta$：动量衰减系数
+- 优点：比SGD收敛更快，目标函数的收敛更稳定，减少在鞍点等的震荡。
+- 缺点：保持惯性，缺乏适应性。梯度方向不变的维度上速度变快，梯度方向有所改变的维度上的更新速度变慢 。
 
 ```py
-class Momentum:
-    def __init__(self, lr=0.01, momentum=0.9):
-        self.lr = lr
-        self.momentum = momentum
-        self.v = None	# 初始化时，v为空
+opt = optim.SGD(net.parameters(), lr=0.01, momentum=0.03）
+```
 
-    def update(self, params, grads):
-        if self.v is None:
-            # 第一次调用update时：赋值给v参数相同数据（除了值为0）
-            self.v = {}
-            for key, val in params.items():
-                self.v[key] = np.zeros_like(val)
+#### NAG
 
-        for key in params.keys():
-            self.v[key] = self.momentum*self.v[key] - self.lr*grads[key]
-            params[key] += self.v[key]
+在SGD+Momentum上增加“提前量”设计，在计算梯度时做了调整，用θt−β1mt−1θt−β1mt−1来近似当作参数下一步会变成的值，计算未来可能位置处的梯度而非当前位置的梯度。
+$$
+m_{t}=\beta_{1}m_{t-1}+\eta\nabla L(\theta_{t}-\beta_{1}m_{t-1})\\
+\theta_{t+1}=\theta_{t}-m_{t}
+$$
+
+- 优点：改进Momentum方法，防止按照惯性走的太快，会衡量一下梯度做出修正
+
+```py
+opt = optim.SGD(net.parameters(), lr=0.01, momentum=0.03, nesterov=0.02)
 ```
 
 #### AdaGrad
 
-> 学习率衰减（learning rate decay）：随着学习的进行，按参数的元素进行学习率衰减，使变动大的参数的学习率逐渐减小
+> 自适应地确定参数的学习速度，对更新频率低的参数做较大的更新，对更新频率高的参数做较小的更新。
 >
-> - 学习率衰减为0：使用RMSProp方法，逐渐遗忘过去的梯度【指数移动平均：呈指数函数式地减小过去的梯度的尺度】
+> 采用“历史梯度平方和”来衡量不同参数的梯度的稀疏性，取值越小表明越稀疏。
 
 $$
-h\leftarrow h+\frac{\partial L}{\partial W}\odot\frac{\partial L}{\partial W}\\W\leftarrow W-\eta\frac{1}{\sqrt{h}}\frac{\partial L}{\partial W}
+\theta_{t+1,i}=\theta_{t,i}-\frac\eta{\sqrt{\sum_{k=0}^tg_{k,i}^2}+\epsilon}g_{t,i}
 $$
 
-- $\odot$：对应矩阵元素乘积
-- h：以前的所有梯度值的平方和
+- 优点：减少学习率的手动调整，更适用于稀疏数据，提高SGD的鲁棒性。
+- 缺点：分母会不断累积，学习率衰减越来越快。
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920125130770.png" alt="image-20240920125130770" style="zoom:67%;" />
+#### RMSProp
 
-```py
-class AdaGrad:
-    def __init__(self, lr=0.01):
-        self.lr = lr
-        self.h = None
+> 为了解决 AdaGrad 学习率急剧下降
+>
+> 是 Geoff Hinton 提出的一种自适应学习率方法。结合了Momentum的惯性原则，加上AdaGrad对错误方向的阻力。但是缺少了Momentum的一部分，因此后面Adam补上这个想法。
 
-    def update(self, params, grads):
-        if self.h is None:
-            self.h = {}
-            for key, val in params.items():
-                self.h[key] = np.zeros_like(val)
+$$
+v_{t}=\beta_{1}v_{t-1}+(1-\beta_{1})g_{t}^{2}\\\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{v_{t}+\epsilon}}g_{t}
+$$
 
-        for key in params.keys():
-            self.h[key] += grads[key] * grads[key]
-            # 加微小值1e-7防止溢出
-            params[key] -= self.lr * grads[key] / (np.sqrt(self.h[key]) + 1e-7)
-```
+- 优点：解决 AdaGrad 学习率急剧下降
+
+#### AdaDelta
+
+> 为了解决 AdaGrad 学习率急剧下降
+>
+> 针对AdaGrad改进：因为AdaGrad采用所有历史梯度平方和的平方根做分母，分母随时间单调递增，产生的自适应学习速率随时间衰减的速度过于激进 。AdaDelta 采用指数衰减平均的计算方法，用过去梯度平方的衰减平均值代替他们的求和。 这个分母相当于梯度的均方根 root mean squared (RMS)，在数据统计分析中，将所有值平方求和，求其均值，再开平方，就得到均方根值。
+
+$$
+\begin{aligned}&\theta_{t+1}=\theta_{t}-\frac{RMS[\Delta\theta]_{t-1}}{RMS[g]_{t}}g_{t}\\&E[g^{2}]_{t}=\gamma E[g^{2}]_{t-1}+(1-\gamma)g_{t}^{2}\\&E[\Delta\theta^{2}]_{t}=\gamma E[\Delta\theta^{2}]_{t-1}+(1-\gamma)\Delta\theta_{t}^{2}\end{aligned}
+$$
+
+- 优点：不需要提取设定学习速率，使用指数衰减平均计算，防止学习速率衰减过快
 
 #### Adam
 
-> 1. 融合了Monmentum和AdaGrad方法
-> 2. 超参数的“偏置校正”
+> 结合Momentum和AdaGrad的优点，即考虑**过去梯度的平方**的指数衰减平均值，也保持**过去梯度**的指数衰减平均值。还包含了偏置修正，修正从0初始化的一阶矩和二阶矩的估计
 
-Adam的参数：
+$$
+m_{t}=\beta_{1}m_{t-1}+(1-\beta_{1})g_{t}\\
+v_{t}=\beta_{2}v_{t-1}+(1-\beta_{2})g_{t}^{2}\\
+\hat{m}_{t}=\frac{m_{t}}{1-\beta_{1}^{t}} \quad \hat{v}_{t}=\frac{v_{t}}{1-\beta_{2}^{t}}\\
+\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{\hat{v}_{t}+\epsilon}}\hat{m}_{t}
+$$
 
-- 学习率：$\alpha$
-- momentum系数：$\beta_{1}$
-- 二次momentum系数：$\beta_{2}$
+- 优点：为不同参数产生自适应的学习速率。
 
-#### 结果的影响因素
+#### AdaMax
 
-1. 根据要解决的问题而不同
-2. 学习率等超参数、神经网络的结构（几层深等）的不同而不同
-3. 一般来说，除了SGD，其他三种方法学习更快，识别精度更高
+> Adamax优化器来自于Adam的[论文](https://arxiv.org/pdf/1412.6980.pdf)的Section7，该方法是基于无穷范数的Adam方法的变体，对梯度平方的处理由指数衰减平均改为指数衰减求最大值。在Adam中，单个权重的更新规则是将其梯度与当前和过去梯度的 $L^2$ 范数（标量）成反比例缩放。作者又将基于 $L^2$ 范数的更新规则泛化到基于 $L^p$ 范数的更新规则中。
+
+$$
+\begin{aligned}v_{t}&=\beta_{2}^{p}v_{t-1}+(1-\beta_{2}^{p})|g_{t}|^{p}\\&=(1-\beta_{2}^{p})\sum_{i}^{t}\beta_{2}^{p(t-i)}\cdot\left|g_{i}\right|^{p}\end{aligned}
+$$
+
+虽然这样的变体会因为 $p$ 的值较大而在数值上变得不稳定，但是在特例中，令$p\to\infty$会得出一个极其稳定和简单的算法。
+$$
+\begin{aligned}u_{t}&=\lim_{p\to\infty}(v_t)^{1/p}\\&=\max(\beta_2\cdot u_{t-1},|g_t|)\end{aligned}
+$$
+由于 $u_t$ 依赖于max操作，所以AdaMax不像在Adam中 $m_t$ 和 $v_t$ 的偏差趋向于0，所以不需要计算 $u_t$ 的偏差校正（$u_0=0$）
+$$
+m_{t}=\beta_{1}m_{t-1}+(1-\beta_{1})g_{t}\\
+u_{t}=\max(\beta_{2}u_{t-1},|g_{t}|)\\
+\theta_{t+1}=\theta_{t}-\frac{\eta}{u_{t}}m_{t}
+$$
+
+
+#### AdamW
+
+在Ilya Loshchilov & Frank Hutter 的论文[Decoupled weight decay regularization](https://arxiv.org/pdf/1711.05101.pdf)中，把Adam中的**权重衰减**和**基于损失的梯度更新**解耦（AdamW）。发现在Adam这种自适应学习率算法中L2正则化不像在SGD中有效：
+
+1. L2正则化和Weight Decay并不等价，只有在标准的SGD下可以把两者等价。特别当与自适应梯度相结合时，L2正则化导致具有较大历史参数或梯度幅度的权重比使用权重衰减时更小。
+2. 使用Adam优化带L2正则的损失并不有效。如果引入L2正则化项，在计算梯度的时候会加上正则项求梯度的结果。正常的权重衰减是对所有的权重都采用相同的系数进行更新，本身比较大的一些权重对应的梯度也会比较大，惩罚也越大。但由于Adam计算步骤中减去项会有除以梯度平方的累积，使得梯度大的减去项偏小，从而具有大梯度的权重不会像解耦权重衰减那样得到正则化。 这导致自适应梯度算法的L2和解耦权重衰减正则化的不等价。
+
+而在常见的深度学习库中只提供了L2正则，并没有提供权重衰减的实现。这可能就是导致Adam跑出来的很多效果相对SGD with Momentum有偏差的一个原因。大部分的模型都会有L2 regularization约束项，因此很有可能出现Adam的最终效果没有SGD的好。目前bert训练采用的优化方法就是AdamW，对除了layernorm，bias项之外的模型参数做weight decay。
+
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/1630237-20210418233700398-876409822.png" alt="img" style="zoom:67%;" />
+
+Adam的weight decay发生在紫字部分，所以由于 $g^2$ 作分母，会使得大的梯度得不到足够力度的正则化；而AdamW把weight decay放在了绿字部分，所以能有效的正则化。
 
 ### 防过拟合
 
@@ -1782,7 +930,7 @@ batch norm的优点：
 - 不那么依赖初始值
 - 抑制过拟合（降低Dropout等的必要性）
 
-![image-20240920135741507](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920135741507.png)
+![image-20240920135741507](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920135741507.png)
 
 步骤：
 
@@ -1798,7 +946,7 @@ $$
 y_i\leftarrow\gamma\hat{x}_i+\beta
 $$
 
-![image-20240920144952611](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240920144952611.png)
+![image-20240920144952611](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920144952611.png)
 
 ###
 
@@ -1812,7 +960,7 @@ $$
 
 为损失函数加上权重的$L_{2}$范数->抑制权重变大
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240926131809749.png" alt="image-20240926131809749" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240926131809749.png" alt="image-20240926131809749" style="zoom:50%;" />
 
 如：$\frac{1}{2}\lambda W^{2}$
 
@@ -1833,29 +981,10 @@ $$
 >
 > 类似于集成学习（多个模型单独学习，推理时取多个模型的输出的平均值）
 >
-> - 学习时：随机删除神经元->每一次都让不同的模型进行学习
+> - 学习时：随机删除神经元->每一次 都让不同的模型进行学习
 > - 推理时：对神经元的输出乘以删除比例->取得模型的平均值
 
-![image-20240924144742889](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240924144742889.png)
-
-```py
-class Dropout:
-    def __init__(self, dropout_ratio=0.5):
-        self.dropout_ratio = dropout_ratio
-        self.mask = None
-
-    def forward(self, x, train_flg=True):
-        if train_flg:
-            # *：将元组解包，把3和4作为单独的参数传递给np.random.rand函数（生成一个形状为(3, 4)的随机矩阵）
-            self.mask = np.random.rand(*x.shape) > self.dropout_ratio
-            # 每次正向传播，self.mask会以False的形式保存要删除的神经元
-            return x * self.mask
-        else:
-            return x * (1.0 - self.dropout_ratio)
-
-    def backward(self, dout):
-        return dout * self.mask
-```
+![image-20240924144742889](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240924144742889.png)
 
 ### 学习率衰减
 
@@ -1890,9 +1019,7 @@ $$
 - 验证数据：`超参数的性能评估`
 - 测试数据：确认泛化能力
 
-例：
-
-对于minist数据集，为了获得验证数据，可以从训练数据中事先分割20%作为验证数据
+例：对于minist数据集，为了获得验证数据，可以从训练数据中事先分割20%作为验证数据
 
 #### 优化超参数
 
@@ -1948,13 +1075,13 @@ CNN的劣势：
 1. 各个位置输入数据的元素与卷积核的元素==对应位置相乘再求和==（乘积累加运算）
 2. 重复进行直到做完
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925204151500.png" alt="image-20240925204151500" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925204151500.png" alt="image-20240925204151500" style="zoom:67%;" />
 
 **偏置**
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925204523849.png" alt="image-20240925204523849" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925204523849.png" alt="image-20240925204523849" style="zoom:80%;" />
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241212111213408.png" alt="image-20241212111213408" style="zoom: 45%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241212111213408.png" alt="image-20241212111213408" style="zoom: 45%;" />
 
 #### 卷积核设置
 
@@ -1988,7 +1115,7 @@ CNN的劣势：
 | 输入数据 | channel | height        | width        | (C,H,W)   |
 | 卷积核   | channel | filter height | filter width | (C,FH,FW) |
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925211339492.png" alt="image-20240925211339492" style="zoom: 80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925211339492.png" alt="image-20240925211339492" style="zoom: 80%;" />
 
 - FN：卷积核数量
 
@@ -1996,13 +1123,13 @@ CNN的劣势：
 
 `应用卷积核的位置间隔，逐渐步幅的卷积`
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925210316134.png" alt="image-20240925210316134" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925210316134.png" alt="image-20240925210316134" style="zoom: 50%;" />
 
 ##### 填充(padding)
 
 `输入数据周围填充固定数据（如：0），避免损失细节`
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925205042409.png" alt="image-20240925205042409" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925205042409.png" alt="image-20240925205042409" style="zoom: 50%;" />
 
 ##### 特征图分辨率计算公式
 
@@ -2017,7 +1144,7 @@ $$
 
 `通道方向有多个特征图时，按通道进行输入数据和卷积核的卷积核运算，将结果相加得到输出`
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925210101774.png" alt="image-20240925210101774" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925210101774.png" alt="image-20240925210101774" style="zoom:67%;" />
 
 #### 卷积次数
 
@@ -2027,13 +1154,13 @@ $$
 
 `输出特征图上某个元素受输入图像上影响的区域`
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/5f42b016089be4a9f705afd88ab822ea.png" alt="img" style="zoom: 67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/5f42b016089be4a9f705afd88ab822ea.png" alt="img" style="zoom: 67%;" />
 
 #### 批处理
 
 `各层间的传递数据保存为4维数据（batch_num,channel,height,width）`
 
-![image-20240925211607463](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925211607463.png)
+![image-20240925211607463](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925211607463.png)
 
 ### 池化层
 
@@ -2049,11 +1176,11 @@ $$
 1. 不学习的参数【只是从目标区域取最大值（或平均值），不存在要学习的参数】
 2. 通道数不发生变化【按照通道减小数据】
 3. 对微小的位置变化具有健壮性【平移不变性、旋转不变性、尺度不变性】
-    <img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925213812074.png" alt="image-20240925213812074" style="zoom: 33%;" />
+    <img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925213812074.png" alt="image-20240925213812074" style="zoom: 33%;" />
 
 池化过程：
 
-![image-20240925215841772](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925215841772.png)
+![image-20240925215841772](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925215841772.png)
 
 ### 卷积核变化可视化
 
@@ -2063,29 +1190,29 @@ $$
 
 卷积层权重示意图：
 
-![image-20240926093615857](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240926093615857.png)
+![image-20240926093615857](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240926093615857.png)
 
 卷积层权重示意图：
 
-![image-20240926093806417](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240926093806417.png)
+![image-20240926093806417](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240926093806417.png)
 
 ### 特征图可视化
 
 卷积+激活+卷积2+激活2：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215151742176.png" alt="image-20241215151742176" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215151842441.png" alt="image-20241215151842441" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215151919799.png" alt="image-20241215151919799" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215152007517.png" alt="image-20241215152007517" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215151742176.png" alt="image-20241215151742176" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215151842441.png" alt="image-20241215151842441" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215151919799.png" alt="image-20241215151919799" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215152007517.png" alt="image-20241215152007517" style="zoom:67%;" />
 
 池化后：
 
 > 经过池化，可以明显的发现局部信息提亮了
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215152019660.png" alt="image-20241215152019660" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215152019660.png" alt="image-20241215152019660" style="zoom:67%;" />
 
-经过vgg的feature map：
+经过多个卷积层的feature map：
 
 > 可以看出，难以解释
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8.assets/image-20241215152246267.png" alt="image-20241215152246267" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215152246267.png" alt="image-20241215152246267" style="zoom:67%;" />
 
 ### 经典卷积网络
 
@@ -2099,7 +1226,7 @@ $$
 
 图为LeNet-5：
 
-![image-20240926094851231](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240926094851231.png)
+![image-20240926094851231](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240926094851231.png)
 
 1. 激活函数：sigmoid
 2. 池化层：subsampling
@@ -2113,7 +1240,7 @@ $$
 
 `2012年ILSVRC比赛冠军，远超第二名的CNN，比LeNet更深，用多层小卷积叠加来替换单个的大卷积`
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/dbcbcc632ea823bc331e7fae8d2790ff-1727403602440-3.png" alt="dbcbcc632ea823bc331e7fae8d2790ff" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/dbcbcc632ea823bc331e7fae8d2790ff-1727403602440-3.png" alt="dbcbcc632ea823bc331e7fae8d2790ff" style="zoom:80%;" />
 
 1. 激活函数：ReLU
 2. 池化：Max池化
@@ -2130,7 +1257,7 @@ $$
 
 > 做完池化之后特征减少，马上使用卷积补特征
 
-<img src="./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/1233445.png" style="zoom: 50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/1233445.png" style="zoom: 50%;" />
 
 #### Resnet
 
@@ -2138,11 +1265,11 @@ $$
 
 网络层数越多误差越大？？？
 
-![img](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/v2-dcf5688dad675cbe8fb8be243af5e1fd_r.jpg)
+![img](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/v2-dcf5688dad675cbe8fb8be243af5e1fd_r.jpg)
 
 解决方案：将前某层的结果做恒等映射到当前层
 
-![img](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/v2-252e6d9979a2a91c2d3033b9b73eb69f_720w.webp)
+![img](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/v2-252e6d9979a2a91c2d3033b9b73eb69f_720w.webp)
 
 ### 代码实现
 
@@ -2152,7 +1279,7 @@ $$
 
 > numpy中使用for循环访问元素会变慢，所以可以使用im2col函数
 
-![image-20240925214602005](./%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0%e5%85%a5%e9%97%a8.assets/image-20240925214602005.png)
+![image-20240925214602005](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925214602005.png)
 
 ```py
 def im2col(input_data, filter_h, filter_w, stride=1, pad=0):

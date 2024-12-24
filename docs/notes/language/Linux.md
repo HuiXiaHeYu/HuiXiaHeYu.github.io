@@ -485,19 +485,16 @@ chmod 751 hello.txt
 第一位：用户权限
 第二位：用户组权限
 第三位：其他用户权限
-751：rwx(7)r-x(5)--x(1)
 ```
 
-| 数字 | 解释       | 示例 |
-| ---- | ---------- | ---- |
-| 0    | 无任何权限 | ---  |
-| 1    | 仅有x权限  | --x  |
-| 2    | 仅有w权限  | -w-  |
-| 3    | 有w和x权限 | -wx  |
-| 4    | 仅有r权限  | r--  |
-| 5    | 有r和x权限 | r-x  |
-| 6    | 有r和w权限 | rw-  |
-| 7    | 有全部权限 | rwx  |
+| 数字       | 解释       | 示例 |
+| ---------- | ---------- | ---- |
+| 0          | 无任何权限 | ---  |
+| 1          | 有x权限    | --x  |
+| 2          | 有w权限    | -w-  |
+| 4          | 有r权限    | r--  |
+| 数字加起来 | 叠加       | 叠加 |
+| 7          | 全部权限   | rwx  |
 
 ##### chown
 
@@ -600,6 +597,31 @@ apt upgrade		# 根据更新后的列表升级软件包
 
 ```sh
 apt [-y] [install | remove | search] 软件名称	# 需要root权限
+```
+
+#### 安装-卸载
+
+- dpkg: 直接管理`.deb`包的安装与卸载，不自动处理依赖关系
+- apt: 基于dpkg，自动处理依赖关系，支持从网络仓库安装和卸载软件
+- apt-get:  `apt` 前身
+
+```bash
+dpkg -l	# 查询已安装软件包
+sudo dpkg -i package_name.deb	# 安装
+sudo dpkg -r package_name		# 卸载
+sudo dpkg --purge package_name	# 卸载软件包+配置文件
+
+apt list --installed	# 查询已安装软件包
+sudo apt update			# 更新软件包列表，使其与远程仓库同步
+sudo apt install package_name	# 安装
+sudo apt remove package_name	# 卸载
+sudo apt purge package_name		# 卸载软件包+配置文件
+sudo apt autoremove		# 清除不需要的依赖
+
+sudo apt-get upgrade	# 更新已安装软件包
+sudo apt-get install package_name	# 安装-升级特定软件包
+sudo apt-get remove package_name	# 卸载
+sudo apt-get clean	# 清理缓存
 ```
 
 ### systemctl
@@ -1148,6 +1170,47 @@ uname -r	# 查看服务器内核版本号
 sudo shutdown -h now
 ```
 
+### 驱动自行安装
+
+```bash
+sudo apt-get purge '^nvidia-.*'
+sudo apt-get autoremove
+sudo apt-get clean
+
+sudo ubuntu-drivers autoinstall
+```
+
+### 磁盘弹性管理-LVM
+
+`logical volume manager，逻辑卷管理`
+
+#### 原理
+
+- PV(Physical Volume): 物理卷
+  - 处于LVM最底层，可以是物理硬盘或者分区，整个硬盘，或使用fdisk等工具建立的普通分区，包括许多默认4MB大小的PE(Physical Extent，基本单元)
+- PE(Physical Extend): 物理区域
+  -  PV中可以用于分配的最小存储单元，可以在创建PV的时候制定（默认为4MB)，如1M, 2M, 4M, 8M, 32M, 64M ... 组成同一VG中所有PV的PE大小应该相同
+- VG(Volume Group): 卷组
+  - 建立在PV之上，可以含有一个到多个PV，一个或多个物理卷组合而成的整体
+- LV(Logical Volume): 逻辑卷
+  - 建立在VG之上，相当于原来分区的概念，不过大小可以动态改变。从卷组中分割出的一块空间，用于建立文件系统。
+  - PV(PE) --> VG --> (PE*n)LV --> 目录挂载
+
+<img src="./Linux.assets/image-20241220150337596.png" alt="image-20241220150337596" style="zoom:67%;" />
+
+#### 命令
+
+| 功能 | PV物理卷命令 | VG卷命令  | LV卷命令  |
+| ---- | ------------ | --------- | --------- |
+| 扫描 | pvscan       | vgscan    | lvscan    |
+| 建立 | pvcreate     | vgcreate  | lvcreate  |
+| 查询 | pvdiaplay    | vgdisplay | lvdisplay |
+| 删除 | pvremove     | vgremove  | lvremove  |
+| 扩容 |              | vgextend  | lvextend  |
+| 缩容 |              | vgreduce  | lvreduce  |
+
+
+
 ## 笔记本
 
 ### cmatrix
@@ -1160,8 +1223,6 @@ cmatrix	[-C 颜色]	# 指定颜色
 # 示例
 cmatrix -C red
 ```
-
-
 
 ### cowsay
 
