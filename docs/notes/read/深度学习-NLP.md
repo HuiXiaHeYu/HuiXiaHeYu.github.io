@@ -1,5 +1,5 @@
 ---
-title: 深度学习进阶
+title: 深度学习-NLP
 createTime: 2024/11/10 14:53:24
 tags:
  - Deep Learning

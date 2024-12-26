@@ -1,5 +1,5 @@
 ---
-title: 深度学习入门
+title: 深度学习-CV
 createTime: 2024/11/10 14:53:24
 tags:
  - Deep Learning
