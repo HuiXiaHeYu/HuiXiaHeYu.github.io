@@ -568,7 +568,7 @@ for word_id, word in id_to_word.items():
 - contexts：神经网络的输入
 - taget：正确解标签
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241013203634861.png" alt="image-20241013203634861"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013204842184.png" alt="image-20241013204842184"  />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013203634861.png" alt="image-20241013203634861"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241013204842184.png" alt="image-20241013204842184"  />
 
 ```py
 """
@@ -788,7 +788,7 @@ hard-negative：
 
 由上下文推中心词
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022093206746.png" alt="image-20241022093206746"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241022093218131.png" alt="image-20241022093218131" style="zoom:80%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022093206746.png" alt="image-20241022093206746"  /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241022093218131.png" alt="image-20241022093218131" style="zoom:80%;" />
 
 1. 概率公式：
 
@@ -2811,7 +2811,7 @@ model.save_params()
 > - 精度差异：无明显精度差异
 > - 复杂度：解码器数据自下而上流动，前者模块化更简单
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106165612556.png" alt="image-20241106165612556" style="zoom:50%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%BF%9B%E9%98%B6.assets/image-20241106165625528.png" alt="image-20241106165625528" style="zoom:50%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106165612556.png" alt="image-20241106165612556" style="zoom:50%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.assets/image-20241106165625528.png" alt="image-20241106165625528" style="zoom:50%;" />
 
 #### Attention结构加深
 

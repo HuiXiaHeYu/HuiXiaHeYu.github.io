@@ -27,6 +27,17 @@ __pycache__：Python版本信息。
 fileren.spec：打包的配置文件，可以配置依赖资源。
 ```
 
+## flask
+
+基于Python的Web微框架，一种快速搭建Web系统的方式
+
+- 官网：`https://flask.palletsprojects.com/en/stable/`
+- 文档：`https://docs.jinkan.org/docs/flask/`
+
+```bash
+pip install flask
+```
+
 
 
 ## Numpy
