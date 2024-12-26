@@ -1202,7 +1202,7 @@ $$
 
 卷积+激活+卷积2+激活2：
 
-<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215151742176.png" alt="image-20241215151742176" style="zoom:67%;" /><img src="./深度学习-cv.assets/image-20241215151842441.png" alt="image-20241215151842441" style="zoom:67%;" /><img src="./深度学习-CV.assets/image-20241215151919799.png" alt="image-20241215151919799" style="zoom:67%;" /><img src="./深度学习-CV.assets/image-20241215152007517.png" alt="image-20241215152007517" style="zoom:67%;" />
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215151742176.png" alt="image-20241215151742176" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-cv.assets/image-20241215151842441.png" alt="image-20241215151842441" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215151919799.png" alt="image-20241215151919799" style="zoom:67%;" /><img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241215152007517.png" alt="image-20241215152007517" style="zoom:67%;" />
 
 池化后：
 
