@@ -27,7 +27,7 @@ __pycache__：Python版本信息。
 fileren.spec：打包的配置文件，可以配置依赖资源。
 ```
 
-## flask
+## Flask
 
 基于Python的Web微框架，一种快速搭建Web系统的方式
 
@@ -38,7 +38,87 @@ fileren.spec：打包的配置文件，可以配置依赖资源。
 pip install flask
 ```
 
+> 注意：Flask会动态加载所有修改过的文件（要求处于debug模式）
 
+Flask应用启动：
+
+- 通过全局Flask对象的run方法启动web应用，主要需要给定监听IP地址和监听端口号
+
+Flask路由给定：
+
+- 通过Flask对象的route注解给定对用API的请求路由，也就是给定对应资源的获取url路径
+- 路由：普通url路径、Restful路径
+
+请求参数获取：
+
+- `request.method`：请求方式（一般为GET或POST）
+- `request.args`：请求体参数[GET]
+- `request.form`：请求体参数[POST]
+- `request.files`：请求体文件[POST]
+
+请求结果返回：
+
+- 字符串：直接返回数据；HTML：默认前端渲染
+- `jsonify`：返回字典对象作为json数据（常用）
+- `render_template API`：返回对应的HTML
+- `url_for`：获取资源对应的url，并使用重定向redirect到资源对应url的资源
+
+```py
+from flask import Flask, request, jsonify, render_template, redirect, url_for
+
+app = Flask(__name__)
+
+# 启动Flask应用
+@app.route('/')
+def home():
+    return "欢迎来到Flask示例应用!"
+
+# 示例路由：返回JSON数据
+@app.route('/api/data', methods=['GET'])
+def get_data():
+    data = {"message": "这是一个返回JSON数据的API"}
+    return jsonify(data)
+
+# 示例路由：接收GET请求并获取请求参数
+@app.route('/api/query', methods=['GET'])
+def query_params():
+    name = request.args.get('name', 'Guest')  # 获取GET请求中的name参数
+    age = request.args.get('age', 'Unknown')  # 获取GET请求中的age参数
+    return f"Hello {name}, Age: {age}"
+
+# 示例路由：接收POST请求并获取表单数据
+@app.route('/api/submit', methods=['POST'])
+def submit_data():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    return f"Received POST data - Username: {username}, Password: {password}"
+
+# 示例路由：接收上传的文件并返回文件名称
+@app.route('/api/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return "No file part"
+    
+    file = request.files['file']
+    if file.filename == '':
+        return "No selected file"
+    
+    return f"File uploaded: {file.filename}"
+
+# 示例路由：返回HTML页面
+@app.route('/hello')
+def hello():
+    return render_template('hello.html')
+
+# 示例路由：进行重定向
+@app.route('/redirect_example')
+def redirect_example():
+    return redirect(url_for('home'))  # 重定向到home路由
+
+# 启动Flask应用，监听所有IP地址（0.0.0.0），端口号是5000
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+```
 
 ## Numpy
 
@@ -910,10 +990,10 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 # 设置中文
-matplotlib.rcParams['font.family']='SimHei'	# 字体名字
-matplotlib.rcParams['font.style']='normal'	# 字体风格[normal, italic]
-matplotlib.rcParams['font.size']='large'	# 字体大小[large, x-small]
-matplotlib.rcParams['font.size'] = 20		# 字体大小
+plt.rcParams['font.family']='SimHei'	# 字体名字
+plt.rcParams['font.style']='normal'	# 字体风格[normal, italic]
+plt.rcParams['font.size']='large'	# 字体大小[large, x-small]
+plt.rcParams['font.size'] = 20		# 字体大小
 # 设置负号
 plt.rcParams['axes.unicode_minus'] = False
 ```
@@ -1023,7 +1103,7 @@ from matplotlib import pyplot as plt
 
 img = cv.imread('messi5.jpg',0)
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-plt.imshow(img, cmap = 'gray', interpolation = 'bicubic')
+plt.imshow(img, cmap = 'gray', interpolation = 'bicubic', origin="lower")	# origin将y轴由向上排序
 plt.xticks([]), plt.yticks([]) # 隐藏 X 和 Y 轴的刻度值
 plt.show()
 ```

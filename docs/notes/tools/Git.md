@@ -303,3 +303,81 @@ git add .; git commit -m "更新描述"; git push
 >>> git push	# push到远程仓库
 ```
 
+## git推送本地项目流程
+
+### 1. 创建 GitHub 仓库
+
+1. 登录 [GitHub](https://github.com)。
+2. 点击右上角的 **+** 图标，选择 **New repository**。
+3. 填写仓库名称（如 `my-project`），选择公开或私有，然后点击 **Create repository**。
+
+### 2. 初始化本地 Git 仓库
+
+在项目目录下运行以下命令：
+
+```
+git init
+```
+
+### 3. 配置 `.gitignore`
+
+创建一个 `.gitignore` 文件，添加以下内容以忽略 `.idea` 和依赖文件：
+
+```plaintext
+.idea/
+node_modules/
+venv/
+*.pyc
+__pycache__/
+```
+
+根据你的项目使用的依赖管理工具调整忽略规则，例如：
+
+- Python 项目：忽略 `venv/`（虚拟环境目录）。
+- Node.js 项目：忽略 `node_modules/`。
+
+保存 `.gitignore` 文件后运行：
+
+```bash
+git add .gitignore
+git commit -m "Add .gitignore"
+```
+
+### 4. 添加远程仓库
+
+将 GitHub 仓库链接到本地仓库：
+
+```bash
+git remote add origin https://github.com/<your-username>/<repository-name>.git
+```
+
+### 5. 添加项目文件并提交
+
+将项目文件添加到 Git：
+
+```bash
+git add .
+git commit -m "Initial commit"
+```
+
+### 6. 推送到 GitHub
+
+推送代码到 GitHub 仓库的主分支：
+
+```bash
+git branch -M main  # 确保分支为 main
+git push -u origin main
+```
+
+### 7. 检查推送结果
+
+打开 GitHub 仓库，确认代码已上传并忽略了指定的文件夹和文件。
+
+如果需要进一步调整 `.gitignore` 文件，可以随时编辑，然后执行以下命令：
+
+```bash
+git rm -r --cached .
+git add .
+git commit -m "Update .gitignore"
+git push
+```

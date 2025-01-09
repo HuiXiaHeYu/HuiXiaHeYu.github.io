@@ -175,6 +175,12 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install --upgrade pip
 ```
 
+### 生成依赖文件
+
+```bash
+pip freeze > requirements.txt
+```
+
 ## 基本数据类型
 
 **赋值:**
