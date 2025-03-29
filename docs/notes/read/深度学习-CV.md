@@ -236,6 +236,8 @@ $$
 
 #### Softmax
 
+`使用指数，扩大差距`
+
 > 优势：
 >
 > 1. 元素间大小关系不变（指数函数单调递增）
@@ -303,8 +305,8 @@ $$
 E=\frac{1}{2}\sum_{k}(y_{k}-t_{k})^{2}
 $$
 
-- $y_{k}$：神经网络的输出
-- $t_{k}$：监督数据
+- $y_{k}$：预测值
+- $t_{k}$：真实值
 - $k$：数据的维数
 
 #### 交叉熵误差
@@ -312,14 +314,14 @@ $$
 `cross entropy error，常用于分类问题`
 
 $$
-E=-\sum_ty_t\log \hat{y_t}
+CrossEntropy=\sum_{i=1}^Cy_i\cdot\log(p_i)
 $$
 
-- $y_{t}$：真实值
-- $\hat{y_{t}}$：预测值
+- $y_i$：这张图片的类别概率是否有效（one-hot编码），有效为1，无效为0
+- $p_i$：第 i 个类别的概率
 
 $$
-E=-(t\log y+(1-t)\log(1-y))
+E=-(y_t\log y+(1-y_t)\log(1-y))
 $$
 
 
@@ -588,7 +590,9 @@ $$
 
 > **(N, C, H, W)，在通道C上计算均值和标准差**[:, 0, :, :]->[:, 1, :, :]->[:, 2, :, :]->[:, 3, :, :]->
 >
-> 对每一批的每一个维度(在CNN中为channel)进行批归一化
+> - 原始分布：卷积后数据可能偏向某一区域（如均值较大、方差较小）
+> - 归一化：分布被调整为均值为0、方差为1的标准正态分布
+> - 缩放和平移：通过调整 $\gamma$ 和 $\beta$ 调整分布，稳定数据分布
 >
 > 放置位置：卷积之后，激活函数之前
 >
@@ -760,9 +764,9 @@ $$
 
 > 优化的目标是寻找一组模型参数，使得模型在所有训练数据上平均损失最小。
 >
-> 对于参数的迭代更新 $\theta\leftarrow\theta-\eta g$ ，基本都是基于历史的梯度或者学习率进行一个调整。
+> 对于参数的迭代更新 $w_{t+1}= w_{t}-\eta g_t$ ，基本都是基于历史的梯度或者学习率进行一个调整。
 >
-> 1. 梯度修正 $g$
+> 1. 梯度修正 $g_t$
 > 2. 学习率 $\eta$ 调整
 >
 > https://www.cnblogs.com/dangui/p/14675148.html
@@ -774,11 +778,11 @@ $$
 > 用单个训练样本的损失来近似平均损失，即每次随机采样一个样本来估计当前梯度，对模型参数进行一次更新
 
 $$
-\theta_{t+1}=\theta_t-\eta\nabla L(\theta_t;x_i,y_i)\\
-\theta_{t+1}=\theta_t-\eta g_t
+w_{t+1}=w_t-\eta\nabla_w L(w_t;x_i,y_i)\\
+w_{t+1}=w_t-\eta g_t
 $$
 
-- $g_t=\nabla L(\theta_t;x_i,y_i)$：梯度
+- $g_t=\nabla_w L(w_t;x_i,y_i)$：在$(x_i,y_i)$上损失函数$L$相对于模型参数$w$的梯度
 - $\eta$：学习率
 
 <img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920084024400.png" alt="image-20240920084024400" style="zoom: 67%;" />
@@ -950,8 +954,6 @@ $$
 
 ![image-20240920144952611](./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240920144952611.png)
 
-###
-
 #### 正则化惩罚
 
 `对大的权重进行惩罚来抑制过拟合`
@@ -1083,7 +1085,13 @@ CNN的劣势：
 
 <img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20240925204523849.png" alt="image-20240925204523849" style="zoom:80%;" />
 
+计算方法（一个卷积核）：
+
 <img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241212111213408.png" alt="image-20241212111213408" style="zoom: 45%;" />
+
+计算方法（多个卷积核）：
+
+<img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/111.gif" alt="111" style="zoom:67%;" />
 
 #### 卷积核设置
 
@@ -1135,11 +1143,21 @@ CNN的劣势：
 
 ##### 特征图分辨率计算公式
 
-> 如果希望卷积后特征图分辨率大小跟原来一样，需要设置`填充=(kernel大小-1)/2 if 步长=1`
+> 如果希望卷积后特征图分辨率大小跟原来一样，需要设置`填充大小=(卷积核大小-1)/2 if 步长=1`
 
 $$
-output_{size}=\frac{input_{size}-kernal_{size}+stride_{size}+2\times padding_{size}}{stride_{size}}
+output_{size}=\frac{input_{size}-kernel_{size}+stride_{size}+2\times padding_{size}}{stride_{size}}
 $$
+$$
+244=\frac{224-{\color{Red}\bold{3}}+{\color{Red}\bold{1}}+2\times {\color{Red}\bold{1}}}{{\color{Red}\bold{1}}}
+$$
+
+$$
+244=\frac{224-{\color{Red}\bold{5}}+{\color{Red}\bold{1}}+2\times {\color{Red}\bold{2}}}{{\color{Red}\bold{1}}}
+$$
+
+
+
 ##### 通道数
 
 `通道方向有多个特征图时，按通道进行输入数据和卷积核的卷积核运算，将结果相加得到输出`
@@ -1386,3 +1404,141 @@ np.random.normal((0.5, 5.0), (0.6, 0.8), (10, 2))	# 举例: 第一维为(0.5, 5.
 当G固定时，D会有唯一的最优解
 
 <img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241227215106659.png" alt="image-20241227215106659" style="zoom:67%;" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### **1. LeNet（1998）**
+
+**背景**：用于手写数字识别（MNIST数据集）。
+
+核心贡献：
+
+- 首个成功应用的卷积神经网络（CNN）。
+- 结构：2层卷积 + 3层全连接（共5层），使用Sigmoid激活函数和平均池化。
+
+### **2. AlexNet（2012）**
+
+**背景**：ImageNet图像分类竞赛（ILSVRC 2012）冠军，Top-5错误率16.4%。
+
+核心贡献：
+
+- 深度增加：8层（5卷积 + 3全连接）。
+- 关键技术：ReLU激活函数（缓解梯度消失）、Dropout（防止过拟合）、数据增强、多GPU训练。
+
+### **3. VGGNet（2014）**
+
+核心贡献：
+
+- 更深的网络：16-19层，全部使用**3×3小卷积核**（减少参数，增强非线性）。
+- 结构模块化：堆叠重复的卷积层。
+
+**意义**：证明网络深度对性能的重要性，但训练更深的网络时梯度消失/爆炸问题凸显。
+
+### **4. GoogleNet（Inception v1, 2014）**
+
+**提出者**：Google团队（Szegedy等）
+
+核心贡献：
+
+- **Inception模块**：并行使用不同大小的卷积核（1×1, 3×3, 5×5）和池化，合并多尺度特征。
+- 引入**1×1卷积**降维，减少计算量。
+- 网络深度：22层，但参数量仅为AlexNet的1/12。
+
+**意义**：通过宽度和稀疏连接提升效率，但深层网络训练仍困难。
+
+### **5. ResNet（2015）**
+
+**提出者**：何恺明等（Microsoft Research）
+
+核心贡献：
+
+- **残差学习（Residual Learning）**：引入**跳跃连接（Shortcut Connection）**，将输入直接传递到深层（公式：`输出 = F(x) + x`）。
+- 解决**梯度消失/爆炸**和**网络退化**（层数增加导致精度下降）问题。
+- 网络深度：突破性提升至152层（ResNet-152），ILSVRC 2015冠军（Top-5错误率3.57%）。
+
+意义：
+
+- 首次成功训练超百层网络，证明深度是性能提升的关键。
+- 残差结构成为现代深度学习的基础组件。
+
+
+
+
+
+ResNet（Residual Network，残差网络）是深度学习领域的里程碑式模型，由何凯明团队于2015年提出，其核心创新是通过残差连接解决深度网络训练中的退化问题，使网络深度突破至1000层以上。以下从原理、结构、优势与挑战、应用场景四个维度详细解析：
+
+### 一、核心原理：残差学习与跳跃连接
+
+退化问题的根源：传统CNN随着层数增加会出现梯度消失/爆炸和性能退化（训练误差反而上升），并非过拟合导致，而是深层网络难以学习有效特征映射。
+
+残差块的设计：每个残差块包含卷积层（如3x3或Bottleneck结构）和跳跃连接（Skip Connection），其数学表达式为：*y*=*F*(*x*,{*W**i*})+*x*其中*F*(*x*)是残差函数，*x*是输入。网络学习的目标从直接映射*H*(*x*)转为残差*H*(*x*)−*x*，简化了优化难度。
+
+梯度传播优化：跳跃连接允许梯度直接反向传播到浅层，避免因链式法则导致的梯度衰减，提升训练稳定性。
+
+### 二、网络结构与典型变体
+
+ResNet通过堆叠不同数量的残差块构成多种深度版本，主要分为两类结构：
+
+1. **基础残差块（BasicBlock）**
+   - 包含两个3x3卷积层，用于ResNet-18/34。
+
+代码实现（PyTorch示例）：
+
+```python
+class BasicBlock(nn.Module):
+    def __init__(self, inchannel, outchannel, stride=1):
+        super().__init__()
+        self.conv1 = nn.Conv2d(inchannel, outchannel, 3, stride, padding=1)
+        self.bn1 = nn.BatchNorm2d(outchannel)
+        self.conv2 = nn.Conv2d(outchannel, outchannel, 3, padding=1)
+        self.bn2 = nn.BatchNorm2d(outchannel)
+        self.shortcut = nn.Identity()  # 跳跃连接
+    def forward(self, x):
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        out += self.shortcut(x)  # 残差相加
+        return F.relu(out)
+```
+
+**瓶颈残差块（Bottleneck）**
+
+- 由1x1（降维）、3x3、1x1（升维）卷积组成，减少计算量，用于ResNet-50/101/152。
+
+参数量对比：ResNet-50的Bottleneck块参数量仅为BasicBlock的约1/178，极大提升效率。
+
+|  网络版本  | 层数 | 残差块类型 |         适用场景         |
+| :--------: | :--: | :--------: | :----------------------: |
+| ResNet-18  |  18  | BasicBlock | 轻量级任务（嵌入式设备） |
+| ResNet-50  |  50  | Bottleneck |       通用图像分类       |
+| ResNet-152 | 152  | Bottleneck |      高精度复杂任务      |
+
+### 三、优势与挑战
+
+**核心优势**
+
+1. 解决退化问题：ILSVRC2015中ResNet-152以Top-5错误率3.57%夺冠。
+2. 训练加速：批量归一化（BN）与残差连接协同，减少训练时间约30%。
+3. 迁移学习泛化性：预训练模型广泛用于目标检测（Faster R-CNN）、医学影像分析等。
+
+**局限性**
+
+1. 计算资源需求高：ResNet-152训练需多GPU并行，内存占用超12GB。
+2. 模型复杂度：参数过多可能导致小数据集过拟合，需结合数据增强或知识蒸馏。

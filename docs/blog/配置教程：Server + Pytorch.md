@@ -39,6 +39,9 @@ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/f
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge 
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
 conda config --set show_channel_urls yes
+```
+
+```bash
 # 中科大源
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
 conda config --add channels https://mirrors.ustc.edu.cn/anaconda/pkgs/free/

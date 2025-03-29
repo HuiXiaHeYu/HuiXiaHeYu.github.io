@@ -598,8 +598,6 @@ curl -O https://archive.apache.org/dist/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.
 | -O   | 用于下载文件，当url是下载链接时，可以使用此选项保存文件 |
 | url  | 发起请求的网络地址                                      |
 
-##
-
 ## 安装-卸载
 
 ```bash
@@ -608,6 +606,7 @@ sudo dpkg --purge package_name	# 卸载软件包+配置文件
 
 sudo apt [update | upgrade]		# 更新-升级
 apt [-y] [install | remove | search] 软件名称	# 安装-卸载-搜索
+sudo dpkg --get-selections | grep ‘软件相关名称’	# 查找软件包名
 sudo apt purge package_name		# 卸载软件包+配置文件
 sudo apt autoremove		# 清除不需要的依赖
 
@@ -690,8 +689,8 @@ tar [-c -v -x -f -z -C] 参数1 参数2 ... 参数N
 tar -cvf test.tar 1.txt 2.txt 789.txt hadoop-3.3.0.tar.gz		# 简单封装
 tar -zcvf test.tar.gz 1.txt 2.txt 789.txt hadoop-3.3.0.tar.gz	# 压缩【.gz也行】
 # 示例（解压）
- tar -xvf test.tar -C /home/jzls/		# 简单拆封
- tar -zxvf test.tar.gz -C /home/jzls/	# 解压【.gz也行】
+tar -xvf test.tar -C /home/jzls/		# 简单拆封
+tar -zxvf test.tar.gz -C /home/jzls/	# 解压【.gz也行】
 ```
 
 | 选项 | 解释                                                         |
@@ -831,20 +830,11 @@ sudo apt update
 sudo apt upgrade
 sudo apt-get install ca-certificates curl gnupg lsb-release	# 依赖包
 curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -	# docker官方的GPG密钥
+# 密钥过期应对方法
+cd /etc/apt
+sudo cp trusted.gpg trusted.gpg.d
+
 sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"	# 添加软件源
-```
-
-#### docker加速（阿里云）-没什么刁勇
-
-```bash
-sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json <<-'EOF'
-{
-  "registry-mirrors": ["https://j4yl93ey.mirror.aliyuncs.com"]
-}
-EOF
-sudo systemctl daemon-reload
-sudo systemctl restart docker
 ```
 
 #### 安装docker
@@ -855,6 +845,19 @@ yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker
 
 ```bash
 sudo apt-get install docker-ce docker-ce-cli containerd.io
+```
+
+##### docker支持GPU
+
+```bash
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+sed -i -e '/experimental/ s/^#//g' /etc/apt/sources.list.d/nvidia-container-toolkit.list
+sudo apt-get update
+sudo apt-get install -y nvidia-container-toolkit	# 安装 NVIDIA Container Toolkit 软件包
+sudo nvidia-ctk runtime configure --runtime=docker	# 修改/etc/docker/daemon.json主机上的文件，以便 Docker 可以使用 NVIDIA 容器运行
+sudo systemctl restart docker	# 重启docker
 ```
 
 #### 启动和校验
@@ -953,6 +956,55 @@ docker exec -it <container_name_or_id> /bin/bash
 	-it：交互模式和分配终端。
 ```
 
+### 一键安装
+
+#### alist
+
+> 官网：https://alist.nn.ci/zh/guide/install/docker.html
+
+```bash
+docker run -d --restart=unless-stopped -v /etc/alist:/opt/alist/data -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name="alist" xhofe/alist:latest
+```
+
+#### qinglong
+
+> 官网：https://github.com/whyour/qinglong
+
+```bash
+# curl -sSL get.docker.com | sh
+docker run -dit \
+  -v $PWD/ql/data:/ql/data \
+  # 冒号后面的 5700 为默认端口，如果设置了 QlPort, 需要跟 QlPort 保持一致
+  -p 5700:5700 \
+  # 部署路径非必须，比如 /test
+  -e QlBaseUrl="/" \
+  # 部署端口非必须，当使用 host 模式时，可以设置服务启动后的端口，默认 5700
+  -e QlPort="5700" \
+  --name qinglong \
+  --hostname qinglong \
+  --restart unless-stopped \
+  whyour/qinglong:latest
+```
+
+#### jellyfin
+
+`非官方镜像`
+
+> 官网：https://jellyfin.org/docs/general/installation/container#docker
+
+```bash
+docker pull nyanmisaka/jellyfin
+docker run -d \
+ --name jellyfin \
+ --user 1000:1000 \
+ --net=host \
+ --volume jellyfin-config:/config \
+ --volume jellyfin-cache:/cache \
+ --mount type=bind,source=/home/hxhy/jellyfin/media,target=/media \
+ --restart=unless-stopped \
+ nyanmisaka/jellyfin
+```
+
 ## Frp
 
 ```BASH
@@ -968,4 +1020,8 @@ http://183.87.40.30:8080/ui/chat/79dcbcfab405b749	# ollama本地部署模型
 http://183.87.40.30:5700	# 青龙面板
 http://183.87.40.30:5244	# alist
 ```
+
+
+
+
 
