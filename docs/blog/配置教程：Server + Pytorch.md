@@ -87,11 +87,11 @@ vim ~/.bashrc
 ```
 
 ```sh
-# 添加统一的Cuda路径，以防万一为了方便维护cuda多个版本
-export PATH=/usr/local/cuda/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
-export CUDA_HOME=$CUDA_HOME:/usr/local/cuda
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64
+# 使用CUDA_HOME切换cuda路径
+export CUDA_HOME=/usr/local/cuda
+
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 ```
 
 6. 测试是否可以成功使用cuda
