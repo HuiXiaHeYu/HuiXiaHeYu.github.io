@@ -173,6 +173,48 @@ python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip	
 ```py
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install --upgrade pip
+# 官方源
+pip config set global.index-url https://pypi.org/simple
+```
+
+### github源
+
+```py
+分支源码：https://github.moeyy.xyz/https://github.com/moeyy/project/archive/master.zip
+release源码：https://github.moeyy.xyz/https://github.com/moeyy/project/archive/v0.1.0.tar.gz
+release文件：https://github.moeyy.xyz/https://github.com/moeyy/project/releases/download/v0.1.0/example.zip
+分支文件：https://github.moeyy.xyz/https://github.com/moeyy/project/blob/master/filename
+Raw：https://github.moeyy.xyz/https://raw.githubusercontent.com/moeyy/project/archive/master.zip
+使用Git: git clone https://github.moeyy.xyz/https://github.com/moeyy/project
+```
+
+### huggingface源
+
+`必须加在前两行`
+
+```py
+import os
+os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
+```
+
+### Setuptools更改源
+
+**法一：**
+
+修改文件 ~/.pydistutils.cfg为：
+
+```py
+[easy_install]
+index_url = https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+**法二：**
+
+直接在setup.py的同目录放置一个setup.cfg：
+
+```py
+[easy_install]
+index_url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ### 生成依赖文件

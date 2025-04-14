@@ -27,7 +27,10 @@ apt update
 apt upgrade
 sudo apt install gcc-12		# 安装gcc-12
 sudo dpkg -l | grep gcc		# 查看gcc版本
-update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 20	# 变更gcc版本
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 90	# 给指定版本gcc设置权重（数字越大权重越大）
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 90	# 给指定版本g++设置权重
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
 gcc --version	# 查看gcc版本
 ```
 
