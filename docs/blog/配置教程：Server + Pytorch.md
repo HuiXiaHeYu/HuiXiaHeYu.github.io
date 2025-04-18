@@ -33,9 +33,9 @@ bash Miniconda3-latest-Linux-x86_64.sh
 ```
 
 ```sh
-# 清华源
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge 
+# 清华源[https://mirrors.tuna.tsinghua.edu.cn/help/anaconda/]
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
 conda config --set show_channel_urls yes
 ```

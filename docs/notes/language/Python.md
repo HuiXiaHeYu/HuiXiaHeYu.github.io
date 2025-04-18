@@ -41,84 +41,28 @@ pip 官网：https://pypi.org/project/pip/
 
 ### pip 命令
 
-- 判断是否已安装
-
 ```python
+# 判断是否已安装
 pip --version     # Python2.x 版本命令
 pip3 --version    # Python3.x 版本命令
-```
-
-- 显示版本和路径
-
-```python
-pip --version
-```
-
-- 获取帮助
-
-```python
+# 获取帮助
 pip --help
-```
-
-- 升级 pip
-
-```python
+# 升级 pip
 pip install --upgrade pip
-```
 
-- 安装指定版本
-
-```python
+# 安装指定版本的pip包
 pip install SomePackage              # 最新版本
 pip install SomePackage==			 # 查看支持版本
 pip install SomePackage==1.0.4       # 指定版本
 pip install 'SomePackage>=1.0.4'     # 最小版本
-```
+pip install --upgrade SomePackage	# 升级包（可使用==, >=, <=, >, < 来指定一个版本号）
 
-`例如：pip install Django==1.7`
-
-- 升级包
-
-```python
-pip install --upgrade SomePackage
-```
-
-升级指定的包，通过使用==, >=, <=, >, < 来指定一个版本号。
-
-- 卸载包
-
-```python
-pip uninstall SomePackage
-```
-
-- 搜索包
-
-```python
-pip search SomePackage
-```
-
-- 显示安装包信息
-
-```python
-pip show 
-```
-
-- 查看指定包的详细信息
-
-```python
-pip show -f SomePackage
-```
-
-- 列出已安装的包
-
-```python
-pip list
-```
-
-- 查看可升级的包
-
-```python
-pip list -o
+pip uninstall SomePackage	# 卸载包
+pip search SomePackage	# 搜索包
+pip show	# 显示安装包信息
+pip show -f SomePackage	# 查看指定包的详细信息
+pip list	# 列出已安装的包
+pip list -o	# 查看可升级的包
 ```
 
 ### 本地安装模块方法
@@ -127,25 +71,31 @@ pip list -o
 
 1. 打开此网页并搜索到要安装的模块并点击
 
-![image-20240419010257353](./Python.assets/image-20240419010257353.png)
+<img src="./Python.assets/image-20240419010257353.png" alt="image-20240419010257353" style="zoom: 33%;" />
 
 2. 点击找到下载文件目录并找到合适的模块版本，之后下载到桌面
 
-![image-20240419010527129](./Python.assets/image-20240419010527129.png)
+<img src="./Python.assets/image-20240419010527129.png" alt="image-20240419010527129" style="zoom: 33%;" />
 
 3. cmd窗口进入whl文件路径并手动安装
 
-![image-20240419010759235](./Python.assets/image-20240419010759235.png)
+<img src="./Python.assets/image-20240419010759235.png" alt="image-20240419010759235" style="zoom: 33%;" />
 
 4. 也可以查询历史版本并下载
 
-![image-20240419011059344](./Python.assets/image-20240419011059344.png)![image-20240419011147469](./Python.assets/image-20240419011147469.png)
+<img src="./Python.assets/image-20240419011059344.png" alt="image-20240419011059344" style="zoom: 33%;" />
 
+<img src="./Python.assets/image-20240419011147469.png" alt="image-20240419011147469" style="zoom: 33%;" />
 
+### 生成依赖文件
 
-### pip 源及其使用方法
+```py
+pip freeze > requirements.txt
+```
 
-#### pip源
+## 各种源
+
+### pip源
 
 清华：<https://pypi.tuna.tsinghua.edu.cn/simple>
 
@@ -215,12 +165,6 @@ index_url = https://pypi.tuna.tsinghua.edu.cn/simple
 ```py
 [easy_install]
 index_url = https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-### 生成依赖文件
-
-```bash
-pip freeze > requirements.txt
 ```
 
 ## 基本数据类型

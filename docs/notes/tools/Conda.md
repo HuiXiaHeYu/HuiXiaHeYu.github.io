@@ -31,6 +31,10 @@ conda info -e
 conda create -n 环境名 python=PY版本
 conda activate 环境名	# 进入python环境
 conda install nb_conda_kernels	# 下载指定模块来链接jupyter notebook
+
+# 从其他环境克隆
+conda create --name newName（新环境名） --clone oldName（旧环境名）
+conda remove --name oldName（旧环境名） --all 
 ```
 
 ## 删除环境

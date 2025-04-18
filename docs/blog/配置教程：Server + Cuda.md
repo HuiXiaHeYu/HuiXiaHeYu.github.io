@@ -10,8 +10,8 @@ permalink: /article/fnss6k7s/
 ```bash
 nvidia-smi		# 查看显卡驱动
 ubuntu-drivers devices	# 检查可安装的显卡驱动
-sudo apt install nvidia-driver-XXX	# 安装显卡驱动
-sudo ubuntu-drivers autoinstall		# 系统自动安装
+sudo apt install nvidia-driver-XXX	# 安装指定显卡驱动
+sudo ubuntu-drivers autoinstall		# 系统自动安装显卡驱动（可以直接在安装cuda的时候安装显卡驱动）
 ```
 
 ## gcc版本更改

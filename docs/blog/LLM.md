@@ -5,6 +5,15 @@ permalink: /article/x3feqx82/
 ---
 ## 概述
 
+`基本Pipeline：问题明确->数据获取->数据清理->数据探索->数据准备->训练模型->微调模型->结果应用->监控迭代`
+
+### 整体视角
+
+- 数据决定算法的上线，模型只是去逼近这个上线
+- 算法工程师的基础能力：数据采集、评估、传输、预处理、标注、分析、挖掘、特征融合等
+
+### LLM构建流程
+
 |          | 预训练                                             | 有监督微调                                       | 奖励建模                                 | 强化学习                             |
 | -------- | -------------------------------------------------- | ------------------------------------------------ | ---------------------------------------- | ------------------------------------ |
 | 数据集合 | 原始数据<br />[==数千亿==单词：图书、百科、网页等] | 标注用户指令<br />[==数万==用户指令和对应的答案] | 标注对比对<br />[==数万量级==标注对比对] | 用户指令<br />[==十万量级==用户指令] |
@@ -12,55 +21,79 @@ permalink: /article/x3feqx82/
 | 模型     | 基础模型                                           | SFT模型                                          | RM模型                                   | RL模型                               |
 | 资源需求 | 1000+GPU[月]                                       | 1-100GPU[天]                                     | 1-100GPU[天]                             | 1-100GPU[天]                         |
 
+**有监督微调：**
 
+`指令微调(Instruction Tuning)利用少量高质量数据集合，包含用户输入的提示词(Prompt)和对应的理想输出结果。用户输入包括问题、闲聊对话、任务指令等多种形式和任务`
 
-## 参数调整策略
+- 如何微调？利用高质量有监督数据，使用与训练阶段相同的语言模型训练算法，在基础语言模型基础上再训练，得到有监督微调模型(SFT模型)
+- 微调后的效果：具备初步指令理解能力和上下文理解能力，能够完成开放领域问题、阅读理解、翻译、生成代码等能力，也具备一定对未知任务的泛化能力
 
-### token数量
+**下游任务微调：**
 
-与回复量呈正相关
+`DownstreamTaskFine-tuning`
 
+目的：在通用语义表示基础上，根据下游任务的特性进行适配
 
+注意：容易使得模型遗忘预训练阶段学习到的通用语义知识表示，损失模型的通用性和泛化能力，造成灾难性遗忘(CatastrophicForgetting)问题，因此通常采用混合预训练任务损失和下游微调损失的方法来缓解
 
-### 调用ollama代码
+**奖励建模：**
 
-```py
-import requests
+`Reward Modeling`
 
-def query_ollama(prompt, model="deepseek-r1:32b", host="http://10.201.8.244:11434"):
-    url = f"{host}/api/generate"
-    payload = {
-        "model": model,
-        "prompt": prompt,
-        "stream": False  # 设置为 True 可流式输出
-    }
-    
-    try:
-        response = requests.post(url, json=payload)
-        response.raise_for_status()  # 检查请求是否成功
-        return response.json()["response"]
-    except Exception as e:
-        return f"Error: {e}"
+目的：构建一个文本质量对比模型，对于同一个提示词，SFT模型给出的多个不同输出结果的质量进行排序
 
-# 示例调用
-prompt = "解释量子力学的基本概念"
-response = query_ollama(prompt)
-print(response)
+注意：RM模型的准确率对于强化学习阶段的效果有至关重要的影响，因此需要大规模训练数据
 
-import json
-import requests
+**强化学习：**
 
-def stream_response(prompt):
-    response = requests.post(
-        "http://10.201.8.244:11434/api/generate",
-        json={"model": "qwq:32b", "prompt": prompt, "stream": True},
-        stream=True
-    )
-    for line in response.iter_lines():
-        if line:
-            data = json.loads(line.decode("utf-8"))
-            print(data.get("response", ""), end="", flush=True)
+`Reinforcement Learning`
 
-stream_response("如何学习Python？")
-```
+流程：根据数十万用户给出的提示词，利用在前一阶段训练的RM模型，给出CFT模型对用户提示词补全结果的质量评估，并与语言模型建模目标综合得到更好效果
 
+该阶段使得基础模型的熵降低，会减少模型输出的多样性
+
+1. 从数据集中sample一个prompt
+2. 语言模型(policy)生成输出
+3. 使用奖励模型(Environment)计算得分$r\theta(x,y)$(Reward)由$r\theta(x,y)$使用PPO-ptx算法优化语言模型
+
+<img src="./LLM.assets/image-20250418215738655.png" alt="image-20250418215738655" style="zoom: 80%;" />
+
+### 预训练模型分类
+
+#### NLU类
+
+`自然语言理解`
+
+- 以`BERT`为代表的自编码预训练模型，NLU任务：分配、抽取等
+- 如何训练？借助特定的预训练任务进行学习，如：掩码语言模型(MLM)、下一个句子预测(NSP)等
+- 双向语言模型，同时建模上文和下文信息
+- 代表模型：RoBERTa、ALBERT、ELECTRA、DeBERTa等
+- NLU任务特点：输出范围确定、评价方法相对明确
+
+#### NLG类
+
+`自然语言生成`
+
+- 以`GPT`为代表的自回归预训练模型，NLG任务：文本生成、生成式摘要、对话等
+- 如何训练？使用Causal LM训练(N-gram语言模型的自然延申)，无需设计复杂的预训练任务
+- 单向语言模型，部分模型采用双向编码器和单向编码器结构
+- 代表模型：GPT系列(Decoder-only)、T5和BART(Encoder-Decoder)等
+- NLG任务特点：输出自由度搞、评价方法较难、更具有创造性
+
+### 模型的涌现能力
+
+`《Emergent Abilities of Large Language Models》`
+
+#### 基于模型放大
+
+- TruthfulQA：当模型放大至280B，其效果会突然高于随机20%
+- Multi-task language understanding：当训练计算量达到70B-280B后效果将远远超过随机
+- Word in Context：当PaLM被缩放至540B时，高于随机的效果出现
+
+根据文章：`Scaling Laws` for Neural Language Models
+
+<img src="./LLM.assets/image-20250418213352077.png" alt="image-20250418213352077" style="zoom:67%;" />
+
+#### 基于样例提示
+
+通过 few-shot prompting来执行任务的能力也是一种涌现现象
