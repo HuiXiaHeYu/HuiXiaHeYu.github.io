@@ -78,7 +78,7 @@ pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 -f https://download.pyt
 
 3. 切换到指定环境安装torch
 
-
+<img src="./%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%EF%BC%9AServer%20+%20Pytorch.assets/image-20250419174013225.png" alt="image-20250419174013225" style="zoom: 67%;" />
 
 ### 通用 cuda切换脚本
 
