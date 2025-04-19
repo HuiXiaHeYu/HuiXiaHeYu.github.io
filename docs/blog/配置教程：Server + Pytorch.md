@@ -72,9 +72,11 @@ pip install torch torchvision torchaudio  # 下载torch包
 pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-5. 通用 CUDA 切换脚本
+5. 通用 cuda切换脚本
 
-> 查看服务器内可用的cuda版本
+`全称CUDA Toolkit`
+
+> 查看服务器内可用的CUDA Toolkit版本
 >
 > `ls /usr/local`
 
