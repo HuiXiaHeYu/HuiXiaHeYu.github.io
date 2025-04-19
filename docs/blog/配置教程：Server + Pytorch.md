@@ -5,12 +5,6 @@ tags:
  - Deep Learning
 permalink: /article/5as7rxt6/
 ---
-`如何在linux服务器中配置深度学习环境？`
-
-@[bilibili](BV1bs2qY5EZb)
-
----
-
 ## 安装流程
 
 > 本安装方法，推荐使用pytorch官方版本包：使用完整的`指定版本cuda编译的指定版本torch包`，配合系统`多版本CUDA Toolkit`使用
