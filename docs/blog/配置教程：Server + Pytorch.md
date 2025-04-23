@@ -85,7 +85,7 @@ pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 -f https://download.pyt
 
 ### 切换指定cuda版本
 
-`全称CUDA Toolkit`
+`全称CUDA Toolkit，可在conda环境中安装，也可在服务器安装，用来编译C++包`
 
 > 查看服务器内可用的CUDA Toolkit版本
 >

@@ -63,6 +63,8 @@ pip show	# 显示安装包信息
 pip show -f SomePackage	# 查看指定包的详细信息
 pip list	# 列出已安装的包
 pip list -o	# 查看可升级的包
+
+pip install -e xxx [--use-pep517]	# 以可编辑模式安装。--use-pep517表示使用隔离环境（pyproject.toml中 [build-system].requires 指定的依赖）安装
 ```
 
 ### 本地安装模块方法
@@ -148,17 +150,6 @@ os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
 ```
 
 ### Setuptools更改源
-
-**法一：**
-
-修改文件 ~/.pydistutils.cfg为：
-
-```py
-[easy_install]
-index_url = https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-**法二：**
 
 直接在setup.py的同目录放置一个setup.cfg：
 
@@ -1543,7 +1534,22 @@ def add(a,b):
 print(add(5,5))
 ```
 
+## 安装其他库环境应对方法
 
+### pip install ** --index-url pytorch官方
+
+使用VPN下载whl文件后本地安装
+
+### conda install * -c conda-forge
+
+直接安装
+
+###  python setup.py build develop
+
+执行报错的两个原因：
+
+1. 系统cuda版本不对，无法进行合理编译【切换到合适的cuda】
+2. 依赖管理处理出错【使用`pip install -e .`进行处理】
 
 
 
