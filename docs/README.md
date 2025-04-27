@@ -4,7 +4,7 @@ externalLinkIcon: false
 config:
   -
     type: banner
-    banner: https://bing.img.run/rand.php   # 必应壁纸api：https://bing.img.run/api.html
+    banner: https://dailybing.com/api/v1   # 必应壁纸api：https://bing.img.run/api.html
     bannerMask:
       light: 0.15
       dark: 0.35
