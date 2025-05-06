@@ -94,7 +94,7 @@ pip install torch==2.0.1+cu118 torchvision==0.15.2+cu118 -f https://download.pyt
 #### 使用脚本切换
 
 - 脚本名：`switch-cuda-on-version.sh`
-- 切换使用方法：`bash ~/switch-cuda-on-version.sh  11.1`
+- 切换使用方法：`. ~/switch-cuda-on-version.sh  11.1`
 
 ```sh
 #!/bin/bash

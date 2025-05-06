@@ -127,6 +127,7 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install --upgrade pip
 # 官方源
 pip config set global.index-url https://pypi.org/simple
+conda config --remove-key channels
 ```
 
 ### github源
