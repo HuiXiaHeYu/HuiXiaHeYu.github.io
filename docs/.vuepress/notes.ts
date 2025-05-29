@@ -25,9 +25,14 @@ const othersNote = defineNoteConfig({
   link: '/notes/others',
   sidebar: 'auto',
 })
+const papersNote = defineNoteConfig({
+  dir: 'papers',
+  link: '/notes/papers',
+  sidebar: 'auto',
+})
 
 export const notes = defineNotesConfig({
   dir: 'notes',
   link: '/notes/',
-  notes: [readNote, languageNote, toolsNote, feameworkNote, othersNote],
+  notes: [readNote, languageNote, toolsNote, feameworkNote, othersNote, papersNote],
 })

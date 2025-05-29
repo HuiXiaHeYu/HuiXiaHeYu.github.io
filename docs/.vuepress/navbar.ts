@@ -13,6 +13,7 @@ export const navbar = defineNavbarConfig([
       { text: '语言', icon: 'solar:programming-outline', link: '/notes/language/README.md' },
       { text: '框架', icon: 'mdi:electron-framework', link: '/notes/framework/README.md' },
       { text: '工具', icon: 'vscode-icons:folder-type-tools', link: '/notes/tools/README.md' },
+      { text: '论文', icon: 'i-mdi:papers', link: '/notes/papers/README.md' },
       { text: '其他', icon: 'basil:other-1-outline', link: '/notes/others/README.md' },
     ]
   },
