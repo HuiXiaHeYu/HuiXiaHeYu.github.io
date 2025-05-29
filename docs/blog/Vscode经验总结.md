@@ -24,12 +24,10 @@ ssh-keygen -t rsa
 便捷代码：echo "xxxx" >> ~/.ssh/authorized_keys
 ```
 
-==注意：==一机一码，不同机器放不同密钥对
-
 4. vscode远程连接配置认证文件
 
 ```bash
-IdentityFile ~/.ssh/id_rsa_school_servers_244
+IdentityFile ~/.ssh/id_rsa_school_servers
 ```
 
 ## 创建项目
