@@ -9,6 +9,8 @@ sudo systemctl daemon-reload & sudo systemctl restart ollama
 
 ### ollama.service
 
+`使用显卡进行推理`
+
 ```toml
 [Unit]
 Description=Ollama Service
