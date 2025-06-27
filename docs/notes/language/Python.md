@@ -116,7 +116,7 @@ pip freeze > requirements.txt
 - 临时使用
 
 ```py
-pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package	# 临时使用来下包
+pip install some-package -i https://pypi.tuna.tsinghua.edu.cn/simple	# 临时使用来下包
 python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip	# 临时使用来升级pip下载器
 ```
 
