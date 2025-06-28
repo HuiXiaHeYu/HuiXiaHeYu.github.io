@@ -303,7 +303,7 @@ git add .; git commit -m "更新描述"; git push
 >>> git push	# push到远程仓库
 ```
 
-## git推送本地项目流程
+## Git推送本地项目流程
 
 ### 1. 创建 GitHub 仓库
 
@@ -348,7 +348,9 @@ git commit -m "Add .gitignore"
 将 GitHub 仓库链接到本地仓库：
 
 ```bash
-git remote add origin https://github.com/<your-username>/<repository-name>.git
+git remote -v # 检查关联
+git remote add origin https://github.com/<your-username>/<repository-name>.git	# 关联远程仓库
+git remote set-url origin <新地址>	# 修改远程仓库
 ```
 
 ### 5. 添加项目文件并提交
@@ -366,7 +368,7 @@ git commit -m "Initial commit"
 
 ```bash
 git branch -M main  # 确保分支为 main
-git push -u origin main
+git push -u origin main	[--force]	# 设置上游分支(第一次推送)(使用force强制推送而不是合并)
 ```
 
 ### 7. 检查推送结果
