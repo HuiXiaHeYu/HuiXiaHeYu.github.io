@@ -9,6 +9,9 @@ on:
   # Manually trigger deployment
   workflow_dispatch:
 
+permissions:
+  contents: write # 这一行是关键！它赋予了机器人写入仓库的权限。
+
 jobs:
   docs:
     runs-on: ubuntu-latest
