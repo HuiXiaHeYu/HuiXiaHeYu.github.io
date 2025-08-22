@@ -1,4 +1,4 @@
-import comp from "/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/others/j0i3w4c6/index.html.vue"
+import comp from "/Users/hxhy/Code/HuiXiaHeYu.github.io/docs/.vuepress/.temp/pages/notes/others/j0i3w4c6/index.html.vue"
 const data = JSON.parse("{\"path\":\"/notes/others/j0i3w4c6/\",\"title\":\"小妙招\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"小妙招\",\"createTime\":\"2024/11/19 17:04:57\",\"permalink\":\"/notes/others/j0i3w4c6/\"},\"readingTime\":{\"minutes\":0.42,\"words\":127},\"git\":{},\"filePathRelative\":\"notes/others/小妙招.md\",\"headers\":[],\"bulletin\":true}")
 export { comp, data }
 

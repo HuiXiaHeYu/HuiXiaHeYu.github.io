@@ -1,4 +1,4 @@
-import comp from "/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/wgrxfh9w/index.html.vue"
+import comp from "/Users/hxhy/Code/HuiXiaHeYu.github.io/docs/.vuepress/.temp/pages/notes/tools/wgrxfh9w/index.html.vue"
 const data = JSON.parse("{\"path\":\"/notes/tools/wgrxfh9w/\",\"title\":\"Conda\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Conda\",\"createTime\":\"2024/11/10 17:38:00\",\"tags\":[\"Conda\"],\"permalink\":\"/notes/tools/wgrxfh9w/\"},\"readingTime\":{\"minutes\":1.15,\"words\":344},\"git\":{},\"filePathRelative\":\"notes/tools/Conda.md\",\"headers\":[],\"bulletin\":true}")
 export { comp, data }
 

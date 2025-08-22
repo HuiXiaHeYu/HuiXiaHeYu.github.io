@@ -1,4 +1,4 @@
-import comp from "/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/0hm3jpg2/index.html.vue"
+import comp from "/Users/hxhy/Code/HuiXiaHeYu.github.io/docs/.vuepress/.temp/pages/notes/language/0hm3jpg2/index.html.vue"
 const data = JSON.parse("{\"path\":\"/notes/language/0hm3jpg2/\",\"title\":\"C\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"C\",\"createTime\":\"2023/08/08 10:41:00\",\"tags\":[\"C/C++\"],\"permalink\":\"/notes/language/0hm3jpg2/\"},\"readingTime\":{\"minutes\":28.13,\"words\":8440},\"git\":{},\"filePathRelative\":\"notes/language/C.md\",\"headers\":[],\"bulletin\":true}")
 export { comp, data }
 

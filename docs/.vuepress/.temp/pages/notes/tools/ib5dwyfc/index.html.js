@@ -1,4 +1,4 @@
-import comp from "/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/ib5dwyfc/index.html.vue"
+import comp from "/Users/hxhy/Code/HuiXiaHeYu.github.io/docs/.vuepress/.temp/pages/notes/tools/ib5dwyfc/index.html.vue"
 const data = JSON.parse("{\"path\":\"/notes/tools/ib5dwyfc/\",\"title\":\"Homebrew\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Homebrew\",\"createTime\":\"2025/06/28 17:54:11\",\"permalink\":\"/notes/tools/ib5dwyfc/\"},\"readingTime\":{\"minutes\":0.03,\"words\":9},\"git\":{},\"filePathRelative\":\"notes/tools/Homebrew.md\",\"headers\":[],\"bulletin\":true}")
 export { comp, data }
 
