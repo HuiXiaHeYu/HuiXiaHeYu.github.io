@@ -1,0 +1,32 @@
+<template><div><blockquote>
+<p>借鉴：https://zhuanlan.zhihu.com/p/205279615</p>
+</blockquote>
+<p>买了个2k显示屏当扩展屏，没想到不开启HIDPI，导致2560*1440分辨率字体很小，而1080*1921字体会糊，所以得找个办法强制开启HIDPI</p>
+<p>普遍办法：安装RDM工具，在手动配置</p>
+<p>高效办法：本文</p>
+<ol>
+<li>关闭SIP[防止用户篡改系统文件的保护机制]</li>
+</ol>
+<div class="language-sh line-numbers-mode" data-highlighter="shiki" data-ext="sh" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code class="language-sh"><span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">关机</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">解锁密码手指长摁开机键直至进入recovery模式</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">进入桌面-</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">></span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">实用工具-</span><span style="--shiki-light:#393A34;--shiki-dark:#DBD7CAEE">></span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">终端</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">csrutil</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> status</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">	# 查看sip状态</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">csrutil</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> disable</span><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD">	# 关闭sip</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div><ol start="2">
+<li>使用sh脚本进行更改</li>
+</ol>
+<div class="language-sh line-numbers-mode" data-highlighter="shiki" data-ext="sh" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code class="language-sh"><span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">bash</span><span style="--shiki-light:#A65E2B;--shiki-dark:#C99076"> -c</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77"> "</span><span style="--shiki-light:#999999;--shiki-dark:#666666">$(</span><span style="--shiki-light:#59873A;--shiki-dark:#80A665">curl</span><span style="--shiki-light:#A65E2B;--shiki-dark:#C99076"> -fsSL</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> https://raw.githubusercontent.com/xzhih/one-key-hidpi/master/hidpi.sh</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#B5695977;--shiki-dark:#C98A7D77">"</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div></div></div><p>根据提示输入编号进行更改</p>
+<figure><img src="@source/notes/others/Mac显示器适配.assets/v2-56e38d4c067b500dcb848bdc75eca55e_1440w.jpg" alt="img" tabindex="0" loading="lazy"><figcaption>img</figcaption></figure>
+<ol start="3">
+<li>更改完成，进入系统设置-&gt;显示器-&gt;显示所有分辨率，使用HIDPI模式</li>
+</ol>
+<img src="@source/notes/others/Mac显示器适配.assets/image-20250628190340699.png" alt="image-20250628190340699" style="zoom:67%;" />
+<ol start="4">
+<li>关闭sip</li>
+</ol>
+<div class="language-sh line-numbers-mode" data-highlighter="shiki" data-ext="sh" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code class="language-sh"><span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">开启sip的同样步骤，最后命令设置开启</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">csrutil</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> enable</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+
+

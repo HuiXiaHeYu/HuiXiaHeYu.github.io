@@ -1,0 +1,66 @@
+export const redirects = JSON.parse("{\"/blog/Conda%E7%8E%AF%E5%A2%83%E8%B7%AF%E5%BE%84%E4%BF%AE%E5%A4%8D-Linux.html\":\"/article/clurj09w/\",\"/blog/GPU%E6%8C%87%E5%8D%97.html\":\"/article/th4a80q5/\",\"/blog/Vscode%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93.html\":\"/article/q2e5j2zc/\",\"/blog/Web%E9%80%86%E5%90%91.html\":\"/article/ferb9lv0/\",\"/blog/uniapp+springboot.html\":\"/article/4a4x0v9p/\",\"/blog/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%BC%A0%EF%BC%81%EF%BC%81%EF%BC%81.html\":\"/article/q9670esr/\",\"/blog/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html\":\"/article/la4zsa8h/\",\"/blog/%E6%A8%A1%E5%9E%8B.html\":\"/article/x3feqx82/\",\"/blog/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%8A%EF%BC%89.html\":\"/article/irdunhnn/\",\"/blog/%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%EF%BC%88%E4%B8%8B%EF%BC%89.html\":\"/article/6f12ms7r/\",\"/blog/%E8%A7%A3%E5%86%B3Pixel%E3%80%81Lineage%E7%AD%89%E5%8E%9F%E5%A7%8B%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84WIFI%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E5%8F%97%E9%99%90%E9%97%AE%E9%A2%98.html\":\"/article/43tu8yxy/\",\"/blog/%E8%BD%AF%E8%B7%AF%E7%94%B1%E7%9B%B8%E5%85%B3.html\":\"/article/xxf9phnx/\",\"/more/friends.html\":\"/friends/\",\"/more/navigation.html\":\"/8diyk9au/\",\"/more/projects.html\":\"/walxx612/\",\"/notes/framework/Auto.js.html\":\"/notes/framework/qrquut4t/\",\"/notes/framework/Vue.html\":\"/notes/framework/tmq3adgm/\",\"/notes/language/C.html\":\"/notes/language/0hm3jpg2/\",\"/notes/language/LaTex.html\":\"/notes/language/wjc42k8a/\",\"/notes/language/Linux.html\":\"/notes/language/s2xurunb/\",\"/notes/language/Mysql.html\":\"/notes/language/h6np1l13/\",\"/notes/language/Python.html\":\"/notes/language/uc857ooo/\",\"/notes/others/Mac%E6%98%BE%E7%A4%BA%E5%99%A8%E9%80%82%E9%85%8D.html\":\"/notes/others/6l59jimp/\",\"/notes/others/Mac%E7%BB%88%E7%AB%AF%E9%85%8D%E7%BD%AE.html\":\"/notes/others/5dck49wo/\",\"/notes/others/%E5%B0%8F%E5%A6%99%E6%8B%9B.html\":\"/notes/others/j0i3w4c6/\",\"/notes/read/%E4%B8%8D%E7%BA%A0%E7%BB%93%E8%AF%AD%E6%B3%95.html\":\"/notes/read/9ir3aqgi/\",\"/notes/read/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.html\":\"/notes/read/mub1jy9h/\",\"/notes/read/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-NLP.html\":\"/notes/read/xpzp6x2l/\",\"/notes/read/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.html\":\"/notes/read/9ir3aqgt/\",\"/notes/read/%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95%E8%AE%BA.html\":\"/notes/read/thmp0rr8/\",\"/notes/tools/Conda.html\":\"/notes/tools/wgrxfh9w/\",\"/notes/tools/Git.html\":\"/notes/tools/ggf5l5hc/\",\"/notes/tools/Homebrew.html\":\"/notes/tools/ib5dwyfc/\",\"/notes/tools/Wsl.html\":\"/notes/tools/7rcok97k/\"}")
+
+export const routes = Object.fromEntries([
+  ["/", { loader: () => import(/* webpackChunkName: "index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/index.html.js"), meta: {"title":""} }],
+  ["/article/clurj09w/", { loader: () => import(/* webpackChunkName: "article_clurj09w_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/clurj09w/index.html.js"), meta: {"title":"Conda环境路径修复"} }],
+  ["/article/th4a80q5/", { loader: () => import(/* webpackChunkName: "article_th4a80q5_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/th4a80q5/index.html.js"), meta: {"title":"GPU指南"} }],
+  ["/article/q2e5j2zc/", { loader: () => import(/* webpackChunkName: "article_q2e5j2zc_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/q2e5j2zc/index.html.js"), meta: {"title":"Vscode经验总结"} }],
+  ["/article/ferb9lv0/", { loader: () => import(/* webpackChunkName: "article_ferb9lv0_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/ferb9lv0/index.html.js"), meta: {"title":"Web逆向"} }],
+  ["/article/4a4x0v9p/", { loader: () => import(/* webpackChunkName: "article_4a4x0v9p_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/4a4x0v9p/index.html.js"), meta: {"title":"uniapp+springboot"} }],
+  ["/article/q9670esr/", { loader: () => import(/* webpackChunkName: "article_q9670esr_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/q9670esr/index.html.js"), meta: {"title":"博客开张！！！"} }],
+  ["/article/la4zsa8h/", { loader: () => import(/* webpackChunkName: "article_la4zsa8h_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/la4zsa8h/index.html.js"), meta: {"title":"机器学习"} }],
+  ["/article/x3feqx82/", { loader: () => import(/* webpackChunkName: "article_x3feqx82_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/x3feqx82/index.html.js"), meta: {"title":"模型"} }],
+  ["/article/irdunhnn/", { loader: () => import(/* webpackChunkName: "article_irdunhnn_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/irdunhnn/index.html.js"), meta: {"title":"爬虫学习记录（上）"} }],
+  ["/article/6f12ms7r/", { loader: () => import(/* webpackChunkName: "article_6f12ms7r_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/6f12ms7r/index.html.js"), meta: {"title":"爬虫学习记录（下）"} }],
+  ["/article/43tu8yxy/", { loader: () => import(/* webpackChunkName: "article_43tu8yxy_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/43tu8yxy/index.html.js"), meta: {"title":"解决Pixel、Lineage等原始系统中的WIFI网络连接受限问题"} }],
+  ["/article/xxf9phnx/", { loader: () => import(/* webpackChunkName: "article_xxf9phnx_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/article/xxf9phnx/index.html.js"), meta: {"title":"软路由相关"} }],
+  ["/friends/", { loader: () => import(/* webpackChunkName: "friends_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/friends/index.html.js"), meta: {"title":"友情链接"} }],
+  ["/8diyk9au/", { loader: () => import(/* webpackChunkName: "8diyk9au_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/8diyk9au/index.html.js"), meta: {"title":"网址导航"} }],
+  ["/walxx612/", { loader: () => import(/* webpackChunkName: "walxx612_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/walxx612/index.html.js"), meta: {"title":"我的项目"} }],
+  ["/notes/framework/qrquut4t/", { loader: () => import(/* webpackChunkName: "notes_framework_qrquut4t_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/framework/qrquut4t/index.html.js"), meta: {"title":"Auto.js"} }],
+  ["/notes/framework/", { loader: () => import(/* webpackChunkName: "notes_framework_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/framework/index.html.js"), meta: {"title":"框架"} }],
+  ["/notes/framework/tmq3adgm/", { loader: () => import(/* webpackChunkName: "notes_framework_tmq3adgm_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/framework/tmq3adgm/index.html.js"), meta: {"title":"Vue"} }],
+  ["/notes/language/0hm3jpg2/", { loader: () => import(/* webpackChunkName: "notes_language_0hm3jpg2_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/0hm3jpg2/index.html.js"), meta: {"title":"C"} }],
+  ["/notes/language/wjc42k8a/", { loader: () => import(/* webpackChunkName: "notes_language_wjc42k8a_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/wjc42k8a/index.html.js"), meta: {"title":"Latex"} }],
+  ["/notes/language/s2xurunb/", { loader: () => import(/* webpackChunkName: "notes_language_s2xurunb_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/s2xurunb/index.html.js"), meta: {"title":"Linux"} }],
+  ["/notes/language/h6np1l13/", { loader: () => import(/* webpackChunkName: "notes_language_h6np1l13_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/h6np1l13/index.html.js"), meta: {"title":"Mysql"} }],
+  ["/notes/language/uc857ooo/", { loader: () => import(/* webpackChunkName: "notes_language_uc857ooo_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/uc857ooo/index.html.js"), meta: {"title":"Python"} }],
+  ["/notes/language/", { loader: () => import(/* webpackChunkName: "notes_language_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/language/index.html.js"), meta: {"title":"编程语言"} }],
+  ["/notes/others/6l59jimp/", { loader: () => import(/* webpackChunkName: "notes_others_6l59jimp_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/others/6l59jimp/index.html.js"), meta: {"title":"Mac显示器适配"} }],
+  ["/notes/others/5dck49wo/", { loader: () => import(/* webpackChunkName: "notes_others_5dck49wo_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/others/5dck49wo/index.html.js"), meta: {"title":"Mac终端配置"} }],
+  ["/notes/others/", { loader: () => import(/* webpackChunkName: "notes_others_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/others/index.html.js"), meta: {"title":"其他"} }],
+  ["/notes/others/j0i3w4c6/", { loader: () => import(/* webpackChunkName: "notes_others_j0i3w4c6_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/others/j0i3w4c6/index.html.js"), meta: {"title":"小妙招"} }],
+  ["/notes/read/", { loader: () => import(/* webpackChunkName: "notes_read_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/read/index.html.js"), meta: {"title":"读书笔记"} }],
+  ["/notes/read/9ir3aqgi/", { loader: () => import(/* webpackChunkName: "notes_read_9ir3aqgi_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/read/9ir3aqgi/index.html.js"), meta: {"title":"不纠结语法"} }],
+  ["/notes/read/mub1jy9h/", { loader: () => import(/* webpackChunkName: "notes_read_mub1jy9h_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/read/mub1jy9h/index.html.js"), meta: {"title":"深度学习-CV"} }],
+  ["/notes/read/xpzp6x2l/", { loader: () => import(/* webpackChunkName: "notes_read_xpzp6x2l_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/read/xpzp6x2l/index.html.js"), meta: {"title":"深度学习-NLP"} }],
+  ["/notes/read/9ir3aqgt/", { loader: () => import(/* webpackChunkName: "notes_read_9ir3aqgt_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/read/9ir3aqgt/index.html.js"), meta: {"title":"计算机网络"} }],
+  ["/notes/read/thmp0rr8/", { loader: () => import(/* webpackChunkName: "notes_read_thmp0rr8_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/read/thmp0rr8/index.html.js"), meta: {"title":"阅读方法论"} }],
+  ["/notes/tools/wgrxfh9w/", { loader: () => import(/* webpackChunkName: "notes_tools_wgrxfh9w_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/wgrxfh9w/index.html.js"), meta: {"title":"Conda"} }],
+  ["/notes/tools/ggf5l5hc/", { loader: () => import(/* webpackChunkName: "notes_tools_ggf5l5hc_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/ggf5l5hc/index.html.js"), meta: {"title":"Git"} }],
+  ["/notes/tools/ib5dwyfc/", { loader: () => import(/* webpackChunkName: "notes_tools_ib5dwyfc_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/ib5dwyfc/index.html.js"), meta: {"title":"Homebrew"} }],
+  ["/notes/tools/", { loader: () => import(/* webpackChunkName: "notes_tools_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/index.html.js"), meta: {"title":"工具包"} }],
+  ["/notes/tools/7rcok97k/", { loader: () => import(/* webpackChunkName: "notes_tools_7rcok97k_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/7rcok97k/index.html.js"), meta: {"title":"Wsl"} }],
+  ["/404.html", { loader: () => import(/* webpackChunkName: "404.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/404.html.js"), meta: {"title":""} }],
+  ["/blog/", { loader: () => import(/* webpackChunkName: "blog_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/blog/index.html.js"), meta: {"title":"博客"} }],
+  ["/blog/tags/", { loader: () => import(/* webpackChunkName: "blog_tags_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/blog/tags/index.html.js"), meta: {"title":"标签"} }],
+  ["/blog/archives/", { loader: () => import(/* webpackChunkName: "blog_archives_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/blog/archives/index.html.js"), meta: {"title":"归档"} }],
+  ["/blog/categories/", { loader: () => import(/* webpackChunkName: "blog_categories_index.html" */"/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/blog/categories/index.html.js"), meta: {"title":"分类"} }],
+]);
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+  if (__VUE_HMR_RUNTIME__.updateRoutes) {
+    __VUE_HMR_RUNTIME__.updateRoutes(routes)
+  }
+  if (__VUE_HMR_RUNTIME__.updateRedirects) {
+    __VUE_HMR_RUNTIME__.updateRedirects(redirects)
+  }
+}
+
+if (import.meta.hot) {
+  import.meta.hot.accept(({ routes, redirects }) => {
+    __VUE_HMR_RUNTIME__.updateRoutes(routes)
+    __VUE_HMR_RUNTIME__.updateRedirects(redirects)
+  })
+}

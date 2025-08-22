@@ -1,0 +1,17 @@
+<template><div><p>由于笔者需要管理的服务器主磁盘经常满，有必要更换多个用户深度学习路径，故产生了这个问题，修复教程如下：</p>
+<div class="language-bash line-numbers-mode" data-highlighter="shiki" data-ext="bash" style="--shiki-light:#393a34;--shiki-dark:#dbd7caee;--shiki-light-bg:#ffffff;--shiki-dark-bg:#121212"><pre class="shiki shiki-themes vitesse-light vitesse-dark vp-code" v-pre=""><code class="language-bash"><span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">当前路径前缀：/mnt/big_disk/big_disk_1/</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">路径修改（注释为需要修改的路径）：</span></span>
+<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"># 注释行 conda初始化行</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">sudo</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> vim</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> .bashrc</span></span>
+<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"># 首四行</span></span>
+<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"># sudo vim /mnt/big_disk/big_disk_1/{username}/anaconda3/etc/profile.d/conda.sh</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">sudo</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> vim</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> $(</span><span style="--shiki-light:#998418;--shiki-dark:#B8A965">pwd</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">/anaconda3/etc/profile.d/conda.sh</span></span>
+<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"># 首行</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">sudo</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> vim</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> $(</span><span style="--shiki-light:#998418;--shiki-dark:#B8A965">pwd</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">/anaconda3/bin/conda</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">sudo</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> vim</span><span style="--shiki-light:#999999;--shiki-dark:#666666"> $(</span><span style="--shiki-light:#998418;--shiki-dark:#B8A965">pwd</span><span style="--shiki-light:#999999;--shiki-dark:#666666">)</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D">/anaconda3/bin/pip</span></span>
+<span class="line"><span style="--shiki-light:#A0ADA0;--shiki-dark:#758575DD"># 加密库自行修复【加入公告】：</span></span>
+<span class="line"><span style="--shiki-light:#59873A;--shiki-dark:#80A665">conda</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> install</span><span style="--shiki-light:#B56959;--shiki-dark:#C98A7D"> cryptography</span></span></code></pre>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+
+
