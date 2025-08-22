@@ -1149,11 +1149,11 @@ $$
 output_{size}=\frac{input_{size}-kernel_{size}+stride_{size}+2\times padding_{size}}{stride_{size}}
 $$
 $$
-244=\frac{224-{\color{Red}\bold{3}}+{\color{Red}\bold{1}}+2\times {\color{Red}\bold{1}}}{{\color{Red}\bold{1}}}
+244=\frac{224-{\bold{3}}+{\bold{1}}+2\times {\bold{1}}}{{\bold{1}}}
 $$
 
 $$
-244=\frac{224-{\color{Red}\bold{5}}+{\color{Red}\bold{1}}+2\times {\color{Red}\bold{2}}}{{\color{Red}\bold{1}}}
+244=\frac{224-{\bold{5}}+{\bold{1}}+2\times {\bold{2}}}{{\bold{1}}}
 $$
 
 
@@ -1404,7 +1404,6 @@ np.random.normal((0.5, 5.0), (0.6, 0.8), (10, 2))	# 举例: 第一维为(0.5, 5.
 当G固定时，D会有唯一的最优解
 
 <img src="./%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-CV.assets/image-20241227215106659.png" alt="image-20241227215106659" style="zoom:67%;" />
-
 
 
 
