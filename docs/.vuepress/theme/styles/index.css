@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'LogoFont'; /* 自定义字体的名称 */
+    font-family: 'JetBrainsMono'; /* 自定义字体的名称 */
     src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype'); /* TTF字体文件的路径 */
 }
 :root {
@@ -42,17 +42,17 @@
 
 /* 全局字体 */
 body{
-    font-family: LogoFont, serif;
+    font-family: serif;
 }
 /* 左上角logo字体 */
 .vp-navbar-title span{
-    font-family: LogoFont, serif;
+    font-family: JetBrainsMono, serif;
     font-weight: bolder;
     font-size: 1.4rem;
 }
 /* 系列文章字体 */
 .vp-doc-container {
-    font-family: LogoFont;
+    font-family: JetBrainsMono;
 }
 
 /* 系列文章背景 */
