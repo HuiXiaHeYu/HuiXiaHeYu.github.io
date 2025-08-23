@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import type { ThemeHomeConfigBase } from 'vuepress-theme-plume'
 import { VPHomeBox } from 'vuepress-theme-plume/client'
+import { getDailyWallpaper } from './random-wallpaper'
+import { ref, onMounted, watch } from 'vue'
 
+// 内置组件
 const props = defineProps<ThemeHomeConfigBase & {
   // 组件 props, frontmatter 中的属性将会传递给组件
 }>()
@@ -15,14 +18,8 @@ const props = defineProps<ThemeHomeConfigBase & {
     :full="full"
   >
     <!-- 自定义你的内容 -->
-    <div>
-      <RouterLink to="/guide/getting-started.html" class="action-button">
-        快速入门
-      </RouterLink>
-
-      <RouterLink to="/about.html">
-        <button class="button">了解更多</button>
-      </RouterLink>
-    </div>
+    <div>随缘更新</div>
+    <div>网页seo，评论数据库。。。</div>
+    <div>正在装修，请稍后。。。</div>
   </VPHomeBox>
 </template>

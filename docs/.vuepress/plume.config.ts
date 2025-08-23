@@ -50,7 +50,7 @@ export default defineThemeConfig({
    * @see https://theme-plume.vuejs.press/config/basic/#profile
    */
   profile: {
-    avatar: 'logo.jpg',
+    avatar: '/avatars/1.jpg',
     name: 'HXHY',
     description: '御剑于心，且听风吟',
     circle: true,
@@ -69,7 +69,7 @@ export default defineThemeConfig({
     layout: 'top-right',
     contentType: 'markdown',
     title: '公告板',
-    content: '暂无公告',
+    content: '联系我：点击右上角qq',
   },
 
   /* 过渡动画 @see https://theme-plume.vuejs.press/config/basic/#transition */

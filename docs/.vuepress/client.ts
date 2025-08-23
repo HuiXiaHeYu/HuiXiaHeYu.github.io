@@ -5,7 +5,7 @@ import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
 // import Swiper from 'vuepress-theme-plume/features/Swiper.vue'
 
 // import CustomComponent from './theme/components/Custom.vue'
-// import HomeComponent from './theme/components/home-component.vue'
+import HomeComponent from './theme/components/home-component.vue'
 
 import './theme/styles/index.css'
 import './theme/styles/custom.css'
@@ -19,7 +19,7 @@ export default defineClientConfig({
     // app.component('Swiper', Swiper) // you should install `swiper`
 
     // 自定义组件
+    app.component('home-component', HomeComponent)
     // app.component('CustomComponent', CustomComponent)
-    // app.component('home-component', HomeComponent)
   },
 })

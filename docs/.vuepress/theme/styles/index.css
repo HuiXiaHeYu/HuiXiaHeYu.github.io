@@ -2,6 +2,14 @@
     font-family: 'JetBrainsMono'; /* 自定义字体的名称 */
     src: url('/fonts/JetBrainsMono-Regular.ttf') format('truetype'); /* TTF字体文件的路径 */
 }
+@font-face {
+    font-family: 'Italian'; /* 自定义字体的名称 */
+    src: url('/fonts/站酷意大利体02.TTF') format('truetype'); /* TTF字体文件的路径 */
+}
+@font-face {
+    font-family: 'yayuan'; /* 自定义字体的名称 */
+    src: url('/fonts/印品雅圆体.ttf') format('truetype'); /* TTF字体文件的路径 */
+}
 :root {
     /** 主题颜色 */
     --vp-c-brand-1: #5086a1;
@@ -42,7 +50,7 @@
 
 /* 全局字体 */
 body{
-    font-family: serif;
+    font-family: JetBrainsMono;
 }
 /* 左上角logo字体 */
 .vp-navbar-title span{
