@@ -1,3 +1,3 @@
-import "/Users/hxhy/Code/HuiXiaHeYu.github.io/node_modules/.pnpm/@vuepress+plugin-markdown-image@2.0.0-rc.112_markdown-it@14.1.0_typescript@5.9.2_vuepre_cd0f5236a13570950db8df81106dfded/node_modules/@vuepress/plugin-markdown-image/lib/client/styles/figure.css"
-import "/Users/hxhy/Code/HuiXiaHeYu.github.io/node_modules/.pnpm/@vuepress+plugin-markdown-image@2.0.0-rc.112_markdown-it@14.1.0_typescript@5.9.2_vuepre_cd0f5236a13570950db8df81106dfded/node_modules/@vuepress/plugin-markdown-image/lib/client/styles/mark.css"
+import "/Users/hxhy/Code/Blog/node_modules/.pnpm/@vuepress+plugin-markdown-image@2.0.0-rc.112_markdown-it@14.1.0_typescript@5.9.2_vuepre_cd0f5236a13570950db8df81106dfded/node_modules/@vuepress/plugin-markdown-image/lib/client/styles/figure.css"
+import "/Users/hxhy/Code/Blog/node_modules/.pnpm/@vuepress+plugin-markdown-image@2.0.0-rc.112_markdown-it@14.1.0_typescript@5.9.2_vuepre_cd0f5236a13570950db8df81106dfded/node_modules/@vuepress/plugin-markdown-image/lib/client/styles/mark.css"
 

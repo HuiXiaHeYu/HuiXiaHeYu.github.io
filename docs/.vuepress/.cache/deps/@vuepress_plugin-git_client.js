@@ -107,7 +107,7 @@ var useLastUpdated = (enabled = true) => {
 var VPHeader = ({ level = 2, text, anchor }) => h(`h${level || 2}`, { id: anchor, tabindex: "-1" }, h("a", { href: `#${anchor}`, class: "header-anchor" }, h("span", text)));
 
 // node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/components/GitContributors.js
-import "/Users/hxhy/Code/HuiXiaHeYu.github.io/node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/styles/contributors.css";
+import "/Users/hxhy/Code/Blog/node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/styles/contributors.css";
 var GitContributor = ({ name, url, avatar }) => h(url ? "a" : "span", {
   href: url,
   target: "_blank",
@@ -143,8 +143,8 @@ var GitContributors = defineComponent({
 });
 
 // node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/components/GitChangelog.js
-import "/Users/hxhy/Code/HuiXiaHeYu.github.io/node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/styles/vars.css";
-import "/Users/hxhy/Code/HuiXiaHeYu.github.io/node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/styles/changelog.css";
+import "/Users/hxhy/Code/Blog/node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/styles/vars.css";
+import "/Users/hxhy/Code/Blog/node_modules/.pnpm/@vuepress+plugin-git@2.0.0-rc.112_typescript@5.9.2_vuepress@2.0.0-rc.24_@vuepress+bundl_15b4c10239edf560d130579e6accad9f/node_modules/@vuepress/plugin-git/lib/client/styles/changelog.css";
 var GitChangelog = defineComponent({
   name: "GitChangelog",
   props: {

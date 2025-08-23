@@ -1,4 +1,4 @@
-import comp from "/Users/hxhy/Code/HuiXiaHeYu.github.io/docs/.vuepress/.temp/pages/notes/tools/ggf5l5hc/index.html.vue"
+import comp from "/Users/hxhy/Code/Blog/docs/.vuepress/.temp/pages/notes/tools/ggf5l5hc/index.html.vue"
 const data = JSON.parse("{\"path\":\"/notes/tools/ggf5l5hc/\",\"title\":\"Git\",\"lang\":\"zh-CN\",\"frontmatter\":{\"title\":\"Git\",\"createTime\":\"2024/11/10 17:38:00\",\"tags\":[\"Git\"],\"permalink\":\"/notes/tools/ggf5l5hc/\"},\"readingTime\":{\"minutes\":6.93,\"words\":2079},\"git\":{},\"filePathRelative\":\"notes/tools/Git.md\",\"headers\":[],\"bulletin\":true}")
 export { comp, data }
 
