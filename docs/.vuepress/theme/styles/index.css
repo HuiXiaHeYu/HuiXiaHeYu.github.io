@@ -42,7 +42,7 @@
 
 /* 全局字体 */
 body{
-    font-family: serif;
+    font-family: LogoFont, serif;
 }
 /* 左上角logo字体 */
 .vp-navbar-title span{
